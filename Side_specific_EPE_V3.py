@@ -354,7 +354,7 @@ image_tr_G4 = PIL.ImageOps.mirror(PIL.Image.open('TZ_Gleason4.png'))
 image_tr_G5 = PIL.ImageOps.mirror(PIL.Image.open('TZ_Gleason5.png'))
 
 # Specify font size for annotated prostate diagram
-font = ImageFont.truetype('arial.ttf', 50)
+font = ImageFont.truetype("arial.ttf", 50)
 
 # Create text to overlay on annotated prostate diagram, auto-updates based on user inputted values
 base_L = str(G_CHOICES[user_input['Base findings'][0]]) + '\n'\
