@@ -491,9 +491,9 @@ col1.write('Probability of right EPE: ' + str(np.round_(prediction_r[:,1], decim
 st.header('User Input')
 st.write(user_input)
 st.write(user_input_r)
-st.text("")
 
 # Display supporting institutions
+st.header('')
 st.header('Supporting Institutions')
 image3 = PIL.Image.open('Supporting Institutions.png')
 st.image(image3, use_column_width=False)
