@@ -494,3 +494,4 @@ st.write(user_input_r)
 
 # Display supporting institutions
 image3 = PIL.Image.open('Supporting Institutions.png')
+st.image(image3, use_column_width=True)
