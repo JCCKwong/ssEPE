@@ -8,7 +8,7 @@ from pprint import pprint
 import PIL.Image
 import streamlit as st
 import shap
-import pickle
+import joblib
 
 # Import ML model of choice
 import xgboost as xgb
@@ -34,8 +34,8 @@ st.write('Determine probability of EPE in ipsilateral lobe using clinicopatholog
 st.write('Based on: upcoming paper...')
 
 # Import Trained Model and Explainer
-model = pickle.load(open('XGB EPE model.pkl', 'rb'))
-explainer = pickle.load(open('XGB EPE explainer.pkl', 'rb'))
+model = joblib.load('XGB EPE model V2.pkl')
+explainer = joblib.load('XGB EPE explainer V2.pkl')
 
 # Define choices and labels for feature inputs
 CHOICES = {0: 'No', 1: 'Yes'}
