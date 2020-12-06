@@ -493,4 +493,4 @@ st.write(user_input)
 st.write(user_input_r)
 
 # Display supporting institutions
-PIL.Image.open('Supporting Institutions.png')
+image3 = PIL.Image.open('Supporting Institutions.png')
