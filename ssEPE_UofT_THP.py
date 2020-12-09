@@ -14,22 +14,7 @@ import joblib
 import xgboost as xgb
 
 # Change page name and icon
-st.beta_set_page_config(page_title='ssEPE')
-
-# Default widescreen mode
-def _max_width_():
-    max_width_str = f"max-width: 2000px;"
-    st.markdown(
-        f"""
-    <style>
-    .reportview-container .main .block-container{{
-        {max_width_str}
-    }}
-    </style>    
-    """,
-        unsafe_allow_html=True,
-    )
-_max_width_()
+st.set_page_config(page_title="ssEPE", layout="wide", initial_sidebar_state="expanded")
 
 # Create a title for web app
 st.title('Side-specific extraprostatic extension (EPE) prediction')
