@@ -29,6 +29,7 @@ def _max_width_():
 _max_width_()
 
 # Create a title for web app
+st.beta_set_page_config(page_title='ssEPE')
 st.title('Side-specific extraprostatic extension (EPE) prediction')
 st.write('Determine probability of EPE in ipsilateral lobe using clinicopathological features and machine learning')
 st.write('Based on: Jethro CC Kwong et al. to be presented at CUA 2021')
