@@ -43,12 +43,12 @@ explainer = shap.TreeExplainer(model, features, model_output='probability')
 
 # Define choices and labels for feature inputs
 CHOICES = {0: 'No', 1: 'Yes'}
-@st.cache
+@st.cache(suppress_st_warning=True)
 def format_func_yn(option):
     return CHOICES[option]
 
 G_CHOICES = {0: 'Normal', 1: 'HGPIN', 2: 'ASAP', 3: 'Gleason 3+3', 4: 'Gleason 3+4', 5: 'Gleason 4+3', 6: 'Gleason 4+4', 7: 'Gleason 4+5/5+4'}
-@st.cache
+@st.cache(suppress_st_warning=True)
 def format_func_gleason(option):
     return G_CHOICES[option]
 
@@ -56,7 +56,7 @@ def format_func_gleason(option):
 st.sidebar.title('Enter patient values')
 
 # Create sidebar inputs for global variables and left lobe variables
-@st.cache
+@st.cache(suppress_st_warning=True)
 def get_user_input():
     with st.sidebar.beta_expander('Global variables',expanded=True):
         age = st.number_input('Age (years)', 0.0, 100.0)
@@ -147,7 +147,7 @@ def get_user_input():
 # Store the left lobe user input into a variable
 user_input = get_user_input()
 
-@st.cache
+@st.cache(suppress_st_warning=True)
 def get_user_input_r():
     with st.sidebar.beta_expander('Side-specific variables (Right)', expanded=True):
         dre_r = st.selectbox('DRE positivity', options=list(CHOICES.keys()), format_func=format_func_yn, key=1)
