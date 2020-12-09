@@ -38,7 +38,6 @@ model = joblib.load('XGB EPE model V2.pkl')
 features = joblib.load('Features.pkl')
 
 # Calculate SHAP values
-@st.cache
 features_list = list(features.columns)
 explainer = shap.TreeExplainer(model, features, model_output='probability')
 
