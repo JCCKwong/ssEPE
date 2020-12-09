@@ -146,7 +146,6 @@ def get_user_input():
 # Store the left lobe user input into a variable
 user_input = get_user_input()
 
-@st.cache(suppress_st_warning=True)
 def get_user_input_r():
     with st.sidebar.beta_expander('Side-specific variables (Right)', expanded=True):
         dre_r = st.selectbox('DRE positivity', options=list(CHOICES.keys()), format_func=format_func_yn, key=1)
