@@ -33,22 +33,13 @@ st.title('Side-specific extraprostatic extension (EPE) prediction')
 st.write('Determine probability of EPE in ipsilateral lobe using clinicopathological features and machine learning')
 st.write('Based on: Jethro CC Kwong et al. to be presented at CUA 2021')
 
-# Create a function for loading prebuilt model and explainer
-@st.cache
-def load_prebuilt():
-    """Function for loading prebuilt model and explainer"""
+# Import Trained Model and Explainer
+model = joblib.load('XGB EPE model V2.pkl')
+features = joblib.load('Features.pkl')
     
-    # Import Trained Model and Explainer
-    model = joblib.load('XGB EPE model V2.pkl')
-    features = joblib.load('Features.pkl')
-    
-    # Calculate SHAP values
-    features_list = list(features.columns)
-    explainer = shap.TreeExplainer(model, features, model_output='probability')
-    
-    return model, explainer
-
-model, explainer = load_prebuilt()
+# Calculate SHAP values
+features_list = list(features.columns)
+explainer = shap.TreeExplainer(model, features, model_output='probability')
 
 # Define choices and labels for feature inputs
 CHOICES = {0: 'No', 1: 'Yes'}
