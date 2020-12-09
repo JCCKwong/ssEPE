@@ -14,7 +14,7 @@ import joblib
 import xgboost as xgb
 
 # Change page name and icon
-st.beta_set_page_config(page_title='ssEPE')
+st.set_page_config(page_title='ssEPE')
 
 # Default widescreen mode
 def _max_width_():
