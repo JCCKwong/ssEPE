@@ -38,22 +38,26 @@ model = joblib.load('XGB EPE model V2.pkl')
 features = joblib.load('Features.pkl')
 
 # Calculate SHAP values
+@st.cache
 features_list = list(features.columns)
 explainer = shap.TreeExplainer(model, features, model_output='probability')
 
 # Define choices and labels for feature inputs
 CHOICES = {0: 'No', 1: 'Yes'}
+@st.cache
 def format_func_yn(option):
     return CHOICES[option]
 
 G_CHOICES = {0: 'Normal', 1: 'HGPIN', 2: 'ASAP', 3: 'Gleason 3+3', 4: 'Gleason 3+4', 5: 'Gleason 4+3', 6: 'Gleason 4+4', 7: 'Gleason 4+5/5+4'}
+@st.cache
 def format_func_gleason(option):
     return G_CHOICES[option]
 
 # Create sidebar for user inputted values
-st.sidebar.write('Enter patient values')
+st.sidebar.title('Enter patient values')
 
 # Create sidebar inputs for global variables and left lobe variables
+@st.cache
 def get_user_input():
     with st.sidebar.beta_expander('Global variables',expanded=True):
         age = st.number_input('Age (years)', 0.0, 100.0)
@@ -144,6 +148,7 @@ def get_user_input():
 # Store the left lobe user input into a variable
 user_input = get_user_input()
 
+@st.cache
 def get_user_input_r():
     with st.sidebar.beta_expander('Side-specific variables (Right)', expanded=True):
         dre_r = st.selectbox('DRE positivity', options=list(CHOICES.keys()), format_func=format_func_yn, key=1)
@@ -311,6 +316,7 @@ col1.write('Automatically updates based on user entered values')
 from PIL import ImageFont, ImageDraw, ImageOps
 
 # Load blank prostate and all colour coded sites as image objects
+@st.cache
 image2 = PIL.Image.open('Prostate diagram.png')
 image_bl_G1 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason1.png')))
 image_bl_G2 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason2.png')))
