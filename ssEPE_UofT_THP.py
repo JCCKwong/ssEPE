@@ -14,7 +14,10 @@ import joblib
 import xgboost as xgb
 
 # Change page name and icon
-st.set_page_config(page_title=None, layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="ssEPE",
+                   page_icon="🩺",
+                   layout="wide",
+                   initial_sidebar_state="auto")
 
 # Create a title for web app
 st.title('Side-specific extraprostatic extension (EPE) prediction')
