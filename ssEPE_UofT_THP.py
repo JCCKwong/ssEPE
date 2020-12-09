@@ -44,31 +44,37 @@ def format_func_gleason(option):
 st.sidebar.title('Enter patient values')
 
 # Create sidebar inputs for global variables and left lobe variables
-@st.cache
-def get_user_input(age,
-                   psa,
-                   p_high,
-                   perineural_inv,
-                   prostate_vol,
-                   dre,
-                   trus,
-                   base_findings,
-                   base_p_core,
-                   base_t_core,
-                   base_p_inv,
-                   mid_findings,
-                   mid_p_core,
-                   mid_t_core,
-                   mid_p_inv,
-                   apex_findings,
-                   apex_p_core,
-                   apex_t_core,
-                   apex_p_inv,
-                   tz_findings,
-                   tz_p_core,
-                   tz_t_core,
-                   tz_p_inv):
-    
+def get_user_input():
+    with st.sidebar.beta_expander('Global variables',expanded=True):
+        age = st.number_input('Age (years)', 0.0, 100.0)
+        psa = st.number_input('PSA (ng/ml)', 0.00, 200.00)
+        p_high = st.slider('% Gleason pattern 4/5', 0.0, 100.00, 0.0, 0.5)
+        perineural_inv = st.selectbox('Perineural invasion', options=list(CHOICES.keys()), format_func=format_func_yn)
+        prostate_vol = st.number_input('Prostate volume (mL)', 0.0, 300.0)
+    with st.sidebar.beta_expander('Side-specific variables (Left)',expanded=True):
+        dre = st.selectbox('DRE positivity', options=list(CHOICES.keys()), format_func=format_func_yn)
+        trus = st.selectbox('Hypoechoic nodule on TRUS', options=list(CHOICES.keys()), format_func=format_func_yn)
+        base_findings = st.selectbox('Base findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
+                                     key=0)
+        base_p_core = st.number_input('Base # of positive cores', 0, 10, value=0, key=0)
+        base_t_core = st.number_input('Base # of cores taken', 0, 10, value=2, key=0)
+        base_p_inv = st.number_input('Base % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=0)
+        mid_findings = st.selectbox('Mid findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
+                                    key=0)
+        mid_p_core = st.number_input('Mid # of positive cores', 0, 10, value=0, key=0)
+        mid_t_core = st.number_input('Mid # of cores taken', 0, 10, value=2, key=0)
+        mid_p_inv = st.number_input('Mid % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=0)
+        apex_findings = st.selectbox('Apex findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
+                                     key=0)
+        apex_p_core = st.number_input('Apex # of positive cores', 0, 10, value=0, key=0)
+        apex_t_core = st.number_input('Apex # of cores taken', 0, 10, value=1, key=0)
+        apex_p_inv = st.number_input('Apex % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=0)
+        tz_findings = st.selectbox('Transition zone findings', options=list(G_CHOICES.keys()),
+                                   format_func=format_func_gleason, key=0)
+        tz_p_core = st.number_input('Transition zone # of positive cores', 0, 10, value=0, key=0)
+        tz_t_core = st.number_input('Transition zone # of cores taken', 0, 10, value=1, key=0)
+        tz_p_inv = st.number_input('Transition zone % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=0)
+     
     # Group site findings into a list
     gleason_t = [base_findings, mid_findings, apex_findings, tz_findings]
 
@@ -126,58 +132,7 @@ def get_user_input(age,
     return pt_features
 
 # Store the left lobe user input into a variable
-with st.sidebar.beta_expander('Global variables',expanded=True):
-    age = st.number_input('Age (years)', 0.0, 100.0)
-    psa = st.number_input('PSA (ng/ml)', 0.00, 200.00)
-    p_high = st.slider('% Gleason pattern 4/5', 0.0, 100.00, 0.0, 0.5)
-    perineural_inv = st.selectbox('Perineural invasion', options=list(CHOICES.keys()), format_func=format_func_yn)
-    prostate_vol = st.number_input('Prostate volume (mL)', 0.0, 300.0)
-with st.sidebar.beta_expander('Side-specific variables (Left)',expanded=True):
-    dre = st.selectbox('DRE positivity', options=list(CHOICES.keys()), format_func=format_func_yn)
-    trus = st.selectbox('Hypoechoic nodule on TRUS', options=list(CHOICES.keys()), format_func=format_func_yn)
-    base_findings = st.selectbox('Base findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
-                                 key=0)
-    base_p_core = st.number_input('Base # of positive cores', 0, 10, value=0, key=0)
-    base_t_core = st.number_input('Base # of cores taken', 0, 10, value=2, key=0)
-    base_p_inv = st.number_input('Base % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=0)
-    mid_findings = st.selectbox('Mid findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
-                                key=0)
-    mid_p_core = st.number_input('Mid # of positive cores', 0, 10, value=0, key=0)
-    mid_t_core = st.number_input('Mid # of cores taken', 0, 10, value=2, key=0)
-    mid_p_inv = st.number_input('Mid % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=0)
-    apex_findings = st.selectbox('Apex findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
-                                 key=0)
-    apex_p_core = st.number_input('Apex # of positive cores', 0, 10, value=0, key=0)
-    apex_t_core = st.number_input('Apex # of cores taken', 0, 10, value=1, key=0)
-    apex_p_inv = st.number_input('Apex % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=0)
-    tz_findings = st.selectbox('Transition zone findings', options=list(G_CHOICES.keys()),
-                               format_func=format_func_gleason, key=0)
-    tz_p_core = st.number_input('Transition zone # of positive cores', 0, 10, value=0, key=0)
-    tz_t_core = st.number_input('Transition zone # of cores taken', 0, 10, value=1, key=0)
-    tz_p_inv = st.number_input('Transition zone % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=0)
-user_input = get_user_input(age,
-                            psa,
-                            p_high,
-                            perineural_inv,
-                            prostate_vol,
-                            dre,
-                            trus,
-                            base_findings,
-                            base_p_core,
-                            base_t_core,
-                            base_p_inv,
-                            mid_findings,
-                            mid_p_core,
-                            mid_t_core,
-                            mid_p_inv,
-                            apex_findings,
-                            apex_p_core,
-                            apex_t_core,
-                            apex_p_inv,
-                            tz_findings,
-                            tz_p_core,
-                            tz_t_core,
-                            tz_p_inv)
+user_input = get_user_input()
 
 def get_user_input_r():
     with st.sidebar.beta_expander('Side-specific variables (Right)', expanded=True):
