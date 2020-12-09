@@ -56,7 +56,6 @@ def format_func_gleason(option):
 st.sidebar.title('Enter patient values')
 
 # Create sidebar inputs for global variables and left lobe variables
-@st.cache(suppress_st_warning=True)
 def get_user_input():
     with st.sidebar.beta_expander('Global variables',expanded=True):
         age = st.number_input('Age (years)', 0.0, 100.0)
