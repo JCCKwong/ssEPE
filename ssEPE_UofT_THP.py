@@ -155,7 +155,29 @@ with st.sidebar.beta_expander('Side-specific variables (Left)',expanded=True):
     tz_p_core = st.number_input('Transition zone # of positive cores', 0, 10, value=0, key=0)
     tz_t_core = st.number_input('Transition zone # of cores taken', 0, 10, value=1, key=0)
     tz_p_inv = st.number_input('Transition zone % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=0)
-user_input = get_user_input()
+user_input = get_user_input(age,
+                            psa,
+                            p_high,
+                            perineural_inv,
+                            prostate_vol,
+                            dre,
+                            trus,
+                            base_findings,
+                            base_p_core,
+                            base_t_core,
+                            base_p_inv,
+                            mid_findings,
+                            mid_p_core,
+                            mid_t_core,
+                            mid_p_inv,
+                            apex_findings,
+                            apex_p_core,
+                            apex_t_core,
+                            apex_p_inv,
+                            tz_findings,
+                            tz_p_core,
+                            tz_t_core,
+                            tz_p_inv)
 
 def get_user_input_r():
     with st.sidebar.beta_expander('Side-specific variables (Right)', expanded=True):
