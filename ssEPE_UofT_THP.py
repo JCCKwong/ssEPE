@@ -13,6 +13,9 @@ import joblib
 # Import ML model of choice
 import xgboost as xgb
 
+# Change page name and icon
+st.beta_set_page_config(page_title='ssEPE')
+
 # Default widescreen mode
 def _max_width_():
     max_width_str = f"max-width: 2000px;"
@@ -29,7 +32,6 @@ def _max_width_():
 _max_width_()
 
 # Create a title for web app
-st.beta_set_page_config(page_title='ssEPE')
 st.title('Side-specific extraprostatic extension (EPE) prediction')
 st.write('Determine probability of EPE in ipsilateral lobe using clinicopathological features and machine learning')
 st.write('Based on: Jethro CC Kwong et al. to be presented at CUA 2021')
