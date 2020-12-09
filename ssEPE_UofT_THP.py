@@ -315,7 +315,6 @@ col1.write('Automatically updates based on user entered values')
 from PIL import ImageFont, ImageDraw, ImageOps
 
 # Load blank prostate and all colour coded sites as image objects
-@st.cache
 image2 = PIL.Image.open('Prostate diagram.png')
 image_bl_G1 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason1.png')))
 image_bl_G2 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason2.png')))
