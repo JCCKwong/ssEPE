@@ -34,7 +34,7 @@ st.write('Determine probability of EPE in ipsilateral lobe using clinicopatholog
 st.write('Based on: Jethro CC Kwong et al. to be presented at CUA 2021')
 
 # Create a function for loading prebuilt model and explainer
-@st.cache(hash_funcs={builtins.dict: my_hash_func})
+@st.cache
 def load_prebuilt():
     """Function for loading prebuilt model and explainer"""
     
