@@ -1,8 +1,6 @@
 """DESCRIPTION
-This application predicts risk of side-specific extraprostatic extension (ssEPE) using clinicopathological features
-known prior to radical prostatectomy. The proposed use is for clinicians to input de-identified patient features and the
-model will output a probability of ssEPE for the left and right lobe. This can be used in the context of patient
-counselling or tailoring surgical strategy (ie: nerve-sparing).
+Development and external validation of an explainable machine learning model to predict risk of side-specific
+extraprostatic extension in men with prostate cancer
 
 Developed by: Jethro CC. Kwong (1,2), Adree Khondker (3), Christopher Tran (3), Emily Evans (3), Amna Ali (4),
 Munir Jamal (1), Thomas Short (1), Frank Papanikolaou (1), John R. Srigley (5), Andrew H. Feifer (1,4)
@@ -12,6 +10,64 @@ Munir Jamal (1), Thomas Short (1), Frank Papanikolaou (1), John R. Srigley (5), 
 (3) Temerty Faculty of Medicine, University of Toronto, Toronto, ON, Canada
 (4) Institute for Better Health, Trillium Health Partners, Mississauga, ON, Canada
 (5) Department of Laboratory Medicine and Pathobiology, University of Toronto, Toronto, ON, Canada
+
+This application predicts the risk of side-specific extraprostatic extension (ssEPE) using clinicopathological features
+known prior to radical prostatectomy. The proposed use is for clinicians to input de-identified patient features and the
+model will output a probability of ssEPE for the left and right lobe. This can be used in the context of patient
+counselling or tailoring surgical strategy (ie: nerve-sparing).
+
+This model was developed in accordance to the STREAM-URO framework (to-be published)
+
+Problem: Supervised, binary classification.
+Source of data: Electronic medical records of men with prostate cancer who underwent radical prostatectomy at Credit
+                Valley Hospital, Mississuaga, ON, Canada from 2010 to 2020 and at Mississauga Hospital, Mississauga, ON,
+                Canada from 2016 to 2020.
+Eligibility criteria:
+    Inclusion criteria: Men with localized prostate cancer who received a 4-site prostate biopsy (base, mid, apex,
+                        transition zone) followed by a radical prostatectomy. Patients were included regardless of open
+                        or robotic-assisted approach.
+    Exclusion criteria: Patients who received neoadjuvant treatment were excluded. Patients with variant histologies
+                        like pure sarcomatoid tumours, small cell neoplasm of the prostate were excluded.
+Label: Presence of ssEPE in the ipsilateral lobe of the prostatectomy specimen. All pathology was reviewed by a
+       dedicated uro-pathologist.
+Data abstraction, cleaning, preparation:
+    Feature abstraction: Direct abstraction of clinicopathological data from electronic medical records.
+    Handling of missing data: Removal of all cases with missing data.
+    Feature engineering: Primary and Secondary Gleason Grade were replaced with Gleason Grade Group.
+    Removal of features: In the following order
+        1) All features were evaluated by Boruta method with SHAP as the feature importance measure instead of
+           Gini impurity.
+        2) Correlation analysis to remove all features with Pearson correlation > 0.8.
+Data splitting:
+    Training cohort: Patients treated at Credit Valley Hospital from 2010 to 2020. Ten-fold stratified cross-validation
+                     method was used to create validation cohorts.
+    Testing cohort: Patients treated at Mississauga Hospital from 2016 to 2020.
+Reference standard: Predictive model developed by Sayyid et al. (2016)
+                    https://bjui-journals.onlinelibrary.wiley.com/doi/full/10.1111/bju.13733
+Model selection: XGBoost version 1.3.3
+Hyperparameter tuning: GridSearch of the following hyperparameters using area under receiver-operating-characteristic
+                       curve as the evaluation metric
+                            n_estimators: 600 to 1200
+                            max_depth: 7 to 11,
+                            learning_rate: 0.01 to 0.1
+                            base_score: 0.307 (baseline frequency of the training cohort)
+                            colsample_bylevel: 0 to 1
+                            colsample_bynode: 0 to 1
+                            colsample_bytree: 0.3 to 0.8
+Model evaluation: The following performance metrics were used for cross-validation of the training cohort and evaluation
+                  on the testing cohort
+                      1) Area under receiver-operating-characteristic curve (AUROC)
+                      2) Area under precision-recall curve (AUPRC)
+                      3) Decision curve analysis and number of avoidable treatments per 100 patients
+Cross-validation: Ten-fold, stratified cross-validation
+Model interpretation: SHAP version 0.37.0
+Final model:
+    Model: XGBoost classifier
+    Hyperparameters: n_estimators=894, max_depth=9, learning_rate=0.08, base_score=0.307, colsample_bylevel=0.1,
+                     colsample_bynode: 0.1, colsample_bytree=0.3
+    Features: Age, PSA, perineural invasion, worst Gleason Grade Group, maximum % core involvement, % positive cores,
+              % Gleason pattern 4/5, base findings, base % core involvement, mid % core involvement, transition zone
+              % core involvement
 """
 
 # Import packages and libraries
@@ -77,7 +133,7 @@ model, explainer = load_items()
 
 
 # Load blank prostate and all colour coded sites as image objects from GitHub repository
-def load_images(): 
+def load_images():
     image2 = PIL.Image.open('Images/Prostate diagram.png')
     image_bl_G1 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner_Gleason1.png')))
     image_bl_G2 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner_Gleason2.png')))
@@ -570,6 +626,9 @@ with st.beta_expander("See how the model was developed"):
     colA.image(ROC, use_column_width=True)
     colB.image(PRC, use_column_width=True)
     colC.image(DCA, use_column_width=True)
+    st.write("""""")
+    stream_uro = pd.read_csv(r'Performance Metrics/ssEPE STREAM-URO.csv')
+    st.table(stream_uro)
     st.write("""""")
 st.write("""""")
 st.write("""""")
