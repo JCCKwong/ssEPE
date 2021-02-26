@@ -343,6 +343,8 @@ if get_user_input.b_findings==4:
         bl_image_data.append((255, 204, 100))
     # update image data
     bl.putdata(bl_image_data)
+    bl.save("bl4.png")
+    bl = PIL.Image.open("./bl4.png")
     image2.paste(bl, (145, 958), mask=bl)
 
 """
