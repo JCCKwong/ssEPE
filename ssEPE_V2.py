@@ -39,7 +39,7 @@ cloud_model_location = '1WspVBYOLjmQHPusl6I8f2LkG_bO9QtG7'  # hosted on GD
 cloud_explainer_location = '1WspVBYOLjmQHPusl6I8f2LkG_bO9QtG7'  # hosted on GD
 
 
-@st.cache(allow_output_mutation=True)
+#@st.cache(allow_output_mutation=True)
 def load_model():
     save_dest = Path('model')
     save_dest.mkdir(exist_ok=True)
