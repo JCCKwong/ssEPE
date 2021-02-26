@@ -35,7 +35,7 @@ st.write('Based on: upcoming paper...')
 
 # Import Trained Model and Explainer
 model = joblib.load('XGB ssEPE model V3.pkl')
-explainer = joblib.load('XGB SHAP ssEPE.pkl', 'rb')
+explainer = joblib.load('XGB SHAP ssEPE.pkl', 'r')
 
 # Calculate SHAP values
 #features_list = list(features.columns)
