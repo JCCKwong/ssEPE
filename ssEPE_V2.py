@@ -562,9 +562,9 @@ with st.beta_expander("See how the model was developed"):
     st.write("""
                  """)
     colA, colB, colC = st.beta_columns([1, 1, 2])
-    ROC = PIL.Image.open('ROC.png')
-    PRC = PIL.Image.open('PRC.png')
-    DCA = PIL.Image.open('DCA (XGB vs Sayyid).png')
+    ROC = PIL.Image.open('Performance Metrics/ROC.png')
+    PRC = PIL.Image.open('Performance Metrics/PRC.png')
+    DCA = PIL.Image.open('Performance Metrics/DCA.png')
     colA.image(ROC, use_column_width=True)
     colB.image(PRC, use_column_width=True)
     colC.image(DCA, use_column_width=True)
