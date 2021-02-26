@@ -578,5 +578,5 @@ st.text(" ")
 st.text(" ")
 st.text(" ")
 
-st.write('Developed by: Jethro CC. Kwong$^{1,2}$, Adree Khondker, Christopher Tran, Emily Evans, Amna Ali, Munir Jamal,\
+st.write('Developed by: Jethro CC. Kwong^{1,2}, Adree Khondker, Christopher Tran, Emily Evans, Amna Ali, Munir Jamal,\
  Thomas Short, Frank Papanikolaou, John R. Srigley, Andrew H. Feifer')
