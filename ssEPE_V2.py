@@ -305,7 +305,7 @@ col2.write('Highlights which features have the greatest impact on the predicted 
 col2.subheader('Left lobe')
 st.set_option('deprecation.showPyplotGlobalUse', False)
 #shap.initjs()
-shap_values = explainer.shap_values(user_input, model_output='probability')
+shap_values = explainer.shap_values(user_input)
 features_list = ('Age',
                  'PSA',
                  '% Gleason pattern 4/5',
@@ -317,13 +317,13 @@ features_list = ('Age',
                  'Base % core involvement',
                  'Mid % core involvement',
                  'Transition zone % core involvement')
-shap.force_plot(explainer.expected_value, shap_values[0], user_input, features_list, matplotlib=True, text_rotation=10)
+shap.force_plot(explainer.expected_value, shap_values[1], user_input, features_list, matplotlib=True, text_rotation=10)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0)
 plt.clf()
 
 # SHAP plot for right lobe
 col2.subheader('Right lobe')
-shap_values_r = explainer.shap_values(user_input_r, model_output='probability')
+shap_values_r = explainer.shap_values(user_input_r)
 features_list_r = ('Age',
                    'PSA',
                    '% Gleason pattern 4/5',
@@ -335,7 +335,7 @@ features_list_r = ('Age',
                    'Base % core involvement',
                    'Mid % core involvement',
                    'Transition zone % core involvement')
-shap.force_plot(explainer.expected_value, shap_values_r[0], user_input_r, features_list_r, matplotlib=True, text_rotation=10)
+shap.force_plot(explainer.expected_value, shap_values_r[1], user_input_r, features_list_r, matplotlib=True, text_rotation=10)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0)
 plt.clf()
 
