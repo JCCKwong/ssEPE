@@ -15,6 +15,7 @@ from PIL import ImageFont, ImageDraw, ImageOps
 # Import ML model of choice
 import xgboost as xgb
 
+
 # Default widescreen mode
 def _max_width_():
     max_width_str = f"max-width: 2000px;"
@@ -28,79 +29,133 @@ def _max_width_():
     """,
         unsafe_allow_html=True,
     )
+
+
 _max_width_()
 
 # Create a title for web app
 st.title('Side-specific extraprostatic extension (EPE) prediction')
 st.write('Determine probability of EPE in ipsilateral lobe using clinicopathological features and machine learning')
 
-# LOAD TRAINED MODEL
-cloud_model_location = '19d98z_Bql8fbOqDXLunW52F3umf0C5NR'  # hosted on GD
-cloud_feature_location = '1oVdQS2g8hKh_CYC1182KNLkBXYkANLfx'  # hosted on GD
-cloud_explainer_location = '1ijBkA6T-W7-naZ8I48wrKIOeuWFuYWls'  # hosted on GD
+# LOAD SAVED ITEMS from Google Drive
+GD_model_location = '19d98z_Bql8fbOqDXLunW52F3umf0C5NR'
+GD_feature_location = '1oVdQS2g8hKh_CYC1182KNLkBXYkANLfx'
+
 
 @st.cache(allow_output_mutation=True)
-def load_model():
+def load_items():
     save_dest = Path('model')
     save_dest.mkdir(exist_ok=True)
     f_checkpoint = Path('model/XGB ssEPE model V3.pkl')
     f_checkpoint1 = Path('model/Features.pkl')
-    #f_checkpoint2 = Path('model/explainer.pkl')
+
     # download from GD if model or explainer not present
     if not f_checkpoint.exists():
         with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
-            gdd.download_file_from_google_drive(cloud_model_location, f_checkpoint)
+            gdd.download_file_from_google_drive(GD_model_location, f_checkpoint)
     if not f_checkpoint1.exists():
         with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
-            gdd.download_file_from_google_drive(cloud_feature_location, f_checkpoint1)
-    #if not f_checkpoint2.exists():
-        #with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
-            #gdd.download_file_from_google_drive(cloud_explainer_location, f_checkpoint2)
+            gdd.download_file_from_google_drive(GD_feature_location, f_checkpoint1)
 
     model = joblib.load(f_checkpoint)
     features = joblib.load(f_checkpoint1)
-    #explainer = joblib.load(f_checkpoint2)
     explainer = shap.TreeExplainer(model, features, model_output='probability')
     return model, explainer
 
-model, explainer = load_model()
 
-@st.cache(allow_output_mutation=True)
+model, explainer = load_items()
+
+
 def load_images():
     # Load blank prostate and all colour coded sites as image objects
-    image2 = PIL.Image.open('Prostate diagram.png')
-    image_bl = PIL.ImageOps.grayscale(PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason1.png'))))
-    image_ml = PIL.ImageOps.grayscale(PIL.Image.open('Mid_Gleason1.png'))
-    image_al = PIL.ImageOps.grayscale(PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason1.png')))
-    image_tl = PIL.ImageOps.grayscale(PIL.Image.open('TZ_Gleason1.png'))
-    image_br = PIL.ImageOps.grayscale(PIL.ImageOps.flip(PIL.Image.open('Corner_Gleason1.png')))
-    image_mr = PIL.ImageOps.grayscale(PIL.Image.open('Mid_Gleason1.png'))
-    image_ar = PIL.ImageOps.grayscale(PIL.Image.open('Corner_Gleason1.png'))
-    image_tr = PIL.ImageOps.grayscale(PIL.ImageOps.mirror(PIL.Image.open('TZ_Gleason1.png')))
-    return image2, image_bl, image_ml, image_al, image_tl, image_br, image_mr, image_ar, image_tr
+    image2 = PIL.Image.open('Images/Prostate diagram.png')
+    image_bl_G1 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner_Gleason1.png')))
+    image_bl_G2 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner_Gleason2.png')))
+    image_bl_G3 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner_Gleason3.png')))
+    image_bl_G4 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner_Gleason4.png')))
+    image_bl_G5 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner_Gleason5.png')))
+    image_ml_G1 = PIL.Image.open('Images/Mid_Gleason1.png')
+    image_ml_G2 = PIL.Image.open('Images/Mid_Gleason2.png')
+    image_ml_G3 = PIL.Image.open('Images/Mid_Gleason3.png')
+    image_ml_G4 = PIL.Image.open('Images/Mid_Gleason4.png')
+    image_ml_G5 = PIL.Image.open('Images/Mid_Gleason5.png')
+    image_al_G1 = PIL.ImageOps.mirror(PIL.Image.open('Images/Corner_Gleason1.png'))
+    image_al_G2 = PIL.ImageOps.mirror(PIL.Image.open('Images/Corner_Gleason2.png'))
+    image_al_G3 = PIL.ImageOps.mirror(PIL.Image.open('Images/Corner_Gleason3.png'))
+    image_al_G4 = PIL.ImageOps.mirror(PIL.Image.open('Images/Corner_Gleason4.png'))
+    image_al_G5 = PIL.ImageOps.mirror(PIL.Image.open('Images/Corner_Gleason5.png'))
+    image_tl_G1 = PIL.Image.open('Images/TZ_Gleason1.png')
+    image_tl_G2 = PIL.Image.open('Images/TZ_Gleason2.png')
+    image_tl_G3 = PIL.Image.open('Images/TZ_Gleason3.png')
+    image_tl_G4 = PIL.Image.open('Images/TZ_Gleason4.png')
+    image_tl_G5 = PIL.Image.open('Images/TZ_Gleason5.png')
+    image_br_G1 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner_Gleason1.png'))
+    image_br_G2 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner_Gleason2.png'))
+    image_br_G3 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner_Gleason3.png'))
+    image_br_G4 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner_Gleason4.png'))
+    image_br_G5 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner_Gleason5.png'))
+    image_mr_G1 = PIL.Image.open('Images/Mid_Gleason1.png')
+    image_mr_G2 = PIL.Image.open('Images/Mid_Gleason2.png')
+    image_mr_G3 = PIL.Image.open('Images/Mid_Gleason3.png')
+    image_mr_G4 = PIL.Image.open('Images/Mid_Gleason4.png')
+    image_mr_G5 = PIL.Image.open('Images/Mid_Gleason5.png')
+    image_ar_G1 = PIL.Image.open('Images/Corner_Gleason1.png')
+    image_ar_G2 = PIL.Image.open('Images/Corner_Gleason2.png')
+    image_ar_G3 = PIL.Image.open('Images/Corner_Gleason3.png')
+    image_ar_G4 = PIL.Image.open('Images/Corner_Gleason4.png')
+    image_ar_G5 = PIL.Image.open('Images/Corner_Gleason5.png')
+    image_tr_G1 = PIL.ImageOps.mirror(PIL.Image.open('Images/TZ_Gleason1.png'))
+    image_tr_G2 = PIL.ImageOps.mirror(PIL.Image.open('Images/TZ_Gleason2.png'))
+    image_tr_G3 = PIL.ImageOps.mirror(PIL.Image.open('Images/TZ_Gleason3.png'))
+    image_tr_G4 = PIL.ImageOps.mirror(PIL.Image.open('Images/TZ_Gleason4.png'))
+    image_tr_G5 = PIL.ImageOps.mirror(PIL.Image.open('Images/TZ_Gleason5.png'))
+    return image2, image_bl_G1, image_bl_G2, image_bl_G3, image_bl_G4, image_bl_G5, \
+           image_ml_G1, image_ml_G2, image_ml_G3, image_ml_G4, image_ml_G5, \
+           image_al_G1, image_al_G2, image_al_G3, image_al_G4, image_al_G5, \
+           image_tl_G1, image_tl_G2, image_tl_G3, image_tl_G4, image_tl_G5, \
+           image_br_G1, image_br_G2, image_br_G3, image_br_G4, image_br_G5, \
+           image_mr_G1, image_mr_G2, image_mr_G3, image_mr_G4, image_mr_G5, \
+           image_ar_G1, image_ar_G2, image_ar_G3, image_ar_G4, image_ar_G5, \
+           image_tr_G1, image_tr_G2, image_tr_G3, image_tr_G4, image_tr_G5
 
-image2, image_bl, image_ml, image_al, image_tl, image_br, image_mr, image_ar, image_tr = load_images()
+
+image2, image_bl_G1, image_bl_G2, image_bl_G3, image_bl_G4, image_bl_G5, \
+image_ml_G1, image_ml_G2, image_ml_G3, image_ml_G4, image_ml_G5, \
+image_al_G1, image_al_G2, image_al_G3, image_al_G4, image_al_G5, \
+image_tl_G1, image_tl_G2, image_tl_G3, image_tl_G4, image_tl_G5, \
+image_br_G1, image_br_G2, image_br_G3, image_br_G4, image_br_G5, \
+image_mr_G1, image_mr_G2, image_mr_G3, image_mr_G4, image_mr_G5, \
+image_ar_G1, image_ar_G2, image_ar_G3, image_ar_G4, image_ar_G5, \
+image_tr_G1, image_tr_G2, image_tr_G3, image_tr_G4, image_tr_G5 = load_images()
 
 # Define choices and labels for feature inputs
 CHOICES = {0: 'No', 1: 'Yes'}
+
+
 def format_func_yn(option):
     return CHOICES[option]
 
-G_CHOICES = {0: 'Normal', 1: 'HGPIN', 2: 'ASAP', 3: 'Gleason 3+3', 4: 'Gleason 3+4', 5: 'Gleason 4+3', 6: 'Gleason 4+4', 7: 'Gleason 4+5/5+4'}
+
+G_CHOICES = {0: 'Normal', 1: 'HGPIN', 2: 'ASAP', 3: 'Gleason 3+3', 4: 'Gleason 3+4', 5: 'Gleason 4+3', 6: 'Gleason 4+4',
+             7: 'Gleason 4+5/5+4'}
+
+
 def format_func_gleason(option):
     return G_CHOICES[option]
+
 
 # Create sidebar for user inputted values
 st.sidebar.write('Enter patient values')
 
+
 # Create sidebar inputs for global variables and left lobe variables
 def get_user_input():
-    with st.sidebar.beta_expander('Global variables',expanded=True):
+    with st.sidebar.beta_expander('Global variables', expanded=True):
         age = st.number_input('Age (years)', 0.0, 100.0)
         psa = st.number_input('PSA (ng/ml)', 0.00, 200.00)
         p_high = st.slider('% Gleason pattern 4/5', 0.0, 100.00, 0.0, 0.5)
         perineural_inv = st.selectbox('Perineural invasion', options=list(CHOICES.keys()), format_func=format_func_yn)
-    with st.sidebar.beta_expander('Side-specific variables (Left)',expanded=True):
+    with st.sidebar.beta_expander('Side-specific variables (Left)', expanded=True):
         base_findings = st.selectbox('Base findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
                                      key=0)
         base_p_core = st.number_input('Base # of positive cores', 0, 10, value=0, key=0)
@@ -169,11 +224,13 @@ def get_user_input():
     get_user_input.t_t_core = tz_t_core
     get_user_input.t_p = tz_p_inv
 
-    pt_features = pd.DataFrame(pt_data, index = [0])
+    pt_features = pd.DataFrame(pt_data, index=[0])
     return pt_features
+
 
 # Store the left lobe user input into a variable
 user_input = get_user_input()
+
 
 def get_user_input_r():
     with st.sidebar.beta_expander('Side-specific variables (Right)', expanded=True):
@@ -245,8 +302,9 @@ def get_user_input_r():
     get_user_input_r.t_t_core_r = tz_t_core_r
     get_user_input_r.t_p_r = tz_p_inv_r
 
-    pt_features_r = pd.DataFrame(pt_data_r, index = [0])
+    pt_features_r = pd.DataFrame(pt_data_r, index=[0])
     return pt_features_r
+
 
 user_input_r = get_user_input_r()
 
@@ -264,7 +322,7 @@ col2.write('Highlights which features have the greatest impact on the predicted 
 # SHAP plot for left lobe
 col2.subheader('Left lobe')
 st.set_option('deprecation.showPyplotGlobalUse', False)
-#shap.initjs()
+# shap.initjs()
 shap_values = explainer.shap_values(user_input)
 features_list = ('Age',
                  'PSA',
@@ -295,7 +353,8 @@ features_list_r = ('Age',
                    'Base % core involvement',
                    'Mid % core involvement',
                    'Transition zone % core involvement')
-shap.force_plot(explainer.expected_value, shap_values_r, user_input_r, features_list_r, matplotlib=True, text_rotation=10)
+shap.force_plot(explainer.expected_value, shap_values_r, user_input_r, features_list_r, matplotlib=True,
+                text_rotation=10)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width=True)
 plt.clf()
 
@@ -308,161 +367,120 @@ col1.write('Automatically updates based on user entered values')
 font = ImageFont.truetype('arial.ttf', 50)
 
 # Create text to overlay on annotated prostate diagram, auto-updates based on user inputted values
-base_L = str(G_CHOICES[get_user_input.b_findings]) + '\n'\
-         + 'Positive cores: ' + str(get_user_input.b_p_core) + '/' + str(get_user_input.b_t_core) + '\n'\
+base_L = str(G_CHOICES[get_user_input.b_findings]) + '\n' \
+         + 'Positive cores: ' + str(get_user_input.b_p_core) + '/' + str(get_user_input.b_t_core) + '\n' \
          + '% core inv: ' + str(get_user_input.b_p)
-mid_L = str(G_CHOICES[get_user_input.m_findings]) + '\n'\
-         + 'Positive cores: ' + str(get_user_input.m_p_core) + '/' + str(get_user_input.m_t_core) + '\n'\
-         + '% core inv: ' + str(get_user_input.m_p)
-apex_L = str(G_CHOICES[get_user_input.a_findings]) + '\n'\
-         + 'Positive cores: ' + str(get_user_input.a_p_core) + '/' + str(get_user_input.a_t_core) + '\n'\
+mid_L = str(G_CHOICES[get_user_input.m_findings]) + '\n' \
+        + 'Positive cores: ' + str(get_user_input.m_p_core) + '/' + str(get_user_input.m_t_core) + '\n' \
+        + '% core inv: ' + str(get_user_input.m_p)
+apex_L = str(G_CHOICES[get_user_input.a_findings]) + '\n' \
+         + 'Positive cores: ' + str(get_user_input.a_p_core) + '/' + str(get_user_input.a_t_core) + '\n' \
          + '% core inv: ' + str(get_user_input.a_p)
-tz_L = str(G_CHOICES[get_user_input.t_findings]) + '\n'\
-         + 'Positive cores: ' + str(get_user_input.t_p_core) + '/' + str(get_user_input.t_t_core) + '\n'\
-         + '% core inv: ' + str(get_user_input.t_p)
-base_R = str(G_CHOICES[get_user_input_r.b_findings_r]) + '\n'\
-         + 'Positive cores: ' + str(get_user_input_r.b_p_core_r) + '/' + str(get_user_input_r.b_t_core_r) + '\n'\
+tz_L = str(G_CHOICES[get_user_input.t_findings]) + '\n' \
+       + 'Positive cores: ' + str(get_user_input.t_p_core) + '/' + str(get_user_input.t_t_core) + '\n' \
+       + '% core inv: ' + str(get_user_input.t_p)
+base_R = str(G_CHOICES[get_user_input_r.b_findings_r]) + '\n' \
+         + 'Positive cores: ' + str(get_user_input_r.b_p_core_r) + '/' + str(get_user_input_r.b_t_core_r) + '\n' \
          + '% core inv: ' + str(get_user_input_r.b_p_r)
-mid_R = str(G_CHOICES[get_user_input_r.m_findings_r]) + '\n'\
-         + 'Positive cores: ' + str(get_user_input_r.m_p_core_r) + '/' + str(get_user_input_r.m_t_core_r) + '\n'\
-         + '% core inv: ' + str(get_user_input_r.m_p_r)
-apex_R = str(G_CHOICES[get_user_input_r.a_findings_r]) + '\n'\
-         + 'Positive cores: ' + str(get_user_input_r.a_p_core_r) + '/' + str(get_user_input_r.a_t_core_r) + '\n'\
+mid_R = str(G_CHOICES[get_user_input_r.m_findings_r]) + '\n' \
+        + 'Positive cores: ' + str(get_user_input_r.m_p_core_r) + '/' + str(get_user_input_r.m_t_core_r) + '\n' \
+        + '% core inv: ' + str(get_user_input_r.m_p_r)
+apex_R = str(G_CHOICES[get_user_input_r.a_findings_r]) + '\n' \
+         + 'Positive cores: ' + str(get_user_input_r.a_p_core_r) + '/' + str(get_user_input_r.a_t_core_r) + '\n' \
          + '% core inv: ' + str(get_user_input_r.a_p_r)
-tz_R = str(G_CHOICES[get_user_input_r.t_findings_r]) + '\n'\
-         + 'Positive cores: ' + str(get_user_input_r.t_p_core_r) + '/' + str(get_user_input_r.t_t_core_r) + '\n'\
-         + '% core inv: ' + str(get_user_input_r.t_p_r)
+tz_R = str(G_CHOICES[get_user_input_r.t_findings_r]) + '\n' \
+       + 'Positive cores: ' + str(get_user_input_r.t_p_core_r) + '/' + str(get_user_input_r.t_t_core_r) + '\n' \
+       + '% core inv: ' + str(get_user_input_r.t_p_r)
 
 # Set conditions to show colour coded site images based on Gleason Grade Group for each site
 draw = ImageDraw.Draw(image2)
-if get_user_input.b_findings==3:
-    bl = PIL.ImageOps.colorize(image_bl, black=(171, 255, 188), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(bl, (145, 958), mask=bl)
-if get_user_input.b_findings==4:
-    bl = PIL.ImageOps.colorize(image_bl, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(bl, (145, 958), mask=bl)
-if get_user_input.b_findings==5:
-    bl = PIL.ImageOps.colorize(image_bl, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(bl, (145, 958), mask=bl)
-if get_user_input.b_findings==6:
-    bl = PIL.ImageOps.colorize(image_bl, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(bl, (145, 958), mask=bl)
-if get_user_input.b_findings==7:
-    bl = PIL.ImageOps.colorize(image_bl, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(bl, (145, 958), mask=bl)
+if get_user_input.b_findings == 3:
+    image2.paste(image_bl_G1, (145, 958), mask=image_bl_G1)
+if get_user_input.b_findings == 4:
+    image2.paste(image_bl_G2, (145, 958), mask=image_bl_G2)
+if get_user_input.b_findings == 5:
+    image2.paste(image_bl_G3, (145, 958), mask=image_bl_G3)
+if get_user_input.b_findings == 6:
+    image2.paste(image_bl_G4, (145, 958), mask=image_bl_G4)
+if get_user_input.b_findings == 7:
+    image2.paste(image_bl_G5, (145, 958), mask=image_bl_G5)
 
-if get_user_input.m_findings==3:
-    ml = PIL.ImageOps.colorize(image_ml, black=(171, 255, 188), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(ml, (145, 606), mask=ml)
-if get_user_input.m_findings==4:
-    ml = PIL.ImageOps.colorize(image_ml, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(ml, (145, 606), mask=ml)
-if get_user_input.m_findings==5:
-    ml = PIL.ImageOps.colorize(image_ml, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(ml, (145, 606), mask=ml)
-if get_user_input.m_findings==6:
-    ml = PIL.ImageOps.colorize(image_ml, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(ml, (145, 606), mask=ml)
-if get_user_input.m_findings==7:
-    ml = PIL.ImageOps.colorize(image_ml, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(ml, (145, 606), mask=ml)
+if get_user_input.m_findings == 3:
+    image2.paste(image_ml_G1, (145, 606), mask=image_ml_G1)
+if get_user_input.m_findings == 4:
+    image2.paste(image_ml_G2, (145, 606), mask=image_ml_G2)
+if get_user_input.m_findings == 5:
+    image2.paste(image_ml_G3, (145, 606), mask=image_ml_G3)
+if get_user_input.m_findings == 6:
+    image2.paste(image_ml_G4, (145, 606), mask=image_ml_G4)
+if get_user_input.m_findings == 7:
+    image2.paste(image_ml_G5, (145, 606), mask=image_ml_G5)
 
-if get_user_input.a_findings==3:
-    al = PIL.ImageOps.colorize(image_al, black=(171, 255, 188), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(al, (145, 130), mask=al)
-if get_user_input.a_findings==4:
-    al = PIL.ImageOps.colorize(image_al, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(al, (145, 130), mask=al)
-if get_user_input.a_findings==5:
-    al = PIL.ImageOps.colorize(image_al, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(al, (145, 130), mask=al)
-if get_user_input.a_findings==6:
-    al = PIL.ImageOps.colorize(image_al, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(al, (145, 130), mask=al)
-if get_user_input.a_findings==7:
-    al = PIL.ImageOps.colorize(image_al, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(al, (145, 130), mask=al)
+if get_user_input.a_findings == 3:
+    image2.paste(image_al_G1, (145, 130), mask=image_al_G1)
+if get_user_input.a_findings == 4:
+    image2.paste(image_al_G2, (145, 130), mask=image_al_G2)
+if get_user_input.a_findings == 5:
+    image2.paste(image_al_G3, (145, 130), mask=image_al_G3)
+if get_user_input.a_findings == 6:
+    image2.paste(image_al_G4, (145, 130), mask=image_al_G4)
+if get_user_input.a_findings == 7:
+    image2.paste(image_al_G5, (145, 130), mask=image_al_G5)
 
-if get_user_input.t_findings==3:
-    tl = PIL.ImageOps.colorize(image_tl, black=(171, 255, 188), white="white", blackpoint=50).convert("RGBA").putalpha(0)
-    image2.paste(tl, (665, 493), mask=tl)
-if get_user_input.t_findings==4:
-    tl = PIL.ImageOps.colorize(image_tl, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(tl, (665, 493), mask=tl)
-if get_user_input.t_findings==5:
-    tl = PIL.ImageOps.colorize(image_tl, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(tl, (665, 493), mask=tl)
-if get_user_input.t_findings==6:
-    tl = PIL.ImageOps.colorize(image_tl, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(tl, (665, 493), mask=tl)
-if get_user_input.t_findings==7:
-    tl = PIL.ImageOps.colorize(image_tl, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(tl, (665, 493), mask=tl)
+if get_user_input.t_findings == 3:
+    image2.paste(image_tl_G1, (665, 493), mask=image_tl_G1)
+if get_user_input.t_findings == 4:
+    image2.paste(image_tl_G2, (665, 493), mask=image_tl_G2)
+if get_user_input.t_findings == 5:
+    image2.paste(image_tl_G3, (665, 493), mask=image_tl_G3)
+if get_user_input.t_findings == 6:
+    image2.paste(image_tl_G4, (665, 493), mask=image_tl_G4)
+if get_user_input.t_findings == 7:
+    image2.paste(image_tl_G5, (665, 493), mask=image_tl_G5)
 
-if get_user_input_r.b_findings_r==3:
-    br = PIL.ImageOps.colorize(image_br, black=(171, 255, 188), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(br,(1104,958), mask=br)
-if get_user_input_r.b_findings_r==4:
-    br = PIL.ImageOps.colorize(image_br, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(br, (1104, 958), mask=br)
-if get_user_input_r.b_findings_r==5:
-    br = PIL.ImageOps.colorize(image_br, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(br, (1104, 958), mask=br)
-if get_user_input_r.b_findings_r==6:
-    br = PIL.ImageOps.colorize(image_br, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(br, (1104, 958), mask=br)
-if get_user_input_r.b_findings_r==7:
-    br = PIL.ImageOps.colorize(image_br, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(br, (1104, 958), mask=br)
+if get_user_input_r.b_findings_r == 3:
+    image2.paste(image_br_G1, (1104, 958), mask=image_br_G1)
+if get_user_input_r.b_findings_r == 4:
+    image2.paste(image_br_G2, (1104, 958), mask=image_br_G2)
+if get_user_input_r.b_findings_r == 5:
+    image2.paste(image_br_G3, (1104, 958), mask=image_br_G3)
+if get_user_input_r.b_findings_r == 6:
+    image2.paste(image_br_G4, (1104, 958), mask=image_br_G4)
+if get_user_input_r.b_findings_r == 7:
+    image2.paste(image_br_G5, (1104, 958), mask=image_br_G5)
 
-if get_user_input_r.m_findings_r==3:
-    mr = PIL.ImageOps.colorize(image_mr, black=(171, 255, 188), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(mr, (1542, 606), mask=mr)
-if get_user_input_r.m_findings_r==4:
-    mr = PIL.ImageOps.colorize(image_mr, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(mr, (1542, 606), mask=mr)
-if get_user_input_r.m_findings_r==5:
-    mr = PIL.ImageOps.colorize(image_mr, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(mr, (1542, 606), mask=mr)
-if get_user_input_r.m_findings_r==6:
-    mr = PIL.ImageOps.colorize(image_mr, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(mr, (1542, 606), mask=mr)
-if get_user_input_r.m_findings_r==7:
-    mr = PIL.ImageOps.colorize(image_mr, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(mr, (1542, 606), mask=mr)
+if get_user_input_r.m_findings_r == 3:
+    image2.paste(image_mr_G1, (1542, 606), mask=image_mr_G1)
+if get_user_input_r.m_findings_r == 4:
+    image2.paste(image_mr_G2, (1542, 606), mask=image_mr_G2)
+if get_user_input_r.m_findings_r == 5:
+    image2.paste(image_mr_G3, (1542, 606), mask=image_mr_G3)
+if get_user_input_r.m_findings_r == 6:
+    image2.paste(image_mr_G4, (1542, 606), mask=image_mr_G4)
+if get_user_input_r.m_findings_r == 7:
+    image2.paste(image_mr_G5, (1542, 606), mask=image_mr_G5)
 
-if get_user_input_r.a_findings_r==3:
-    ar = PIL.ImageOps.colorize(image_ar, black=(171, 255, 188), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(ar,(1104,130), mask=ar)
-if get_user_input_r.a_findings_r==4:
-    ar = PIL.ImageOps.colorize(image_ar, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(ar, (1104, 130), mask=ar)
-if get_user_input_r.a_findings_r==5:
-    ar = PIL.ImageOps.colorize(image_ar, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(ar, (1104, 130), mask=ar)
-if get_user_input_r.a_findings_r==6:
-    ar = PIL.ImageOps.colorize(image_ar, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(ar, (1104, 130), mask=ar)
-if get_user_input_r.a_findings_r==7:
-    ar = PIL.ImageOps.colorize(image_ar, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(ar, (1104, 130), mask=ar)
+if get_user_input_r.a_findings_r == 3:
+    image2.paste(image_ar_G1, (1104, 130), mask=image_ar_G1)
+if get_user_input_r.a_findings_r == 4:
+    image2.paste(image_ar_G2, (1104, 130), mask=image_ar_G2)
+if get_user_input_r.a_findings_r == 5:
+    image2.paste(image_ar_G3, (1104, 130), mask=image_ar_G3)
+if get_user_input_r.a_findings_r == 6:
+    image2.paste(image_ar_G4, (1104, 130), mask=image_ar_G4)
+if get_user_input_r.a_findings_r == 7:
+    image2.paste(image_ar_G5, (1104, 130), mask=image_ar_G5)
 
-if get_user_input_r.t_findings_r==3:
-    tr = PIL.ImageOps.colorize(image_tr, black=(171, 255, 188), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(tr, (1100, 493), mask=tr)
-if get_user_input_r.t_findings_r==4:
-    tr = PIL.ImageOps.colorize(image_tr, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(tr, (1100, 493), mask=tr)
-if get_user_input_r.t_findings_r==5:
-    tr = PIL.ImageOps.colorize(image_tr, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(tr, (1100, 493), mask=tr)
-if get_user_input_r.t_findings_r==6:
-    tr = PIL.ImageOps.colorize(image_tr, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(tr, (1100, 493), mask=tr)
-if get_user_input_r.t_findings_r==7:
-    tr = PIL.ImageOps.colorize(image_tr, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
-    image2.paste(tr, (1100, 493), mask=tr)
-
+if get_user_input_r.t_findings_r == 3:
+    image2.paste(image_tr_G1, (1100, 493), mask=image_tr_G1)
+if get_user_input_r.t_findings_r == 4:
+    image2.paste(image_tr_G2, (1100, 493), mask=image_tr_G2)
+if get_user_input_r.t_findings_r == 5:
+    image2.paste(image_tr_G3, (1100, 493), mask=image_tr_G3)
+if get_user_input_r.t_findings_r == 6:
+    image2.paste(image_tr_G4, (1100, 493), mask=image_tr_G4)
+if get_user_input_r.t_findings_r == 7:
+    image2.paste(image_tr_G5, (1100, 493), mask=image_tr_G5)
 
 # Overlay text showing Gleason Grade Group, % positive cores, and % core involvement for each site
 draw.text((525, 1110), base_L, fill="black", font=font, align="center")
@@ -476,8 +494,8 @@ draw.text((1125, 690), tz_R, fill="black", font=font, align="center")
 col1.image(image2, use_column_width=True)
 
 # Display probability of EPE for left and right lobe
-col1.write('Probability of left EPE: ' + str(np.round_(prediction[:,1], decimals=2))[1:-1])
-col1.write('Probability of right EPE: ' + str(np.round_(prediction_r[:,1], decimals=2))[1:-1])
+col1.write('Probability of left EPE: ' + str(np.round_(prediction[:, 1], decimals=2))[1:-1])
+col1.write('Probability of right EPE: ' + str(np.round_(prediction_r[:, 1], decimals=2))[1:-1])
 
 # Display SHAP explanation
 with st.beta_expander("See how the model explanations were determined"):
@@ -486,7 +504,8 @@ with st.beta_expander("See how the model explanations were determined"):
     st.markdown("""Model explanations were calculated based on SHAP (SHapley Additive exPlanations) values,\
     originally developed by [Lundberg et al. (2006)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf).\
     This is an additive feature attribution method that satisfies all three properties of explanation models: local accuracy, missingness, and consistency.""")
-    st.markdown("""Accuracy: the output of the explanation model must match the output of the original model for a given prediction""")
+    st.markdown(
+        """Accuracy: the output of the explanation model must match the output of the original model for a given prediction""")
     st.markdown("""Missingness: when a feature is missing, it should have no impact on the model""")
     st.markdown("""Consistency: a feature’s assigned attribution must match its degree of importance in the original model\
     (ie: if overall – % tissue involvement has the highest attribution, it must also have the highest feature importance\
@@ -496,7 +515,8 @@ with st.beta_expander("See how the model explanations were determined"):
     of [hypoxemia risk during anesthetic care](https://www.nature.com/articles/s41551-018-0304-0)""")
     st.markdown("""**Red bars**: Features that ***increase*** the risk of ssEPE""")
     st.markdown("""**Blue bars**: Features that ***decrease*** the risk of ssEPE""")
-    st.markdown("""**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE""")
+    st.markdown(
+        """**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE""")
 
 with st.beta_expander("See how the model was developed"):
     st.write("""
