@@ -550,9 +550,9 @@ with st.beta_expander("See how the model was developed"):
     ROC = PIL.Image.open('ROC.png')
     PRC = PIL.Image.open('PRC.png')
     DCA = PIL.Image.open('DCA (XGB vs Sayyid).png')
-    colA.ImageDraw.Draw(ROC)
-    colB.ImageDraw.Draw(PRC)
-    colC.ImageDraw.Draw(DCA)
+    colA.image(ROC, use_column_width=True)
+    colB.image(PRC, use_column_width=True)
+    colC.image(DCA, use_column_width=True)
 
 # Display user input for left and right lobe
 with st.beta_expander('User Input'):
