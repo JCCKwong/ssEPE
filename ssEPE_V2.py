@@ -503,18 +503,17 @@ with st.beta_expander("See how the model explanations were determined"):
     originally developed by [Lundberg et al. (2006)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf).\
     This is an additive feature attribution method that satisfies all three properties of explanation models: local accuracy, missingness, and consistency.""")
     st.markdown(
-        """Accuracy: the output of the explanation model must match the output of the original model for a given prediction""")
-    st.markdown("""Missingness: when a feature is missing, it should have no impact on the model""")
-    st.markdown("""Consistency: a feature’s assigned attribution must match its degree of importance in the original model\
+        """Accuracy: the output of the explanation model must match the output of the original model for a given prediction.\n
+           Missingness: when a feature is missing, it should have no impact on the model.\n
+           Consistency: a feature’s assigned attribution must match its degree of importance in the original model\
     (ie: if overall – % tissue involvement has the highest attribution, it must also have the highest feature importance\
     and the model must rely on this feature the most for a given prediction).""")
     st.markdown("""SHAP allows us to understand why our model made a given prediction by simplifying our complex model into a\
     linear function of binary variables. This approach has previously been implemented to improve understanding\
     of [hypoxemia risk during anesthetic care](https://www.nature.com/articles/s41551-018-0304-0)""")
-    st.markdown("""**Red bars**: Features that ***increase*** the risk of ssEPE""")
-    st.markdown("""**Blue bars**: Features that ***decrease*** the risk of ssEPE""")
-    st.markdown(
-        """**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE""")
+    st.markdown("""**Red bars**: Features that ***increase*** the risk of ssEPE\n
+                   **Blue bars**: Features that ***decrease*** the risk of ssEPE\n
+                   **Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE""")
 
 with st.beta_expander("See how the model was developed"):
     st.write("""
@@ -556,7 +555,7 @@ with st.beta_expander("See how the model was developed"):
           **reduction in avoidable non-nerve-sparing radical prostatectomies by 10 vs 4 per 100 patients at\
            a threshold value of 0.2**.""")
     st.write("""
-                 """)
+             """)
     colA, colB, colC = st.beta_columns([1, 1, 2])
     ROC = PIL.Image.open('Performance Metrics/ROC.png')
     PRC = PIL.Image.open('Performance Metrics/PRC.png')
@@ -568,8 +567,8 @@ with st.beta_expander("See how the model was developed"):
 st.write('Developed by: Jethro CC. Kwong$^{1,2}$, Adree Khondker$^{3}$, Christopher Tran$^{3}$, Emily Evans$^{3}$,\
  Amna Ali$^{4}$, Munir Jamal$^{1}$, Thomas Short$^{1}$, Frank Papanikolaou$^{1}$,\
   John R. Srigley$^{5}$, Andrew H. Feifer$^{1,4}$')
-st.write('$^{1}$Division of Urology, Department of Surgery, University of Toronto, Toronto, ON, Canada')
-st.write('$^{2}$Temerty Centre for AI Research and Education in Medicine, University of Toronto, Toronto, Canada')
-st.write('$^{3}$Temerty Faculty of Medicine, University of Toronto, Toronto, ON, Canada')
-st.write('$^{4}$Institute for Better Health, Trillium Health Partners, Mississauga, ON, Canada')
-st.write('$^{5}$Department of Laboratory Medicine and Pathobiology, University of Toronto, Toronto, ON, Canada')
+st.write('$^{1}$Division of Urology, Department of Surgery, University of Toronto, Toronto, ON, Canada\n'
+         '$^{2}$Temerty Centre for AI Research and Education in Medicine, University of Toronto, Toronto, Canada\n'
+         '$^{3}$Temerty Faculty of Medicine, University of Toronto, Toronto, ON, Canada\n'
+         '$^{4}$Institute for Better Health, Trillium Health Partners, Mississauga, ON, Canada\n'
+         '$^{5}$Department of Laboratory Medicine and Pathobiology, University of Toronto, Toronto, ON, Canada')
