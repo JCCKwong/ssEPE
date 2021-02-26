@@ -43,15 +43,17 @@ cloud_feature_location = '1WspVBYOLjmQHPusl6I8f2LkG_bO9QtG7'  # hosted on GD
 def load_model():
     save_dest = Path('model')
     save_dest.mkdir(exist_ok=True)
-    f_checkpoint = "XGB ssEPE model V3.pkl"
-    f_checkpoint1 = "Features.pkl"
+    f_checkpoint = gdd.download_file_from_google_drive(cloud_model_location, "XGB ssEPE model V3.pkl")
+    f_checkpoint1 = gdd.download_file_from_google_drive(cloud_feature_location, "Features.pkl")
+    #f_checkpoint = "XGB ssEPE model V3.pkl"
+    #f_checkpoint1 = "Features.pkl"
     # download from GD if model or explainer not present
-    if not f_checkpoint.exists():
-        with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
-            gdd.download_file_from_google_drive(cloud_model_location, f_checkpoint)
-    if not f_checkpoint1.exists():
-        with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
-            gdd.download_file_from_google_drive(cloud_feature_location, f_checkpoint1)
+    #if not f_checkpoint.exists():
+        #with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
+            #gdd.download_file_from_google_drive(cloud_model_location, f_checkpoint)
+    #if not f_checkpoint1.exists():
+        #with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
+            #gdd.download_file_from_google_drive(cloud_feature_location, f_checkpoint1)
 
     model = joblib.load(f_checkpoint)
     features = joblib.load(f_checkpoint1)
