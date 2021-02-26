@@ -499,13 +499,13 @@ col1.image(image2, use_column_width=True)
 with st.beta_expander("See how the model explanations were determined"):
     st.write("""
              """)
-    st.markdown("""Model explanations were calculated based on SHAP (SHapley Additive exPlanations) values,\
+    st.write('Model explanations were calculated based on SHAP (SHapley Additive exPlanations) values,\
     originally developed by [Lundberg et al. (2006)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf).\
-    This is an additive feature attribution method that satisfies all three properties of explanation models: local accuracy, missingness, and consistency.""")
-    st.markdown(
-        """Accuracy: the output of the explanation model must match the output of the original model for a given prediction.""")
-    st.markdown("""Missingness: when a feature is missing, it should have no impact on the model.""")
-    st.markdown("""Consistency: a feature’s assigned attribution must match its degree of importance in the original model\
+    This is an additive feature attribution method that satisfies all three properties of explanation models: local accuracy, missingness, and consistency.')
+    st.markdown("""Accuracy: the output of the explanation model must match the output of the original model for a\
+     given prediction.  \n"""
+     """Missingness: when a feature is missing, it should have no impact on the model.  \n"""
+     """Consistency: a feature’s assigned attribution must match its degree of importance in the original model\
     (ie: if overall – % tissue involvement has the highest attribution, it must also have the highest feature importance\
     and the model must rely on this feature the most for a given prediction).""")
     st.markdown("""SHAP allows us to understand why our model made a given prediction by simplifying our complex model into a\
