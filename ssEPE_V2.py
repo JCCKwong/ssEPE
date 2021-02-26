@@ -55,10 +55,11 @@ def load_model():
 
     model = joblib.load(f_checkpoint)
     features = joblib.load(f_checkpoint1)
-    explainer = shap.TreeExplainer(model, features, model_output='probability')
-    return model, explainer
+    
+    return model, features
 
-model, explainer = load_model()
+model, features = load_model()
+explainer = shap.TreeExplainer(model, features, model_output='probability')
 
 def load_images():
     # Load blank prostate and all colour coded sites as image objects
