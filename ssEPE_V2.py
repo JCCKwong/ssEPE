@@ -337,7 +337,7 @@ draw = ImageDraw.Draw(image2)
 if get_user_input.b_findings==3:
     image2.paste(image_bl_G1, (145, 958), mask=image_bl_G1)
 if get_user_input.b_findings==4:
-    bl = image_bl_G1.covert("RBG")
+    bl = image_bl_G1.convert("RGB")
     bl = bl.getdata()
     bl_image_data = []
     for item in bl:
