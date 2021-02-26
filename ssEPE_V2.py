@@ -33,7 +33,8 @@ _max_width_()
 # Create a title for web app
 st.title('Side-specific extraprostatic extension (EPE) prediction')
 st.write('Determine probability of EPE in ipsilateral lobe using clinicopathological features and machine learning')
-st.write('Based on: upcoming paper...')
+st.write('Developed by: Jethro CC Kwong, Adree Khondker, Christopher Tran, Emily Evans, Amna Ali, Munir Jamal,\
+ Thomas Short, Frank Papanikolaou, John R. Srigley, Andrew H. Feifer')
 
 ## LOAD TRAINED RANDOM FOREST MODEL
 cloud_model_location = '1WspVBYOLjmQHPusl6I8f2LkG_bO9QtG7'  # hosted on GD
