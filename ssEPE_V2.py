@@ -495,10 +495,6 @@ draw.text((1300, 275), apex_R, fill="black", font=font, align="center")
 draw.text((1125, 690), tz_R, fill="black", font=font, align="center")
 col1.image(image2, use_column_width=True)
 
-# Display probability of EPE for left and right lobe
-#col1.write('Probability of left EPE: ' + str(np.round_(prediction[:, 1], decimals=2))[1:-1])
-#col1.write('Probability of right EPE: ' + str(np.round_(prediction_r[:, 1], decimals=2))[1:-1])
-
 # Display SHAP explanation
 with st.beta_expander("See how the model explanations were determined"):
     st.write("""
@@ -569,14 +565,11 @@ with st.beta_expander("See how the model was developed"):
     colB.image(PRC, use_column_width=True)
     colC.image(DCA, use_column_width=True)
 
-# Display user input for left and right lobe
-with st.beta_expander('User Input'):
-    st.write(user_input)
-    st.write(user_input_r)
-
-st.text(" ")
-st.text(" ")
-st.text(" ")
-
-st.write('Developed by: Jethro CC. Kwong^{1,2}, Adree Khondker, Christopher Tran, Emily Evans, Amna Ali, Munir Jamal,\
- Thomas Short, Frank Papanikolaou, John R. Srigley, Andrew H. Feifer')
+st.write('Developed by: Jethro CC. Kwong$^{1,2}$, Adree Khondker$^{3}$, Christopher Tran$^{3}$, Emily Evans$^{3}$,\
+ Amna Ali$^{4}$, Munir Jamal$^{1}$, Thomas Short$^{1}$, Frank Papanikolaou$^{1}$,\
+  John R. Srigley$^{5}$, Andrew H. Feifer$^{1,4}$')
+st.write('$^{1}$Division of Urology, Department of Surgery, University of Toronto, Toronto, ON, Canada')
+st.write('$^{2}$Temerty Centre for AI Research and Education in Medicine, University of Toronto, Toronto, Canada')
+st.write('$^{3}$Temerty Faculty of Medicine, University of Toronto, Toronto, ON, Canada')
+st.write('$^{4}$Institute for Better Health, Trillium Health Partners, Mississauga, ON, Canada')
+st.write('$^{5}$Department of Laboratory Medicine and Pathobiology, University of Toronto, Toronto, ON, Canada')
