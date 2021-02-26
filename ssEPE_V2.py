@@ -37,7 +37,7 @@ st.write('Determine probability of EPE in ipsilateral lobe using clinicopatholog
 # LOAD TRAINED MODEL
 cloud_model_location = '19d98z_Bql8fbOqDXLunW52F3umf0C5NR'  # hosted on GD
 cloud_feature_location = '1oVdQS2g8hKh_CYC1182KNLkBXYkANLfx'  # hosted on GD
-
+cloud_explainer_location = '1ijBkA6T-W7-naZ8I48wrKIOeuWFuYWls'  # hosted on GD
 
 @st.cache(allow_output_mutation=True)
 def load_model():
@@ -45,6 +45,7 @@ def load_model():
     save_dest.mkdir(exist_ok=True)
     f_checkpoint = Path('model/XGB ssEPE model V3.pkl')
     f_checkpoint1 = Path('model/Features.pkl')
+    f_checkpoint2 = Path('model/explainer.pkl')
     # download from GD if model or explainer not present
     if not f_checkpoint.exists():
         with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
@@ -52,10 +53,14 @@ def load_model():
     if not f_checkpoint1.exists():
         with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
             gdd.download_file_from_google_drive(cloud_feature_location, f_checkpoint1)
+    if not f_checkpoint2.exists():
+        with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
+            gdd.download_file_from_google_drive(cloud_explainer_location, f_checkpoint2)
 
     model = joblib.load(f_checkpoint)
-    features = joblib.load(f_checkpoint1)
-    explainer = shap.TreeExplainer(model, features, model_output='probability')
+    #features = joblib.load(f_checkpoint1)
+    explainer = joblib.load(f_checkpoint2)
+    #explainer = shap.TreeExplainer(model, features, model_output='probability')
     return model, explainer
 
 model, explainer = load_model()
