@@ -2,9 +2,9 @@
 
 # Import the libraries
 import pandas as pd
-import numpy as np
+#import numpy as np
 import matplotlib.pyplot as plt
-from pprint import pprint
+#from pprint import pprint
 import PIL.Image
 import streamlit as st
 import shap
@@ -13,7 +13,7 @@ from pathlib import Path
 from google_drive_downloader import GoogleDriveDownloader as gdd
 from PIL import ImageFont, ImageDraw, ImageOps
 # Import ML model of choice
-import xgboost as xgb
+#import xgboost as xgb
 
 
 # Default widescreen mode
@@ -513,6 +513,7 @@ with st.beta_expander("See how the model explanations were determined"):
     st.write('**Red bars**: Features that ***increase*** the risk of ssEPE.  \n'
              '**Blue bars**: Features that ***decrease*** the risk of ssEPE.  \n'
              '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE.')
+    st.write("""""")
 
 with st.beta_expander("See how the model was developed"):
     st.write("""""")
@@ -560,6 +561,7 @@ with st.beta_expander("See how the model was developed"):
     colA.image(ROC, use_column_width=True)
     colB.image(PRC, use_column_width=True)
     colC.image(DCA, use_column_width=True)
+    st.write("""""")
 
 st.write('Developed by: Jethro CC. Kwong$^{1,2}$, Adree Khondker$^{3}$, Christopher Tran$^{3}$, Emily Evans$^{3}$,\
  Amna Ali$^{4}$, Munir Jamal$^{1}$, Thomas Short$^{1}$, Frank Papanikolaou$^{1}$,\
