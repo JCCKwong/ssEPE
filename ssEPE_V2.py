@@ -337,7 +337,7 @@ draw = ImageDraw.Draw(image2)
 if get_user_input.b_findings==3:
     image2.paste(image_bl_G1, (145, 958), mask=image_bl_G1)
 if get_user_input.b_findings==4:
-    bl = PIL.ImageOps.colorize(image_bl_G1, black="yellow", white="yellow")
+    bl = PIL.ImageOps.colorize(image_bl_G1, black="yellow", white="white")
     image2.paste(bl, (145, 958), mask=bl)
 
 """
