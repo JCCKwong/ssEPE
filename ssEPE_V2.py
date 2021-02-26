@@ -35,8 +35,8 @@ st.title('Side-specific extraprostatic extension (EPE) prediction')
 st.write('Determine probability of EPE in ipsilateral lobe using clinicopathological features and machine learning')
 
 # LOAD TRAINED MODEL
-cloud_model_location = '1WspVBYOLjmQHPusl6I8f2LkG_bO9QtG7?usp=sharing'  # hosted on GD
-cloud_explainer_location = '1WspVBYOLjmQHPusl6I8f2LkG_bO9QtG7?usp=sharing'  # hosted on GD
+cloud_model_location = '1WspVBYOLjmQHPusl6I8f2LkG_bO9QtG7'  # hosted on GD
+cloud_feature_location = '1WspVBYOLjmQHPusl6I8f2LkG_bO9QtG7'  # hosted on GD
 
 
 @st.cache(allow_output_mutation=True)
@@ -51,7 +51,7 @@ def load_model():
             gdd.download_file_from_google_drive(cloud_model_location, f_checkpoint)
     if not f_checkpoint1.exists():
         with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
-            gdd.download_file_from_google_drive(cloud_explainer_location, f_checkpoint1)
+            gdd.download_file_from_google_drive(cloud_feature_location, f_checkpoint1)
 
     model = joblib.load(f_checkpoint)
     features = joblib.load(f_checkpoint1)
