@@ -535,11 +535,12 @@ with st.beta_expander("See how the model was developed"):
                those predicted to have ssEPE by our model.""")
     st.markdown("""The incidence of ssEPE in the training and testing cohorts were 30.7 and 41.8%, respectively.\
      Our model outperformed the baseline model with a mean **AUROC of 0.81** vs 0.75 (p<0.01)\
-      and **mean AUPRC of 0.69** vs 0.60, respectively. Similarly, our model performed favourably on the external\
-       testing cohort with an **AUROC of 0.81** vs 0.76 (p=0.03) and **AUPRC of 0.78** vs 0.72. On decision curve\
-        analysis, our ML model achieved a higher net benefit than the baseline model for threshold probabilities\
-         between 0.15 to 0.65 (Figure 2). This translates to a **reduction in avoidable non-nerve-sparing radical\
-          prostatectomies by 10 vs 4 per 100 patients at a threshold value of 0.2**.""")
+      and **mean AUPRC of 0.69** vs 0.60, respectively, in the training cohort. Similarly, our model performed\
+       favourably on the external testing cohort with an **AUROC of 0.81** vs 0.76 (p=0.03) and\
+        **AUPRC of 0.78** vs 0.72. On decision curve analysis, our ML model achieved a higher net benefit than the\
+         baseline model for threshold probabilities between 0.15 to 0.65 (Figure 2). This translates to a\
+          **reduction in avoidable non-nerve-sparing radical prostatectomies by 10 vs 4 per 100 patients at\
+           a threshold value of 0.2**.""")
     st.write("""
                  """)
     colA, colB, colC = st.beta_columns([1, 1, 2])
