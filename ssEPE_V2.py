@@ -33,8 +33,6 @@ _max_width_()
 # Create a title for web app
 st.title('Side-specific extraprostatic extension (EPE) prediction')
 st.write('Determine probability of EPE in ipsilateral lobe using clinicopathological features and machine learning')
-st.write('Developed by: Jethro CC Kwong, Adree Khondker, Christopher Tran, Emily Evans, Amna Ali, Munir Jamal,\
- Thomas Short, Frank Papanikolaou, John R. Srigley, Andrew H. Feifer')
 
 # LOAD TRAINED MODEL
 cloud_model_location = '1WspVBYOLjmQHPusl6I8f2LkG_bO9QtG7'  # hosted on GD
@@ -566,6 +564,8 @@ st.text(" ")
 st.text(" ")
 st.text(" ")
 
+st.write('Developed by: Jethro CC Kwong, Adree Khondker, Christopher Tran, Emily Evans, Amna Ali, Munir Jamal,\
+ Thomas Short, Frank Papanikolaou, John R. Srigley, Andrew H. Feifer')
 
 
 # Display supporting institutions
