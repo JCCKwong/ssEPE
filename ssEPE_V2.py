@@ -65,7 +65,7 @@ def load_items():
 
 model, explainer = load_items()
 
-
+@st.cache()
 def load_images():
     # Load blank prostate and all colour coded sites as image objects
     image2 = PIL.Image.open('Images/Prostate diagram.png')
@@ -317,7 +317,8 @@ col1, col2 = st.beta_columns([1, 1.75])
 
 # SHAP plots under column 2
 col2.header('Model explanations')
-col2.write('Highlights which features have the greatest impact on the predicted probability of EPE')
+col2.write('The probability of ssEPE for each lobe is indicated in **bold**. \
+Each plot highlights which features have the greatest impact on the predicted probability of EPE')
 
 # SHAP plot for left lobe
 col2.subheader('Left lobe')
@@ -494,8 +495,8 @@ draw.text((1125, 690), tz_R, fill="black", font=font, align="center")
 col1.image(image2, use_column_width=True)
 
 # Display probability of EPE for left and right lobe
-col1.write('Probability of left EPE: ' + str(np.round_(prediction[:, 1], decimals=2))[1:-1])
-col1.write('Probability of right EPE: ' + str(np.round_(prediction_r[:, 1], decimals=2))[1:-1])
+#col1.write('Probability of left EPE: ' + str(np.round_(prediction[:, 1], decimals=2))[1:-1])
+#col1.write('Probability of right EPE: ' + str(np.round_(prediction_r[:, 1], decimals=2))[1:-1])
 
 # Display SHAP explanation
 with st.beta_expander("See how the model explanations were determined"):
