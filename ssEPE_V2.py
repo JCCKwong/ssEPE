@@ -68,7 +68,7 @@ model, explainer = load_model()
 def load_images():
     # Load blank prostate and all colour coded sites as image objects
     image2 = PIL.Image.open('Prostate diagram.png')
-    image_bl_G1 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason1.png')))
+    image_bl = PIL.ImageOps.grayscale(PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason1.png'))))
     image_ml_G1 = PIL.Image.open('Mid_Gleason1.png')
     image_al_G1 = PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason1.png'))
     image_tl_G1 = PIL.Image.open('TZ_Gleason1.png')
@@ -76,9 +76,9 @@ def load_images():
     image_mr_G1 = PIL.Image.open('Mid_Gleason1.png')
     image_ar_G1 = PIL.Image.open('Corner_Gleason1.png')
     image_tr_G1 = PIL.ImageOps.mirror(PIL.Image.open('TZ_Gleason1.png'))
-    return image2, image_bl_G1, image_ml_G1, image_al_G1, image_tl_G1, image_br_G1, image_mr_G1, image_ar_G1, image_tr_G1
+    return image2, image_bl, image_ml_G1, image_al_G1, image_tl_G1, image_br_G1, image_mr_G1, image_ar_G1, image_tr_G1
 
-image2, image_bl_G1, image_ml_G1, image_al_G1, image_tl_G1, image_br_G1, image_mr_G1, image_ar_G1, image_tr_G1 = load_images()
+image2, image_bl, image_ml_G1, image_al_G1, image_tl_G1, image_br_G1, image_mr_G1, image_ar_G1, image_tr_G1 = load_images()
 
 # Define choices and labels for feature inputs
 CHOICES = {0: 'No', 1: 'Yes'}
@@ -335,22 +335,19 @@ tz_R = str(G_CHOICES[get_user_input_r.t_findings_r]) + '\n'\
 # Set conditions to show colour coded site images based on Gleason Grade Group for each site
 draw = ImageDraw.Draw(image2)
 if get_user_input.b_findings==3:
-    image2.paste(image_bl_G1, (145, 958), mask=image_bl_G1)
+    bl = PIL.ImageOps.colorize(image_bl, black=(171, 255, 188), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(bl, (145, 958), mask=bl)
 if get_user_input.b_findings==4:
-    bl = PIL.ImageOps.grayscale(image_bl_G1)
-    bl = PIL.ImageOps.colorize(bl, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
+    bl = PIL.ImageOps.colorize(image_bl, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
     image2.paste(bl, (145, 958), mask=bl)
 if get_user_input.b_findings==5:
-    bl = PIL.ImageOps.grayscale(image_bl_G1)
-    bl = PIL.ImageOps.colorize(bl, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
+    bl = PIL.ImageOps.colorize(image_bl, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
     image2.paste(bl, (145, 958), mask=bl)
 if get_user_input.b_findings==6:
-    bl = PIL.ImageOps.grayscale(image_bl_G1)
-    bl = PIL.ImageOps.colorize(bl, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
+    bl = PIL.ImageOps.colorize(image_bl, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
     image2.paste(bl, (145, 958), mask=bl)
 if get_user_input.b_findings==7:
-    bl = PIL.ImageOps.grayscale(image_bl_G1)
-    bl = PIL.ImageOps.colorize(bl, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
+    bl = PIL.ImageOps.colorize(image_bl, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
     image2.paste(bl, (145, 958), mask=bl)
 
 """
