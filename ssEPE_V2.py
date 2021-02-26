@@ -45,7 +45,7 @@ def load_model():
     save_dest.mkdir(exist_ok=True)
     f_checkpoint = Path('model/XGB ssEPE model V3.pkl')
     f_checkpoint1 = Path('model/Features.pkl')
-    f_checkpoint2 = Path('model/explainer.pkl')
+    #f_checkpoint2 = Path('model/explainer.pkl')
     # download from GD if model or explainer not present
     if not f_checkpoint.exists():
         with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
@@ -53,14 +53,14 @@ def load_model():
     if not f_checkpoint1.exists():
         with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
             gdd.download_file_from_google_drive(cloud_feature_location, f_checkpoint1)
-    if not f_checkpoint2.exists():
-        with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
-            gdd.download_file_from_google_drive(cloud_explainer_location, f_checkpoint2)
+    #if not f_checkpoint2.exists():
+        #with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
+            #gdd.download_file_from_google_drive(cloud_explainer_location, f_checkpoint2)
 
     model = joblib.load(f_checkpoint)
-    #features = joblib.load(f_checkpoint1)
-    explainer = joblib.load(f_checkpoint2)
-    #explainer = shap.TreeExplainer(model, features, model_output='probability')
+    features = joblib.load(f_checkpoint1)
+    #explainer = joblib.load(f_checkpoint2)
+    explainer = shap.TreeExplainer(model, features, model_output='probability')
     return model, explainer
 
 model, explainer = load_model()
@@ -561,8 +561,3 @@ st.text(" ")
 
 st.write('Developed by: Jethro CC Kwong, Adree Khondker, Christopher Tran, Emily Evans, Amna Ali, Munir Jamal,\
  Thomas Short, Frank Papanikolaou, John R. Srigley, Andrew H. Feifer')
-
-# Display supporting institutions
-#st.header('')
-#image3 = PIL.Image.open('Supporting Institutions.png')
-#st.image(image3, use_column_width=False)
