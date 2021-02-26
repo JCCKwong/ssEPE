@@ -65,20 +65,21 @@ def load_model():
 
 model, explainer = load_model()
 
+@st.cache(allow_output_mutation=True)
 def load_images():
     # Load blank prostate and all colour coded sites as image objects
     image2 = PIL.Image.open('Prostate diagram.png')
     image_bl = PIL.ImageOps.grayscale(PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason1.png'))))
-    image_ml_G1 = PIL.Image.open('Mid_Gleason1.png')
-    image_al_G1 = PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason1.png'))
-    image_tl_G1 = PIL.Image.open('TZ_Gleason1.png')
-    image_br_G1 = PIL.ImageOps.flip(PIL.Image.open('Corner_Gleason1.png'))
-    image_mr_G1 = PIL.Image.open('Mid_Gleason1.png')
-    image_ar_G1 = PIL.Image.open('Corner_Gleason1.png')
-    image_tr_G1 = PIL.ImageOps.mirror(PIL.Image.open('TZ_Gleason1.png'))
-    return image2, image_bl, image_ml_G1, image_al_G1, image_tl_G1, image_br_G1, image_mr_G1, image_ar_G1, image_tr_G1
+    image_ml = PIL.ImageOps.grayscale(PIL.Image.open('Mid_Gleason1.png'))
+    image_al = PIL.ImageOps.grayscale(PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason1.png')))
+    image_tl = PIL.ImageOps.grayscale(PIL.Image.open('TZ_Gleason1.png'))
+    image_br = PIL.ImageOps.grayscale(PIL.ImageOps.flip(PIL.Image.open('Corner_Gleason1.png')))
+    image_mr = PIL.ImageOps.grayscale(PIL.Image.open('Mid_Gleason1.png'))
+    image_ar = PIL.ImageOps.grayscale(PIL.Image.open('Corner_Gleason1.png'))
+    image_tr = PIL.ImageOps.grayscale(PIL.ImageOps.mirror(PIL.Image.open('TZ_Gleason1.png')))
+    return image2, image_bl, image_ml, image_al, image_tl, image_br, image_mr, image_ar, image_tr
 
-image2, image_bl, image_ml_G1, image_al_G1, image_tl_G1, image_br_G1, image_mr_G1, image_ar_G1, image_tr_G1 = load_images()
+image2, image_bl, image_ml, image_al, image_tl, image_br, image_mr, image_ar, image_tr = load_images()
 
 # Define choices and labels for feature inputs
 CHOICES = {0: 'No', 1: 'Yes'}
@@ -350,84 +351,118 @@ if get_user_input.b_findings==7:
     bl = PIL.ImageOps.colorize(image_bl, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
     image2.paste(bl, (145, 958), mask=bl)
 
-"""
 if get_user_input.m_findings==3:
-    image2.paste(image_ml_G1, (145, 606), mask=image_ml_G1)
+    ml = PIL.ImageOps.colorize(image_ml, black=(171, 255, 188), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(ml, (145, 606), mask=ml)
 if get_user_input.m_findings==4:
-    image2.paste(image_ml_G2, (145, 606), mask=image_ml_G2)
+    ml = PIL.ImageOps.colorize(image_ml, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(ml, (145, 606), mask=ml)
 if get_user_input.m_findings==5:
-    image2.paste(image_ml_G3, (145, 606), mask=image_ml_G3)
+    ml = PIL.ImageOps.colorize(image_ml, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(ml, (145, 606), mask=ml)
 if get_user_input.m_findings==6:
-    image2.paste(image_ml_G4, (145, 606), mask=image_ml_G4)
+    ml = PIL.ImageOps.colorize(image_ml, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(ml, (145, 606), mask=ml)
 if get_user_input.m_findings==7:
-    image2.paste(image_ml_G5, (145, 606), mask=image_ml_G5)
+    ml = PIL.ImageOps.colorize(image_ml, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(ml, (145, 606), mask=ml)
 
 if get_user_input.a_findings==3:
-    image2.paste(image_al_G1, (145, 130), mask=image_al_G1)
+    al = PIL.ImageOps.colorize(image_al, black=(171, 255, 188), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(al, (145, 130), mask=al)
 if get_user_input.a_findings==4:
-    image2.paste(image_al_G2, (145, 130), mask=image_al_G2)
+    al = PIL.ImageOps.colorize(image_al, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(al, (145, 130), mask=al)
 if get_user_input.a_findings==5:
-    image2.paste(image_al_G3, (145, 130), mask=image_al_G3)
+    al = PIL.ImageOps.colorize(image_al, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(al, (145, 130), mask=al)
 if get_user_input.a_findings==6:
-    image2.paste(image_al_G4, (145, 130), mask=image_al_G4)
+    al = PIL.ImageOps.colorize(image_al, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(al, (145, 130), mask=al)
 if get_user_input.a_findings==7:
-    image2.paste(image_al_G5, (145, 130), mask=image_al_G5)
+    al = PIL.ImageOps.colorize(image_al, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(al, (145, 130), mask=al)
 
 if get_user_input.t_findings==3:
-    image2.paste(image_tl_G1, (665, 493), mask=image_tl_G1)
+    tl = PIL.ImageOps.colorize(image_tl, black=(171, 255, 188), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(tl, (665, 493), mask=tl)
 if get_user_input.t_findings==4:
-    image2.paste(image_tl_G2, (665, 493), mask=image_tl_G2)
+    tl = PIL.ImageOps.colorize(image_tl, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(tl, (665, 493), mask=tl)
 if get_user_input.t_findings==5:
-    image2.paste(image_tl_G3, (665, 493), mask=image_tl_G3)
+    tl = PIL.ImageOps.colorize(image_tl, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(tl, (665, 493), mask=tl)
 if get_user_input.t_findings==6:
-    image2.paste(image_tl_G4, (665, 493), mask=image_tl_G4)
+    tl = PIL.ImageOps.colorize(image_tl, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(tl, (665, 493), mask=tl)
 if get_user_input.t_findings==7:
-    image2.paste(image_tl_G5, (665, 493), mask=image_tl_G5)
+    tl = PIL.ImageOps.colorize(image_tl, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(tl, (665, 493), mask=tl)
 
 if get_user_input_r.b_findings_r==3:
-    image2.paste(image_br_G1,(1104,958), mask=image_br_G1)
+    br = PIL.ImageOps.colorize(image_br, black=(171, 255, 188), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(br,(1104,958), mask=br)
 if get_user_input_r.b_findings_r==4:
-    image2.paste(image_br_G2,(1104,958), mask=image_br_G2)
+    br = PIL.ImageOps.colorize(image_br, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(br, (1104, 958), mask=br)
 if get_user_input_r.b_findings_r==5:
-    image2.paste(image_br_G3,(1104,958), mask=image_br_G3)
+    br = PIL.ImageOps.colorize(image_br, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(br, (1104, 958), mask=br)
 if get_user_input_r.b_findings_r==6:
-    image2.paste(image_br_G4,(1104,958), mask=image_br_G4)
+    br = PIL.ImageOps.colorize(image_br, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(br, (1104, 958), mask=br)
 if get_user_input_r.b_findings_r==7:
-    image2.paste(image_br_G5,(1104,958), mask=image_br_G5)
+    br = PIL.ImageOps.colorize(image_br, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(br, (1104, 958), mask=br)
 
 if get_user_input_r.m_findings_r==3:
-    image2.paste(image_mr_G1, (1542, 606), mask=image_mr_G1)
+    mr = PIL.ImageOps.colorize(image_mr, black=(171, 255, 188), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(mr, (1542, 606), mask=mr)
 if get_user_input_r.m_findings_r==4:
-    image2.paste(image_mr_G2, (1542, 606), mask=image_mr_G2)
+    mr = PIL.ImageOps.colorize(image_mr, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(mr, (1542, 606), mask=mr)
 if get_user_input_r.m_findings_r==5:
-    image2.paste(image_mr_G3, (1542, 606), mask=image_mr_G3)
+    mr = PIL.ImageOps.colorize(image_mr, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(mr, (1542, 606), mask=mr)
 if get_user_input_r.m_findings_r==6:
-    image2.paste(image_mr_G4, (1542, 606), mask=image_mr_G4)
+    mr = PIL.ImageOps.colorize(image_mr, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(mr, (1542, 606), mask=mr)
 if get_user_input_r.m_findings_r==7:
-    image2.paste(image_mr_G5, (1542, 606), mask=image_mr_G5)
+    mr = PIL.ImageOps.colorize(image_mr, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(mr, (1542, 606), mask=mr)
 
 if get_user_input_r.a_findings_r==3:
-    image2.paste(image_ar_G1,(1104,130), mask=image_ar_G1)
+    ar = PIL.ImageOps.colorize(image_ar, black=(171, 255, 188), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(ar,(1104,130), mask=ar)
 if get_user_input_r.a_findings_r==4:
-    image2.paste(image_ar_G2,(1104,130), mask=image_ar_G2)
+    ar = PIL.ImageOps.colorize(image_ar, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(ar, (1104, 130), mask=ar)
 if get_user_input_r.a_findings_r==5:
-    image2.paste(image_ar_G3,(1104,130), mask=image_ar_G3)
+    ar = PIL.ImageOps.colorize(image_ar, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(ar, (1104, 130), mask=ar)
 if get_user_input_r.a_findings_r==6:
-    image2.paste(image_ar_G4,(1104,130), mask=image_ar_G4)
+    ar = PIL.ImageOps.colorize(image_ar, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(ar, (1104, 130), mask=ar)
 if get_user_input_r.a_findings_r==7:
-    image2.paste(image_ar_G5,(1104,130), mask=image_ar_G5)
+    ar = PIL.ImageOps.colorize(image_ar, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(ar, (1104, 130), mask=ar)
 
 if get_user_input_r.t_findings_r==3:
-    image2.paste(image_tr_G1, (1100, 493), mask=image_tr_G1)
+    tr = PIL.ImageOps.colorize(image_tr, black=(171, 255, 188), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(tr, (1100, 493), mask=tr)
 if get_user_input_r.t_findings_r==4:
-    image2.paste(image_tr_G2, (1100, 493), mask=image_tr_G2)
+    tr = PIL.ImageOps.colorize(image_tr, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(tr, (1100, 493), mask=tr)
 if get_user_input_r.t_findings_r==5:
-    image2.paste(image_tr_G3, (1100, 493), mask=image_tr_G3)
+    tr = PIL.ImageOps.colorize(image_tr, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(tr, (1100, 493), mask=tr)
 if get_user_input_r.t_findings_r==6:
-    image2.paste(image_tr_G4, (1100, 493), mask=image_tr_G4)
+    tr = PIL.ImageOps.colorize(image_tr, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(tr, (1100, 493), mask=tr)
 if get_user_input_r.t_findings_r==7:
-    image2.paste(image_tr_G5, (1100, 493), mask=image_tr_G5)
-"""
+    tr = PIL.ImageOps.colorize(image_tr, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(tr, (1100, 493), mask=tr)
+
 
 # Overlay text showing Gleason Grade Group, % positive cores, and % core involvement for each site
 draw.text((525, 1110), base_L, fill="black", font=font, align="center")
