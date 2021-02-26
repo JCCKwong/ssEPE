@@ -35,8 +35,8 @@ st.title('Side-specific extraprostatic extension (EPE) prediction')
 st.write('Determine probability of EPE in ipsilateral lobe using clinicopathological features and machine learning')
 
 # LOAD TRAINED MODEL
-cloud_model_location = '1WspVBYOLjmQHPusl6I8f2LkG_bO9QtG7'  # hosted on GD
-cloud_explainer_location = '1WspVBYOLjmQHPusl6I8f2LkG_bO9QtG7'  # hosted on GD
+cloud_model_location = '1WspVBYOLjmQHPusl6I8f2LkG_bO9QtG7?usp=sharing'  # hosted on GD
+cloud_explainer_location = '1WspVBYOLjmQHPusl6I8f2LkG_bO9QtG7?usp=sharing'  # hosted on GD
 
 
 @st.cache(allow_output_mutation=True)
@@ -55,11 +55,11 @@ def load_model():
 
     model = joblib.load(f_checkpoint)
     features = joblib.load(f_checkpoint1)
-    
-    return model, features
+    explainer = shap.TreeExplainer(model, features, model_output='probability')
+    return model, explainer
 
-model, features = load_model()
-explainer = shap.TreeExplainer(model, features, model_output='probability')
+model, explainer = load_model()
+
 
 def load_images():
     # Load blank prostate and all colour coded sites as image objects
