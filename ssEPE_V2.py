@@ -485,19 +485,23 @@ with st.beta_expander("See how model explanations were determined"):
              """)
     st.markdown("""Model explanations were calculated based on SHAP (SHapley Additive exPlanations) values,\
     originally developed by [Lundberg et al. (2006)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf).\
-    This is an additive feature attribution method that satisfies all three properties of explanation models: local accuracy, missingness, and consistency
-    Accuracy: the output of the explanation model must match the output of the original model for a given prediction
-    Missingness: when a feature is missing, it should have no impact on the model
-    Consistency: a feature’s assigned attribution must match its degree of importance in the original model\
+    This is an additive feature attribution method that satisfies all three properties of explanation models: local accuracy, missingness, and consistency.""")
+    st.write("""
+             """)
+    st.markdown("""Accuracy: the output of the explanation model must match the output of the original model for a given prediction""")
+    st.markdown("""Missingness: when a feature is missing, it should have no impact on the model""")
+    st.markdown("""Consistency: a feature’s assigned attribution must match its degree of importance in the original model\
     (ie: if overall – % tissue involvement has the highest attribution, it must also have the highest feature importance\
-    and the model must rely on this feature the most for a given prediction).
-    SHAP allows us to understand why our model made a given prediction by simplifying our complex model into a\
+    and the model must rely on this feature the most for a given prediction).""")
+    st.write("""
+             """)
+    st.markdown("""SHAP allows us to understand why our model made a given prediction by simplifying our complex model into a\
     linear function of binary variables. This approach has previously been implemented to improve understanding\
-    of [hypoxemia risk during anesthetic care](https://www.nature.com/articles/s41551-018-0304-0)
-    **Red bars**: Features that ***increase*** the risk of ssEPE 
-    **Blue bars**: Features that ***decrease*** the risk of ssEPE 
-    **Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE
-    """)
+    of [hypoxemia risk during anesthetic care](https://www.nature.com/articles/s41551-018-0304-0)""")
+    st.markdown("""**Red bars**: Features that ***increase*** the risk of ssEPE""")
+    st.markdown("""**Blue bars**: Features that ***decrease*** the risk of ssEPE""")
+    st.markdown("""**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE""")
+
 
 # Display user input for left and right lobe
 with st.beta_expander('User Input'):
