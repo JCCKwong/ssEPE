@@ -546,6 +546,8 @@ with st.beta_expander("See how the model was developed"):
         analysis, our ML model achieved a higher net benefit than the baseline model for threshold probabilities\
          between 0.15 to 0.65 (Figure 2). This translates to a **reduction in avoidable non-nerve-sparing radical\
           prostatectomies by 10 vs 4 per 100 patients at a threshold value of 0.2**.""")
+    st.write("""
+                 """)
     colA, colB, colC = st.beta_columns([1, 1, 2])
     ROC = PIL.Image.open('ROC.png')
     PRC = PIL.Image.open('PRC.png')
