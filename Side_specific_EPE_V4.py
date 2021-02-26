@@ -44,7 +44,7 @@ def load_model():
     save_dest = Path('model')
     save_dest.mkdir(exist_ok=True)
     f_checkpoint = Path('XGB ssEPE model V3.pkl')
-    f_checkpoint1 = Path('XGB ssEPE subset_features2.pkl')
+    f_checkpoint1 = Path('Features.pkl')
     # download from GD if model or explainer not present
     if not f_checkpoint.exists():
         with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
