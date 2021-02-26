@@ -323,7 +323,7 @@ features_list = ('Age',
                  'Mid % core involvement',
                  'Transition zone % core involvement')
 shap.force_plot(explainer.expected_value, shap_values, user_input, features_list, matplotlib=True, text_rotation=10)
-col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0)
+col2.pyplot(bbox_inches='tight', dpi=300, pad_inches=0)
 plt.clf()
 
 # SHAP plot for right lobe
@@ -341,7 +341,7 @@ features_list_r = ('Age',
                    'Mid % core involvement',
                    'Transition zone % core involvement')
 shap.force_plot(explainer.expected_value, shap_values_r, user_input_r, features_list_r, matplotlib=True, text_rotation=10)
-col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0)
+col2.pyplot(bbox_inches='tight', dpi=300, pad_inches=0)
 plt.clf()
 
 # Show annotated prostate diagram under column 2
