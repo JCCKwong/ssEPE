@@ -564,8 +564,7 @@ st.text(" ")
 st.text(" ")
 st.text(" ")
 
-st.write('Developed by: Jethro CC Kwong, Adree Khondker, Christopher Tran, Emily Evans, Amna Ali, Munir Jamal,\
- Thomas Short, Frank Papanikolaou, John R. Srigley, Andrew H. Feifer')
+#st.write('Developed by: Jethro CC Kwong, Adree Khondker, Christopher Tran, Emily Evans, Amna Ali, Munir Jamal, Thomas Short, Frank Papanikolaou, John R. Srigley, Andrew H. Feifer')
 
 # Display supporting institutions
 #st.header('')
