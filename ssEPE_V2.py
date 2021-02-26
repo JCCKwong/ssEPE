@@ -69,62 +69,16 @@ def load_images():
     # Load blank prostate and all colour coded sites as image objects
     image2 = PIL.Image.open('Prostate diagram.png')
     image_bl_G1 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason1.png')))
-    image_bl_G2 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason2.png')))
-    image_bl_G3 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason3.png')))
-    image_bl_G4 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason4.png')))
-    image_bl_G5 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason5.png')))
     image_ml_G1 = PIL.Image.open('Mid_Gleason1.png')
-    image_ml_G2 = PIL.Image.open('Mid_Gleason2.png')
-    image_ml_G3 = PIL.Image.open('Mid_Gleason3.png')
-    image_ml_G4 = PIL.Image.open('Mid_Gleason4.png')
-    image_ml_G5 = PIL.Image.open('Mid_Gleason5.png')
     image_al_G1 = PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason1.png'))
-    image_al_G2 = PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason2.png'))
-    image_al_G3 = PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason3.png'))
-    image_al_G4 = PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason4.png'))
-    image_al_G5 = PIL.ImageOps.mirror(PIL.Image.open('Corner_Gleason5.png'))
     image_tl_G1 = PIL.Image.open('TZ_Gleason1.png')
-    image_tl_G2 = PIL.Image.open('TZ_Gleason2.png')
-    image_tl_G3 = PIL.Image.open('TZ_Gleason3.png')
-    image_tl_G4 = PIL.Image.open('TZ_Gleason4.png')
-    image_tl_G5 = PIL.Image.open('TZ_Gleason5.png')
     image_br_G1 = PIL.ImageOps.flip(PIL.Image.open('Corner_Gleason1.png'))
-    image_br_G2 = PIL.ImageOps.flip(PIL.Image.open('Corner_Gleason2.png'))
-    image_br_G3 = PIL.ImageOps.flip(PIL.Image.open('Corner_Gleason3.png'))
-    image_br_G4 = PIL.ImageOps.flip(PIL.Image.open('Corner_Gleason4.png'))
-    image_br_G5 = PIL.ImageOps.flip(PIL.Image.open('Corner_Gleason5.png'))
     image_mr_G1 = PIL.Image.open('Mid_Gleason1.png')
-    image_mr_G2 = PIL.Image.open('Mid_Gleason2.png')
-    image_mr_G3 = PIL.Image.open('Mid_Gleason3.png')
-    image_mr_G4 = PIL.Image.open('Mid_Gleason4.png')
-    image_mr_G5 = PIL.Image.open('Mid_Gleason5.png')
     image_ar_G1 = PIL.Image.open('Corner_Gleason1.png')
-    image_ar_G2 = PIL.Image.open('Corner_Gleason2.png')
-    image_ar_G3 = PIL.Image.open('Corner_Gleason3.png')
-    image_ar_G4 = PIL.Image.open('Corner_Gleason4.png')
-    image_ar_G5 = PIL.Image.open('Corner_Gleason5.png')
     image_tr_G1 = PIL.ImageOps.mirror(PIL.Image.open('TZ_Gleason1.png'))
-    image_tr_G2 = PIL.ImageOps.mirror(PIL.Image.open('TZ_Gleason2.png'))
-    image_tr_G3 = PIL.ImageOps.mirror(PIL.Image.open('TZ_Gleason3.png'))
-    image_tr_G4 = PIL.ImageOps.mirror(PIL.Image.open('TZ_Gleason4.png'))
-    image_tr_G5 = PIL.ImageOps.mirror(PIL.Image.open('TZ_Gleason5.png'))
-    return image2, image_bl_G1, image_bl_G2, image_bl_G3, image_bl_G4, image_bl_G5,\
-    image_ml_G1, image_ml_G2, image_ml_G3, image_ml_G4, image_ml_G5,\
-    image_al_G1, image_al_G2, image_al_G3, image_al_G4, image_al_G5,\
-    image_tl_G1, image_tl_G2, image_tl_G3, image_tl_G4, image_tl_G5,\
-    image_br_G1, image_br_G2, image_br_G3, image_br_G4, image_br_G5,\
-    image_mr_G1, image_mr_G2, image_mr_G3, image_mr_G4, image_mr_G5,\
-    image_ar_G1, image_ar_G2, image_ar_G3, image_ar_G4, image_ar_G5,\
-    image_tr_G1, image_tr_G2, image_tr_G3, image_tr_G4, image_tr_G5
+    return image2, image_bl_G1, image_ml_G1, image_al_G1, image_tl_G1, image_br_G1, image_mr_G1, image_ar_G1, image_tr_G1
 
-image2, image_bl_G1, image_bl_G2, image_bl_G3, image_bl_G4, image_bl_G5,\
-    image_ml_G1, image_ml_G2, image_ml_G3, image_ml_G4, image_ml_G5,\
-    image_al_G1, image_al_G2, image_al_G3, image_al_G4, image_al_G5,\
-    image_tl_G1, image_tl_G2, image_tl_G3, image_tl_G4, image_tl_G5,\
-    image_br_G1, image_br_G2, image_br_G3, image_br_G4, image_br_G5,\
-    image_mr_G1, image_mr_G2, image_mr_G3, image_mr_G4, image_mr_G5,\
-    image_ar_G1, image_ar_G2, image_ar_G3, image_ar_G4, image_ar_G5,\
-    image_tr_G1, image_tr_G2, image_tr_G3, image_tr_G4, image_tr_G5 = load_images()
+image2, image_bl_G1, image_ml_G1, image_al_G1, image_tl_G1, image_br_G1, image_mr_G1, image_ar_G1, image_tr_G1 = load_images()
 
 # Define choices and labels for feature inputs
 CHOICES = {0: 'No', 1: 'Yes'}
@@ -383,7 +337,15 @@ draw = ImageDraw.Draw(image2)
 if get_user_input.b_findings==3:
     image2.paste(image_bl_G1, (145, 958), mask=image_bl_G1)
 if get_user_input.b_findings==4:
-    image2.paste(image_bl_G2, (145, 958), mask=image_bl_G2)
+    bl = image_bl_G1.getdata()
+    bl_image_data = []
+    for item in bl:
+        bl_image_data.append((255, 204, 100))
+    # update image data
+    bl.putdata(bl_image_data)
+    image2.paste(bl, (145, 958), mask=bl)
+
+"""
 if get_user_input.b_findings==5:
     image2.paste(image_bl_G3, (145, 958), mask=image_bl_G3)
 if get_user_input.b_findings==6:
@@ -467,6 +429,7 @@ if get_user_input_r.t_findings_r==6:
     image2.paste(image_tr_G4, (1100, 493), mask=image_tr_G4)
 if get_user_input_r.t_findings_r==7:
     image2.paste(image_tr_G5, (1100, 493), mask=image_tr_G5)
+"""
 
 # Overlay text showing Gleason Grade Group, % positive cores, and % core involvement for each site
 draw.text((525, 1110), base_L, fill="black", font=font, align="center")
