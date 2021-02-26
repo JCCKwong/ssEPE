@@ -338,17 +338,22 @@ if get_user_input.b_findings==3:
     image2.paste(image_bl_G1, (145, 958), mask=image_bl_G1)
 if get_user_input.b_findings==4:
     bl = PIL.ImageOps.grayscale(image_bl_G1)
-    bl = PIL.ImageOps.colorize(bl, black=(255, 251, 143), white="white", blackpoint=50).convert("RGBA")
+    bl = PIL.ImageOps.colorize(bl, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(bl, (145, 958), mask=bl)
+if get_user_input.b_findings==5:
+    bl = PIL.ImageOps.grayscale(image_bl_G1)
+    bl = PIL.ImageOps.colorize(bl, black=(255, 212, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(bl, (145, 958), mask=bl)
+if get_user_input.b_findings==6:
+    bl = PIL.ImageOps.grayscale(image_bl_G1)
+    bl = PIL.ImageOps.colorize(bl, black=(255, 185, 171), white="white", blackpoint=50).convert("RGBA")
+    image2.paste(bl, (145, 958), mask=bl)
+if get_user_input.b_findings==7:
+    bl = PIL.ImageOps.grayscale(image_bl_G1)
+    bl = PIL.ImageOps.colorize(bl, black=(255, 0, 0), white="white", blackpoint=50).convert("RGBA")
     image2.paste(bl, (145, 958), mask=bl)
 
 """
-if get_user_input.b_findings==5:
-    image2.paste(image_bl_G3, (145, 958), mask=image_bl_G3)
-if get_user_input.b_findings==6:
-    image2.paste(image_bl_G4, (145, 958), mask=image_bl_G4)
-if get_user_input.b_findings==7:
-    image2.paste(image_bl_G5, (145, 958), mask=image_bl_G5)
-
 if get_user_input.m_findings==3:
     image2.paste(image_ml_G1, (145, 606), mask=image_ml_G1)
 if get_user_input.m_findings==4:
