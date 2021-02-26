@@ -1,10 +1,22 @@
-# Description: This program predicts risk of side-specific extraprostatic extension
+"""DESCRIPTION
+This application predicts risk of side-specific extraprostatic extension (ssEPE) using clinicopathological features
+known prior to radical prostatectomy. The proposed use is for clinicians to input de-identified patient features and the
+model will output a probability of ssEPE for the left and right lobe. This can be used in the context of patient
+counselling or tailoring surgical strategy (ie: nerve-sparing).
 
-# Import the libraries
+Developed by: Jethro CC. Kwong (1,2), Adree Khondker (3), Christopher Tran (3), Emily Evans (3), Amna Ali (4),
+Munir Jamal (1), Thomas Short (1), Frank Papanikolaou (1), John R. Srigley (5), Andrew H. Feifer (1,4)
+
+(1) Division of Urology, Department of Surgery, University of Toronto, Toronto, ON, Canada
+(2) Temerty Centre for AI Research and Education in Medicine, University of Toronto, Toronto, Canada
+(3) Temerty Faculty of Medicine, University of Toronto, Toronto, ON, Canada
+(4) Institute for Better Health, Trillium Health Partners, Mississauga, ON, Canada
+(5) Department of Laboratory Medicine and Pathobiology, University of Toronto, Toronto, ON, Canada
+"""
+
+# Import packages and libraries
 import pandas as pd
-#import numpy as np
 import matplotlib.pyplot as plt
-#from pprint import pprint
 import PIL.Image
 import streamlit as st
 import shap
@@ -12,8 +24,6 @@ import joblib
 from pathlib import Path
 from google_drive_downloader import GoogleDriveDownloader as gdd
 from PIL import ImageFont, ImageDraw, ImageOps
-# Import ML model of choice
-#import xgboost as xgb
 
 
 # Default widescreen mode
@@ -35,13 +45,12 @@ _max_width_()
 
 # Create a title for web app
 st.title('Side-specific extraprostatic extension (ssEPE) prediction')
-st.write('Determine probability of ssEPE in ipsilateral lobe using clinicopathological features and interpretable \
+st.write('Determine the probability of ssEPE in the ipsilateral lobe using clinicopathological features and interpretable \
 machine learning')
 
-# LOAD SAVED ITEMS from Google Drive
+# Load saved items from Google Drive
 GD_model_location = '19d98z_Bql8fbOqDXLunW52F3umf0C5NR'
 GD_feature_location = '1oVdQS2g8hKh_CYC1182KNLkBXYkANLfx'
-
 
 @st.cache(allow_output_mutation=True)
 def load_items():
@@ -50,7 +59,7 @@ def load_items():
     f_checkpoint = Path('model/XGB ssEPE model V3.pkl')
     f_checkpoint1 = Path('model/Features.pkl')
 
-    # download from GD if model or explainer not present
+    # download from Google Drive if model or features are not present
     if not f_checkpoint.exists():
         with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
             gdd.download_file_from_google_drive(GD_model_location, f_checkpoint)
@@ -67,8 +76,8 @@ def load_items():
 model, explainer = load_items()
 
 
-def load_images():
-    # Load blank prostate and all colour coded sites as image objects
+# Load blank prostate and all colour coded sites as image objects from GitHub repository
+def load_images(): 
     image2 = PIL.Image.open('Images/Prostate diagram.png')
     image_bl_G1 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner_Gleason1.png')))
     image_bl_G2 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner_Gleason2.png')))
@@ -256,7 +265,7 @@ def get_user_input_r():
         tz_t_core_r = st.number_input('Transition zone # of cores taken', 0, 10, value=1, key=1)
         tz_p_inv_r = st.number_input('Transition zone % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=1)
 
-        # Group site findings into a list
+    # Group site findings into a list
     gleason_t_r = [base_findings_r, mid_findings_r, apex_findings_r, tz_findings_r]
 
     # Group % core involvements at each site into a list
@@ -310,8 +319,8 @@ def get_user_input_r():
 user_input_r = get_user_input_r()
 
 # Store the model predictions as a variable
-prediction = model.predict_proba(user_input)
-prediction_r = model.predict_proba(user_input_r)
+# = model.predict_proba(user_input)
+#prediction_r = model.predict_proba(user_input_r)
 
 # Create 2 columns, one to show SHAP plots, one to show annotated prostate diagram
 col1, col2 = st.beta_columns([1, 1.75])
@@ -562,7 +571,8 @@ with st.beta_expander("See how the model was developed"):
     colB.image(PRC, use_column_width=True)
     colC.image(DCA, use_column_width=True)
     st.write("""""")
-
+st.write("""""")
+st.write("""""")
 st.write('Developed by: Jethro CC. Kwong$^{1,2}$, Adree Khondker$^{3}$, Christopher Tran$^{3}$, Emily Evans$^{3}$,\
  Amna Ali$^{4}$, Munir Jamal$^{1}$, Thomas Short$^{1}$, Frank Papanikolaou$^{1}$,\
   John R. Srigley$^{5}$, Andrew H. Feifer$^{1,4}$')
