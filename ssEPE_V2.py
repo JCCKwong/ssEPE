@@ -338,10 +338,8 @@ if get_user_input.b_findings==3:
     image2.paste(image_bl_G1, (145, 958), mask=image_bl_G1)
 if get_user_input.b_findings==4:
     bl = image_bl_G1.convert("RGBA")
-    bl_data = bl.getdata()
-    bl_data.putdata([255, 204, 100])
-    bl.save("bl4.png")
-    bl = PIL.Image.open("bl4.png")
+    bl_data=(255, 204, 100, 0)
+    bl = PIL.Image.fromarray(bl_data, mode="RGBA")
     image2.paste(bl, (145, 958), mask=bl)
 
 """
