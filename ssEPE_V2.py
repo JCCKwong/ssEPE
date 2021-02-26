@@ -480,7 +480,7 @@ col1.write('Probability of left EPE: ' + str(np.round_(prediction[:,1], decimals
 col1.write('Probability of right EPE: ' + str(np.round_(prediction_r[:,1], decimals=2))[1:-1])
 
 # Display SHAP explanation
-with st.beta_expander("See how model explanations were determined"):
+with st.beta_expander("See how the model explanations were determined"):
     st.write("""
              """)
     st.markdown("""Model explanations were calculated based on SHAP (SHapley Additive exPlanations) values,\
@@ -502,6 +502,57 @@ with st.beta_expander("See how model explanations were determined"):
     st.markdown("""**Blue bars**: Features that ***decrease*** the risk of ssEPE""")
     st.markdown("""**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE""")
 
+with st.beta_expander("See how the model was developed"):
+    st.write("""
+             """)
+    st.markdown("""A retrospective sample of 900 prostatic lobes (450 patients) from RP specimens at\
+     Credit Valley Hospital, Mississauga, between 2010 and 2020, was used as the training cohort. Features\
+     (ie: variables) included patient demographics, clinical, sonographic, and site-specific data from\
+     transrectal ultrasound-guided prostate biopsy. The primary label (ie: outcome) of interest was the presence\
+     of EPE in the ipsilateral lobe of the prostatectomy specimen. All pathology was reviewed by a dedicated\
+    uro-pathologist. A previously developed [logistic regression model]\
+    (https://bjui-journals.onlinelibrary.wiley.com/doi/full/10.1111/bju.13733), which has the highest performance out of\
+     current predictive models for ssEPE, was used as the baseline model for comparison.""")
+    st.write("""
+             """)
+    st.markdown("""Dimensionality reduction was performed by removing highly correlated features\
+     (Pearson correlation > 0.8) and using a modified [Boruta](https://www.jstatsoft.org/article/view/v036i11/0)\
+      algorithm. This method involves fitting all features to a random forest model and determining feature importance\
+       by comparing the relevance of each feature to that of random noise. Given that our dataset contains both\
+        categorical and numerical features, SHAP was specifically selected in lieu of impurity-based measures\
+         to reduce bias towards high cardinality features.""")
+    st.write("""
+             """)
+    st.markdown("""Using the final set of the most important and independent features, a ten-fold stratified\
+     cross-validation method was performed to train a gradient-boosted model, optimize hyperparameters,\
+      and for internal validation. In stratified cross-validation, the training cohort was randomly partitioned\
+       into ten equal folds, with each fold containing the same percentage of positive ssEPE cases. Nine folds\
+        were used for model training and hyperparameter tuning while the remaining fold made up the validation cohort.\
+         This process was repeated ten times such that each fold served as the validation cohort once. Model\
+          performance was determined based on the average performance across all ten validation cohorts to improve\
+           generalizability of the models. All models were further externally validated using a testing cohort of\
+            122 lobes (61 patients) from RP specimens at Mississauga Hospital, Mississauga, between 2016 and 2020.\
+            Model performance was assessed by area under receiver-operating-characteristic curve (AUROC) and \
+             precision-recall curve (AUPRC) analysis. Clinical utility was determined by [decision curve analysis]\
+             (https://pubmed.ncbi.nlm.nih.gov/17099194/), in which the net benefit is plotted against various\
+              threshold probabilities for three different treatment strategies: treat all, treat none, and treat only\
+               those predicted to have ssEPE by our model.""")
+    st.write("""
+             """)
+    st.markdown("""The incidence of ssEPE in the training and testing cohorts were 30.7 and 41.8%, respectively.\
+     Our model outperformed the baseline model with a mean **AUROC of 0.81** vs 0.75 (p<0.01)\
+      and **mean AUPRC of 0.69** vs 0.60, respectively. Similarly, our model performed favourably on the external\
+       testing cohort with an **AUROC of 0.81** vs 0.76 (p=0.03) and **AUPRC of 0.78** vs 0.72. On decision curve\
+        analysis, our ML model achieved a higher net benefit than the baseline model for threshold probabilities\
+         between 0.15 to 0.65 (Figure 2). This translates to a **reduction in avoidable non-nerve-sparing radical\
+          prostatectomies by 10 vs 4 per 100 patients at a threshold value of 0.2**.""")
+    colA, colB, colC = st.beta_columns([1, 1, 2])
+    ROC = PIL.Image.open('ROC.png')
+    PRC = PIL.Image.open('PRC.png')
+    DCA = PIL.Image.open('DCA (XGB vs Sayyid).png')
+    colA.ImageDraw.Draw(ROC)
+    colB.ImageDraw.Draw(PRC)
+    colC.ImageDraw.Draw(DCA)
 
 # Display user input for left and right lobe
 with st.beta_expander('User Input'):
@@ -513,6 +564,6 @@ st.text(" ")
 st.text(" ")
 
 # Display supporting institutions
-st.header('')
-image3 = PIL.Image.open('Supporting Institutions.png')
-st.image(image3, use_column_width=False)
+#st.header('')
+#image3 = PIL.Image.open('Supporting Institutions.png')
+#st.image(image3, use_column_width=False)
