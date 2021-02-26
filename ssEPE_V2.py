@@ -34,8 +34,9 @@ def _max_width_():
 _max_width_()
 
 # Create a title for web app
-st.title('Side-specific extraprostatic extension (EPE) prediction')
-st.write('Determine probability of EPE in ipsilateral lobe using clinicopathological features and machine learning')
+st.title('Side-specific extraprostatic extension (ssEPE) prediction')
+st.write('Determine probability of ssEPE in ipsilateral lobe using clinicopathological features and interpretable \
+machine learning')
 
 # LOAD SAVED ITEMS from Google Drive
 GD_model_location = '19d98z_Bql8fbOqDXLunW52F3umf0C5NR'
@@ -65,7 +66,7 @@ def load_items():
 
 model, explainer = load_items()
 
-@st.cache()
+
 def load_images():
     # Load blank prostate and all colour coded sites as image objects
     image2 = PIL.Image.open('Images/Prostate diagram.png')
@@ -318,7 +319,7 @@ col1, col2 = st.beta_columns([1, 1.75])
 # SHAP plots under column 2
 col2.header('Model explanations')
 col2.write('The probability of ssEPE for each lobe is indicated in **bold**. \
-Each plot highlights which features have the greatest impact on the predicted probability of EPE')
+Each plot highlights which features have the greatest impact on the predicted probability of ssEPE')
 
 # SHAP plot for left lobe
 col2.subheader('Left lobe')
