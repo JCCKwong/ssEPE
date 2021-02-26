@@ -384,7 +384,7 @@ if get_user_input.a_findings==7:
     image2.paste(al, (145, 130), mask=al)
 
 if get_user_input.t_findings==3:
-    tl = PIL.ImageOps.colorize(image_tl, black=(171, 255, 188), white="white", blackpoint=50).putalpha(0)
+    tl = PIL.ImageOps.colorize(image_tl, black=(171, 255, 188), white="white", blackpoint=50).putalpha(0).convert("RGBA")
     image2.paste(tl, (665, 493), mask=tl)
 if get_user_input.t_findings==4:
     tl = PIL.ImageOps.colorize(image_tl, black=(255, 248, 171), white="white", blackpoint=50).convert("RGBA")
