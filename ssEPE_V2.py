@@ -493,8 +493,6 @@ with st.beta_expander("See how the model explanations were determined"):
     st.markdown("""SHAP allows us to understand why our model made a given prediction by simplifying our complex model into a\
     linear function of binary variables. This approach has previously been implemented to improve understanding\
     of [hypoxemia risk during anesthetic care](https://www.nature.com/articles/s41551-018-0304-0)""")
-    st.write("""
-                 """)
     st.markdown("""**Red bars**: Features that ***increase*** the risk of ssEPE""")
     st.markdown("""**Blue bars**: Features that ***decrease*** the risk of ssEPE""")
     st.markdown("""**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE""")
@@ -510,16 +508,12 @@ with st.beta_expander("See how the model was developed"):
     uro-pathologist. A previously developed [logistic regression model]\
     (https://bjui-journals.onlinelibrary.wiley.com/doi/full/10.1111/bju.13733), which has the highest performance out of\
      current predictive models for ssEPE, was used as the baseline model for comparison.""")
-    st.write("""
-             """)
     st.markdown("""Dimensionality reduction was performed by removing highly correlated features\
      (Pearson correlation > 0.8) and using a modified [Boruta](https://www.jstatsoft.org/article/view/v036i11/0)\
       algorithm. This method involves fitting all features to a random forest model and determining feature importance\
        by comparing the relevance of each feature to that of random noise. Given that our dataset contains both\
         categorical and numerical features, SHAP was specifically selected in lieu of impurity-based measures\
          to reduce bias towards high cardinality features.""")
-    st.write("""
-             """)
     st.markdown("""Using the final set of the most important and independent features, a ten-fold stratified\
      cross-validation method was performed to train a gradient-boosted model, optimize hyperparameters,\
       and for internal validation. In stratified cross-validation, the training cohort was randomly partitioned\
@@ -534,8 +528,6 @@ with st.beta_expander("See how the model was developed"):
              (https://pubmed.ncbi.nlm.nih.gov/17099194/), in which the net benefit is plotted against various\
               threshold probabilities for three different treatment strategies: treat all, treat none, and treat only\
                those predicted to have ssEPE by our model.""")
-    st.write("""
-             """)
     st.markdown("""The incidence of ssEPE in the training and testing cohorts were 30.7 and 41.8%, respectively.\
      Our model outperformed the baseline model with a mean **AUROC of 0.81** vs 0.75 (p<0.01)\
       and **mean AUPRC of 0.69** vs 0.60, respectively. Similarly, our model performed favourably on the external\
