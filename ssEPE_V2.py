@@ -630,7 +630,7 @@ with st.beta_expander("See how the model was developed"):
     st.write('This model was developed in accordance to the STREAM-URO framework (to-be published).')
     st.write("""""")
     stream_uro = pd.read_csv(r'Performance Metrics/ssEPE STREAM-URO.csv')
-    st.dataframe(stream_uro.style.hide_index())
+    st.table(stream_uro(stream_uro.style.hide_index()))
     st.write("""""")
 st.write("""""")
 st.write("""""")
