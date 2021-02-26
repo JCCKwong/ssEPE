@@ -61,7 +61,7 @@ def load_model():
 
 model, explainer = load_model()
 
-#@st.cache(allow_output_mutation=True)
+@st.cache(allow_output_mutation=False)
 def load_images():
     # Load blank prostate and all colour coded sites as image objects
     image2 = PIL.Image.open('Prostate diagram.png')
