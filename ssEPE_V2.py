@@ -35,25 +35,23 @@ st.title('Side-specific extraprostatic extension (EPE) prediction')
 st.write('Determine probability of EPE in ipsilateral lobe using clinicopathological features and machine learning')
 
 # LOAD TRAINED MODEL
-cloud_model_location = '1WspVBYOLjmQHPusl6I8f2LkG_bO9QtG7'  # hosted on GD
-cloud_feature_location = '1WspVBYOLjmQHPusl6I8f2LkG_bO9QtG7'  # hosted on GD
+cloud_model_location = '19d98z_Bql8fbOqDXLunW52F3umf0C5NR'  # hosted on GD
+cloud_feature_location = '1oVdQS2g8hKh_CYC1182KNLkBXYkANLfx'  # hosted on GD
 
 
 @st.cache(allow_output_mutation=True)
 def load_model():
     save_dest = Path('model')
     save_dest.mkdir(exist_ok=True)
-    f_checkpoint = gdd.download_file_from_google_drive(cloud_model_location, "XGB ssEPE model V3.pkl")
-    f_checkpoint1 = gdd.download_file_from_google_drive(cloud_feature_location, "Features.pkl")
-    #f_checkpoint = "XGB ssEPE model V3.pkl"
-    #f_checkpoint1 = "Features.pkl"
+    f_checkpoint = Path('XGB ssEPE model V3.pkl')
+    f_checkpoint1 = Path('Features.pkl')
     # download from GD if model or explainer not present
-    #if not f_checkpoint.exists():
-        #with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
-            #gdd.download_file_from_google_drive(cloud_model_location, f_checkpoint)
-    #if not f_checkpoint1.exists():
-        #with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
-            #gdd.download_file_from_google_drive(cloud_feature_location, f_checkpoint1)
+    if not f_checkpoint.exists():
+        with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
+            gdd.download_file_from_google_drive(cloud_model_location, f_checkpoint)
+    if not f_checkpoint1.exists():
+        with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
+            gdd.download_file_from_google_drive(cloud_feature_location, f_checkpoint1)
 
     model = joblib.load(f_checkpoint)
     features = joblib.load(f_checkpoint1)
@@ -61,7 +59,6 @@ def load_model():
     return model, explainer
 
 model, explainer = load_model()
-
 
 def load_images():
     # Load blank prostate and all colour coded sites as image objects
