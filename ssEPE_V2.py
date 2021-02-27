@@ -114,6 +114,7 @@ def load_items():
     save_dest.mkdir(exist_ok=True)
     f_checkpoint = Path('model/XGB ssEPE model V3.pkl')
     f_checkpoint1 = Path('model/Features.pkl')
+    f_checkpoint2 = Path('model/explainer.pkl')
 
     # download from Google Drive if model or features are not present
     if not f_checkpoint.exists():
@@ -125,8 +126,11 @@ def load_items():
 
     model = joblib.load(f_checkpoint)
     features = joblib.load(f_checkpoint1)
-    explainer = shap.TreeExplainer(model, features, model_output='probability')
-    return model, explainer
+    if not f_checkpoint2.exists():
+        explainer = shap.TreeExplainer(model, features, model_output='probability')
+        joblib.dump(explainer,f_checkpoint2)
+    explainer2 = joblib.load(f_checkpoint2)
+    return model, explainer2
 
 
 model, explainer = load_items()
@@ -619,7 +623,7 @@ with st.beta_expander("See how the model was developed"):
         **AUPRC of 0.78** vs 0.72. On decision curve analysis, our ML model achieved a higher net benefit than the\
          baseline model for threshold probabilities between 0.15 to 0.65 (Figure 2). This translates to a\
           **reduction in avoidable non-nerve-sparing radical prostatectomies by 10 vs 4 per 100 patients at\
-           a threshold probability of 0.2**.')
+           a threshold value of 0.2**.')
     st.write("""""")
     colA, colB, colC = st.beta_columns([1, 1, 2])
     ROC = PIL.Image.open('Performance Metrics/ROC.png')
