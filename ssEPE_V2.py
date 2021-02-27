@@ -404,7 +404,7 @@ features_list = ('Age',
                  'Mid % core involvement',
                  'Transition zone % core involvement')
 shap.force_plot(explainer.expected_value, shap_values, user_input, features_list, matplotlib=True, text_rotation=10)
-col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0)#, use_column_width=True)
+col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 plt.clf()
 
 # SHAP plot for right lobe
@@ -423,7 +423,7 @@ features_list_r = ('Age',
                    'Transition zone % core involvement')
 shap.force_plot(explainer.expected_value, shap_values_r, user_input_r, features_list_r, matplotlib=True,
                 text_rotation=10)
-col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0)#, use_column_width=True)
+col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 plt.clf()
 
 
@@ -560,7 +560,7 @@ draw.text((1300, 1110), base_R, fill="black", font=font, align="center")
 draw.text((1590, 690), mid_R, fill="black", font=font, align="center")
 draw.text((1300, 275), apex_R, fill="black", font=font, align="center")
 draw.text((1125, 690), tz_R, fill="black", font=font, align="center")
-col1.image(image2)#, use_column_width=True)
+col1.image(image2, use_column_width='auto')
 col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE.  \n'
            '**Blue bars**: Features that ***decrease*** the risk of ssEPE.  \n'
            '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE.')
@@ -625,9 +625,9 @@ with st.beta_expander("See how the model was developed"):
     ROC = PIL.Image.open('Performance Metrics/ROC.png')
     PRC = PIL.Image.open('Performance Metrics/PRC.png')
     DCA = PIL.Image.open('Performance Metrics/DCA.png')
-    colA.image(ROC)#, use_column_width=True)
-    colB.image(PRC)#, use_column_width=True)
-    colC.image(DCA)#, use_column_width=True)
+    colA.image(ROC, use_column_width='auto')
+    colB.image(PRC, use_column_width='auto')
+    colC.image(DCA, use_column_width='auto')
     st.write("""""")
     st.write('This model was developed in accordance to the STREAM-URO framework (see table below).')
     st.write("""""")
