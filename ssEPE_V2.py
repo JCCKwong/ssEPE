@@ -579,7 +579,7 @@ with st.beta_expander("See how the model explanations were determined"):
     and the model must rely on this feature the most for a given prediction).')
     st.write('SHAP allows us to understand why our model made a given prediction by simplifying our complex model into a\
     linear function of binary variables. This approach has previously been implemented to improve understanding\
-    of [hypoxemia risk during anesthetic care](https://www.nature.com/articles/s41551-018-0304-0)')
+    of [hypoxemia risk during anesthetic care](https://www.nature.com/articles/s41551-018-0304-0).')
     st.write("""""")
 
 with st.beta_expander("See how the model was developed"):
