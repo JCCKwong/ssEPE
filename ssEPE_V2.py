@@ -561,9 +561,9 @@ draw.text((1590, 690), mid_R, fill="black", font=font, align="center")
 draw.text((1300, 275), apex_R, fill="black", font=font, align="center")
 draw.text((1125, 690), tz_R, fill="black", font=font, align="center")
 col1.image(image2, use_column_width='auto')
-col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE.  \n'
-           '**Blue bars**: Features that ***decrease*** the risk of ssEPE.  \n'
-           '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE.')
+col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE  \n'
+           '**Blue bars**: Features that ***decrease*** the risk of ssEPE  \n'
+           '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE')
 
 # Display SHAP explanation
 with st.beta_expander("See how the model explanations were determined"):
