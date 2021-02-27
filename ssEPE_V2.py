@@ -385,9 +385,7 @@ col1, col2 = st.beta_columns([1, 1.75])
 col2.header('Model explanations')
 col2.write('The probability of ssEPE for each lobe is indicated in **bold**. \
 Each plot highlights which features have the greatest impact on the predicted probability of ssEPE')
-col2.write('**Red bars**: Features that ***increase*** the risk of ssEPE.  \n'
-           '**Blue bars**: Features that ***decrease*** the risk of ssEPE.  \n'
-           '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE.')
+
 
 # SHAP plot for left lobe
 col2.subheader('Left lobe')
@@ -427,6 +425,9 @@ shap.force_plot(explainer.expected_value, shap_values_r, user_input_r, features_
                 text_rotation=10)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width=True)
 plt.clf()
+col2.write('**Red bars**: Features that ***increase*** the risk of ssEPE.  \n'
+           '**Blue bars**: Features that ***decrease*** the risk of ssEPE.  \n'
+           '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE.')
 
 # Show annotated prostate diagram under column 2
 # Importing Image and ImageFont, ImageDraw module from PIL package
@@ -578,9 +579,6 @@ with st.beta_expander("See how the model explanations were determined"):
     st.write('SHAP allows us to understand why our model made a given prediction by simplifying our complex model into a\
     linear function of binary variables. This approach has previously been implemented to improve understanding\
     of [hypoxemia risk during anesthetic care](https://www.nature.com/articles/s41551-018-0304-0)')
-    st.write('**Red bars**: Features that ***increase*** the risk of ssEPE.  \n'
-             '**Blue bars**: Features that ***decrease*** the risk of ssEPE.  \n'
-             '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE.')
     st.write("""""")
 
 with st.beta_expander("See how the model was developed"):
