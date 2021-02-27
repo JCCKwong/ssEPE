@@ -1,5 +1,5 @@
-"""DESCRIPTION
-Development and external validation of an explainable machine learning model to predict risk of side-specific
+"""
+Title: Development and external validation of an explainable machine learning model to predict risk of side-specific
 extraprostatic extension in men with prostate cancer
 
 Developed by: Jethro CC. Kwong (1,2), Adree Khondker (3), Christopher Tran (3), Emily Evans (3), Amna Ali (4),
@@ -14,7 +14,7 @@ Munir Jamal (1), Thomas Short (1), Frank Papanikolaou (1), John R. Srigley (5), 
 This application predicts the risk of side-specific extraprostatic extension (ssEPE) using clinicopathological features
 known prior to radical prostatectomy. The proposed use is for clinicians to input de-identified patient features and the
 model will output a probability of ssEPE for the left and right lobe. This can be used in the context of patient
-counselling or tailoring surgical strategy (ie: nerve-sparing).
+counselling and/or for tailoring surgical strategy (ie: nerve-sparing).
 
 This model was developed in accordance to the STREAM-URO framework (to-be published)
 
