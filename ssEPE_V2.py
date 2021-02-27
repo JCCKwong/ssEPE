@@ -630,7 +630,7 @@ with st.beta_expander("See how the model was developed"):
     st.write('This model was developed in accordance to the STREAM-URO framework (to-be published).')
     st.write("""""")
     stream_uro = PIL.Image.open('Performance Metrics/ssEPE STREAM-URO.png')
-    st.image(stream_uro, use_column_width=True)
+    st.image(stream_uro, use_column_width=False)
     st.write("""""")
 st.write("""""")
 st.write("""""")
