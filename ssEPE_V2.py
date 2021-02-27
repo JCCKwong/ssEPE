@@ -385,6 +385,9 @@ col1, col2 = st.beta_columns([1, 1.75])
 col2.header('Model explanations')
 col2.write('The probability of ssEPE for each lobe is indicated in **bold**. \
 Each plot highlights which features have the greatest impact on the predicted probability of ssEPE')
+col2.write('**Red bars**: Features that ***increase*** the risk of ssEPE.  \n'
+           '**Blue bars**: Features that ***decrease*** the risk of ssEPE.  \n'
+           '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE.')
 
 # SHAP plot for left lobe
 col2.subheader('Left lobe')
