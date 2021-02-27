@@ -588,7 +588,7 @@ with st.beta_expander("See how the model explanations were determined"):
 
 with st.beta_expander("See how the model was developed"):
     st.write("""""")
-    st.write('A retrospective sample of 900 prostatic lobes (450 patients) from RP specimens at\
+    st.write('A retrospective sample of 900 prostatic lobes (450 patients) from radical prostatectomy (RP) specimens at\
      Credit Valley Hospital, Mississauga, between 2010 and 2020, was used as the training cohort. Features\
      (ie: variables) included patient demographics, clinical, sonographic, and site-specific data from\
      transrectal ultrasound-guided prostate biopsy. The primary label (ie: outcome) of interest was the presence\
@@ -620,7 +620,7 @@ with st.beta_expander("See how the model was developed"):
      Our model outperformed the baseline model with a mean **AUROC of 0.81** vs 0.75 (p<0.01)\
       and **mean AUPRC of 0.69** vs 0.60, respectively, in the training cohort. Similarly, our model performed\
        favourably on the external testing cohort with an **AUROC of 0.81** vs 0.76 (p=0.03) and\
-        **AUPRC of 0.78** vs 0.72. On decision curve analysis, our ML model achieved a higher net benefit than the\
+        **AUPRC of 0.78** vs 0.72. On decision curve analysis, our model achieved a higher net benefit than the\
          baseline model for threshold probabilities between 0.15 to 0.65 (Figure 2). This translates to a\
           **reduction in avoidable non-nerve-sparing radical prostatectomies by 36 vs 32 per 100 patients at\
            a threshold probability of 0.4**.')
