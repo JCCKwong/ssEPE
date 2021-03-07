@@ -618,7 +618,7 @@ with st.beta_expander("See how the model was developed"):
                against various threshold probabilities for three different treatment strategies: treat all, treat none,\
                 and treat only those predicted to have ssEPE by our model.')
     st.write('The incidence of ssEPE in the training and testing cohorts were 30.7 and 41.8%, respectively.\
-     Our model outperformed the baseline model with a mean **AUROC of 0.81** vs 0.75 (p<0.01)\
+     Our model outperformed the baseline model with a **mean AUROC of 0.81** vs 0.75 (p<0.01)\
       and **mean AUPRC of 0.69** vs 0.60, respectively, in the training cohort. Similarly, our model performed\
        favourably on the external testing cohort with an **AUROC of 0.81** vs 0.76 (p=0.03) and\
         **AUPRC of 0.78** vs 0.72. On decision curve analysis, our model achieved a higher net benefit than the\
