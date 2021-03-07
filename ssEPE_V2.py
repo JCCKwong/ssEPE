@@ -58,7 +58,8 @@ Model evaluation: The following performance metrics were used for cross-validati
                   on the testing cohort
                       1) Area under receiver-operating-characteristic curve (AUROC)
                       2) Area under precision-recall curve (AUPRC)
-                      3) Decision curve analysis and number of avoidable treatments per 100 patients
+                      3) Calibration curves
+                      4) Decision curve analysis and number of avoidable treatments per 100 patients
 Cross-validation: Ten-fold, stratified cross-validation
 Model interpretation: SHAP version 0.37.0
 Final model:
@@ -611,11 +612,11 @@ with st.beta_expander("See how the model was developed"):
           performance was determined based on the average performance across all ten validation cohorts to improve\
            generalizability of the models. All models were further externally validated using a testing cohort of\
             122 lobes (61 patients) from RP specimens at Mississauga Hospital, Mississauga, between 2016 and 2020.\
-            Model performance was assessed by area under receiver-operating-characteristic curve (AUROC) and \
-             precision-recall curve (AUPRC) analysis. Clinical utility was determined by [decision curve analysis]\
-             (https://pubmed.ncbi.nlm.nih.gov/17099194/), in which the net benefit is plotted against various\
-              threshold probabilities for three different treatment strategies: treat all, treat none, and treat only\
-               those predicted to have ssEPE by our model.')
+            Model performance was assessed by area under receiver-operating-characteristic curve (AUROC),\
+             precision-recall curve (AUPRC), and calibration curve analysis. Clinical utility was determined by\
+              [decision curve analysis](https://pubmed.ncbi.nlm.nih.gov/17099194/), in which the net benefit is plotted\
+               against various threshold probabilities for three different treatment strategies: treat all, treat none,\
+                and treat only those predicted to have ssEPE by our model.')
     st.write('The incidence of ssEPE in the training and testing cohorts were 30.7 and 41.8%, respectively.\
      Our model outperformed the baseline model with a mean **AUROC of 0.81** vs 0.75 (p<0.01)\
       and **mean AUPRC of 0.69** vs 0.60, respectively, in the training cohort. Similarly, our model performed\
@@ -625,13 +626,21 @@ with st.beta_expander("See how the model was developed"):
           **reduction in avoidable non-nerve-sparing radical prostatectomies by 36 vs 32 per 100 patients at\
            a threshold probability of 0.4**.')
     st.write("""""")
-    colA, colB, colC = st.beta_columns([1, 1, 2])
-    ROC = PIL.Image.open('Performance Metrics/ROC.png')
-    PRC = PIL.Image.open('Performance Metrics/PRC.png')
+    colA, colB, colC = st.beta_columns([1, 1, 1])
+    ROC_train = PIL.Image.open('Performance Metrics/ROC_train.png')
+    ROC_test = PIL.Image.open('Performance Metrics/ROC_test.png')
+    PRC_train = PIL.Image.open('Performance Metrics/PRC_train.png')
+    PRC_test = PIL.Image.open('Performance Metrics/PRC_test.png')
+    Cal_train = PIL.Image.open('Performance metrics/Calibration_train.png')
+    Cal_test = PIL.Image.open('Performance metrics/Calibration_test.png')
     DCA = PIL.Image.open('Performance Metrics/DCA.png')
-    colA.image(ROC, use_column_width='auto')
-    colB.image(PRC, use_column_width='auto')
-    colC.image(DCA, use_column_width='auto')
+    colA.image(ROC_train, use_column_width='auto')
+    colA.image(ROC_test, use_column_width='auto')
+    colB.image(PRC_train, use_column_width='auto')
+    colB.image(PRC_test, use_column_width='auto')
+    colC.image(Cal_train, use_column_width='auto')
+    colC.image(Cal_test, use_column_width='auto')
+    st.image(DCA, width=500)
     st.write("""""")
     st.write('This model was developed in accordance to the STREAM-URO framework (see table below).')
     st.write("""""")
