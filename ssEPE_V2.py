@@ -180,14 +180,14 @@ def load_images():
     image_tr_G3 = PIL.ImageOps.mirror(PIL.Image.open('Images/TZ_Gleason3.png'))
     image_tr_G4 = PIL.ImageOps.mirror(PIL.Image.open('Images/TZ_Gleason4.png'))
     image_tr_G5 = PIL.ImageOps.mirror(PIL.Image.open('Images/TZ_Gleason5.png'))
-    ROC_train = PIL.Image.open('Performance Metrics/ROC train.png')
-    ROC_test = PIL.Image.open('Performance Metrics/ROC test.png')
-    PRC_train = PIL.Image.open('Performance Metrics/PRC train.png')
-    PRC_test = PIL.Image.open('Performance Metrics/PRC test.png')
-    Cal_train = PIL.Image.open('Performance Metrics/Calibration train.png')
-    Cal_test = PIL.Image.open('Performance Metrics/Calibration test.png')
+    #ROC_train = PIL.Image.open('Performance Metrics/ROC train.png')
+    #ROC_test = PIL.Image.open('Performance Metrics/ROC test.png')
+    #PRC_train = PIL.Image.open('Performance Metrics/PRC train.png')
+    #PRC_test = PIL.Image.open('Performance Metrics/PRC test.png')
+    #Cal_train = PIL.Image.open('Performance Metrics/Calibration train.png')
+    #Cal_test = PIL.Image.open('Performance Metrics/Calibration test.png')
     DCA = PIL.Image.open('Performance Metrics/DCA.png')
-    metrics = PIL.Image.open('Performance Metrics/AUROC, AUPRC, Calibration.svg')
+    metrics = PIL.Image.open('Performance Metrics/AUROC, AUPRC, Calibration.png')
     return image2, image_bl_G1, image_bl_G2, image_bl_G3, image_bl_G4, image_bl_G5, \
            image_ml_G1, image_ml_G2, image_ml_G3, image_ml_G4, image_ml_G5, \
            image_al_G1, image_al_G2, image_al_G3, image_al_G4, image_al_G5, \
@@ -196,7 +196,7 @@ def load_images():
            image_mr_G1, image_mr_G2, image_mr_G3, image_mr_G4, image_mr_G5, \
            image_ar_G1, image_ar_G2, image_ar_G3, image_ar_G4, image_ar_G5, \
            image_tr_G1, image_tr_G2, image_tr_G3, image_tr_G4, image_tr_G5, \
-           ROC_train, ROC_test, PRC_train, PRC_test, Cal_train, Cal_test, DCA, metrics
+           DCA, metrics
 
 
 image2, image_bl_G1, image_bl_G2, image_bl_G3, image_bl_G4, image_bl_G5, \
@@ -207,7 +207,7 @@ image_br_G1, image_br_G2, image_br_G3, image_br_G4, image_br_G5, \
 image_mr_G1, image_mr_G2, image_mr_G3, image_mr_G4, image_mr_G5, \
 image_ar_G1, image_ar_G2, image_ar_G3, image_ar_G4, image_ar_G5, \
 image_tr_G1, image_tr_G2, image_tr_G3, image_tr_G4, image_tr_G5, \
-ROC_train, ROC_test, PRC_train, PRC_test, Cal_train, Cal_test, DCA, metrics = load_images()
+DCA, metrics = load_images()
 
 # Define choices and labels for feature inputs
 CHOICES = {0: 'No', 1: 'Yes'}
@@ -639,22 +639,22 @@ with st.beta_expander("See how the model was developed"):
 
     # Performance metric figures
     st.image(metrics, use_column_width='auto')
-    """
-    colA, colB, colC = st.beta_columns([1, 1, 1])
-    ROC_train = PIL.Image.open('Performance Metrics/ROC train.png')
-    ROC_test = PIL.Image.open('Performance Metrics/ROC test.png')
-    PRC_train = PIL.Image.open('Performance Metrics/PRC train.png')
-    PRC_test = PIL.Image.open('Performance Metrics/PRC test.png')
-    Cal_train = PIL.Image.open('Performance Metrics/Calibration train.png')
-    Cal_test = PIL.Image.open('Performance Metrics/Calibration test.png')
-    DCA = PIL.Image.open('Performance Metrics/DCA.png')
-    colA.image(ROC_train, use_column_width='auto')
-    colA.image(ROC_test, use_column_width='auto')
-    colB.image(PRC_train, use_column_width='auto')
-    colB.image(PRC_test, use_column_width='auto')
-    colC.image(Cal_train, use_column_width='auto')
-    colC.image(Cal_test, use_column_width='auto')
-    """
+    
+    #colA, colB, colC = st.beta_columns([1, 1, 1])
+    #ROC_train = PIL.Image.open('Performance Metrics/ROC train.png')
+    #ROC_test = PIL.Image.open('Performance Metrics/ROC test.png')
+    #PRC_train = PIL.Image.open('Performance Metrics/PRC train.png')
+    #PRC_test = PIL.Image.open('Performance Metrics/PRC test.png')
+    #Cal_train = PIL.Image.open('Performance Metrics/Calibration train.png')
+    #Cal_test = PIL.Image.open('Performance Metrics/Calibration test.png')
+    #DCA = PIL.Image.open('Performance Metrics/DCA.png')
+    #colA.image(ROC_train, use_column_width='auto')
+    #colA.image(ROC_test, use_column_width='auto')
+    #colB.image(PRC_train, use_column_width='auto')
+    #colB.image(PRC_test, use_column_width='auto')
+    #colC.image(Cal_train, use_column_width='auto')
+    #colC.image(Cal_test, use_column_width='auto')
+    
     st.image(DCA, width=500)
     st.write("""""")
     st.write('This model was developed in accordance to the STREAM-URO framework (see table below).')
