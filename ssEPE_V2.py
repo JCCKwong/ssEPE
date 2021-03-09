@@ -639,17 +639,17 @@ with st.beta_expander("See how the model was developed"):
     # Performance metric figures
     my_dpi = 300
     performance_metrics = plt.figure(dpi=my_dpi)#, figsize=(6, 6)
-    ax1 = fig.add_subplot(2, 3, 1)
+    ax1 = performance_metrics.add_subplot(2, 3, 1)
     ax1.imshow(ROC_train)
-    ax2 = fig.add_subplot(2, 3, 2)
+    ax2 = performance_metrics.add_subplot(2, 3, 2)
     ax2.imshow(PRC_train)
-    ax3 = fig.add_subplot(2, 3, 3)
+    ax3 = performance_metrics.add_subplot(2, 3, 3)
     ax3.imshow(Cal_train)
-    ax4 = fig.add_subplot(2, 3, 4)
+    ax4 = performance_metrics.add_subplot(2, 3, 4)
     ax4.imshow(ROC_test)
-    ax5 = fig.add_subplot(2, 3, 5)
+    ax5 = performance_metrics.add_subplot(2, 3, 5)
     ax5.imshow(PRC_test)
-    ax6 = fig.add_subplot(2, 3, 6)
+    ax6 = performance_metrics.add_subplot(2, 3, 6)
     ax6.imshow(Cal_test)
     st.image(performance_metrics, use_column_width='auto')
 
