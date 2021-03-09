@@ -187,7 +187,7 @@ def load_images():
     #Cal_train = PIL.Image.open('Performance Metrics/Calibration train.png')
     #Cal_test = PIL.Image.open('Performance Metrics/Calibration test.png')
     DCA = PIL.Image.open('Performance Metrics/DCA.png')
-    metrics = PIL.Image.open('Performance Metrics/AUROC, AUPRC, Calibration.png')
+    metrics = PIL.Image.open('Performance Metrics/AUROC, AUPRC, Calibration.eps')
     return image2, image_bl_G1, image_bl_G2, image_bl_G3, image_bl_G4, image_bl_G5, \
            image_ml_G1, image_ml_G2, image_ml_G3, image_ml_G4, image_ml_G5, \
            image_al_G1, image_al_G2, image_al_G3, image_al_G4, image_al_G5, \
@@ -639,7 +639,7 @@ with st.beta_expander("See how the model was developed"):
 
     # Performance metric figures
     st.image(metrics, use_column_width='auto')
-    
+
     #colA, colB, colC = st.beta_columns([1, 1, 1])
     #ROC_train = PIL.Image.open('Performance Metrics/ROC train.png')
     #ROC_test = PIL.Image.open('Performance Metrics/ROC test.png')
@@ -654,7 +654,7 @@ with st.beta_expander("See how the model was developed"):
     #colB.image(PRC_test, use_column_width='auto')
     #colC.image(Cal_train, use_column_width='auto')
     #colC.image(Cal_test, use_column_width='auto')
-    
+
     st.image(DCA, width=500)
     st.write("""""")
     st.write('This model was developed in accordance to the STREAM-URO framework (see table below).')
