@@ -651,7 +651,7 @@ with st.beta_expander("See how the model was developed"):
     ax5.imshow(PRC_test)
     ax6 = performance_metrics.add_subplot(2, 3, 6)
     ax6.imshow(Cal_test)
-    st.image(performance_metrics, use_column_width='auto')
+    st.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
     """
     colA, colB, colC = st.beta_columns([1, 1, 1])
