@@ -638,7 +638,7 @@ with st.beta_expander("See how the model was developed"):
     st.write("""""")
 
     # Performance metric figures
-    st.image(metrics)
+    st.image(metrics, use_column_width='auto')
     """
     colA, colB, colC = st.beta_columns([1, 1, 1])
     ROC_train = PIL.Image.open('Performance Metrics/ROC train.png')
