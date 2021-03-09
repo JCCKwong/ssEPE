@@ -187,7 +187,7 @@ def load_images():
     Cal_train = PIL.Image.open('Performance Metrics/Calibration train.png')
     Cal_test = PIL.Image.open('Performance Metrics/Calibration test.png')
     DCA = PIL.Image.open('Performance Metrics/DCA.png')
-    metrics = PIL.Image.open('Performance Metrics/AUROC, AUPRC, Calibration.png')
+    metrics = PIL.Image.open('Performance Metrics/AUROC, AUPRC, Calibration.svg')
     return image2, image_bl_G1, image_bl_G2, image_bl_G3, image_bl_G4, image_bl_G5, \
            image_ml_G1, image_ml_G2, image_ml_G3, image_ml_G4, image_ml_G5, \
            image_al_G1, image_al_G2, image_al_G3, image_al_G4, image_al_G5, \
