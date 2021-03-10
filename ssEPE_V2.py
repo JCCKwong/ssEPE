@@ -638,8 +638,8 @@ with st.beta_expander("See how the model was developed"):
     st.write("""""")
 
     # Performance metric figures
-    st.image(ROC_train, ROC_test, Cal_train, Cal_test, use_column_width='auto')
-    st.image(PRC_train, PRC_test, DCA, use_column_width='auto')
+    st.image(ROC_train, ROC_test, Cal_train, Cal_test)
+    st.image(PRC_train, PRC_test, DCA)
 
     #colA, colB, colC = st.beta_columns([1, 1, 1])
     #ROC_train = PIL.Image.open('Performance Metrics/ROC train.png')
@@ -656,7 +656,7 @@ with st.beta_expander("See how the model was developed"):
     #colC.image(Cal_train, use_column_width='auto')
     #colC.image(Cal_test, use_column_width='auto')
 
-    st.image(DCA, width=500)
+    #st.image(DCA, width=500)
     st.write("""""")
     st.write('This model was developed in accordance to the STREAM-URO framework (see table below).')
     st.write("""""")
