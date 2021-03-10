@@ -654,8 +654,9 @@ with st.beta_expander("See how the model was developed"):
     colB.image(PRC_train, use_column_width='auto')
     colB.image(PRC_test, use_column_width='auto')
     colC.image(Cal_train, use_column_width='auto')
+    colC.write("""""")
     colC.image(Cal_test, use_column_width='auto')
-    
+
     colD, colE = st.beta_columns([2, 1])
     colD.image(DCA, use_column_width='auto')
     st.write("""""")
