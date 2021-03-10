@@ -636,7 +636,7 @@ with st.beta_expander("See how the model was developed"):
     st.write("""""")
     st.write('This model was developed in accordance to the STREAM-URO framework (see table below).')
     st.write("""""")
-    st.image(stream_uro, width=700)
+    st.image(stream_uro)
     st.write("""""")
 st.write("""""")
 st.write("""""")
