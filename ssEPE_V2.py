@@ -655,9 +655,11 @@ with st.beta_expander("See how the model was developed"):
     colB.image(PRC_test, use_column_width='auto')
     colC.image(Cal_train, use_column_width='auto')
     colC.write("""""")
+    colC.write("""""")
+    colC.write("""""")
     colC.image(Cal_test, use_column_width='auto')
 
-    colD, colE = st.beta_columns([2, 1])
+    colD, colE = st.beta_columns([3, 2])
     colD.image(DCA, use_column_width='auto')
     st.write("""""")
     st.write('This model was developed in accordance to the STREAM-URO framework (see table below).')
