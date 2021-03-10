@@ -641,7 +641,7 @@ with st.beta_expander("See how the model was developed"):
     #st.image([ROC_train, ROC_test, Cal_train, Cal_test], use_column_width=True)
     #st.image([PRC_train, PRC_test, DCA], use_column_width=True)
 
-    colA, colB, colC = st.beta_columns([1, 1, 2])
+    colA, colB, colC, colD = st.beta_columns([1, 1, 1, 1])
     #ROC_train = PIL.Image.open('Performance Metrics/ROC train.png')
     #ROC_test = PIL.Image.open('Performance Metrics/ROC test.png')
     #PRC_train = PIL.Image.open('Performance Metrics/PRC train.png')
@@ -653,8 +653,9 @@ with st.beta_expander("See how the model was developed"):
     colA.image(PRC_train, use_column_width='auto')
     colB.image(ROC_test, use_column_width='auto')
     colB.image(PRC_test, use_column_width='auto')
-    colC.image([Cal_train, Cal_test], use_column_width='auto')
+    colC.image(Cal_train, use_column_width='auto')
     colC.image(DCA, use_column_width='auto')
+    colD.image(Cal_test, use_column_width='auto')
 
     #st.image(DCA, width=500)
     st.write("""""")
