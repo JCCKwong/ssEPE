@@ -128,7 +128,8 @@ def load_items():
     model = joblib.load(f_checkpoint)
     features = joblib.load(f_checkpoint1)
     if not f_checkpoint2.exists():
-        explainer = shap.TreeExplainer(model, features, model_output='probability')
+        explainer = shap.TreeExplainer(model)
+        #explainer = shap.TreeExplainer(model, features, model_output='probability')
         joblib.dump(explainer,f_checkpoint2)
     explainer2 = joblib.load(f_checkpoint2)
     return model, explainer2
@@ -412,7 +413,8 @@ features_list = ('Age',
                  'Base % core involvement',
                  'Mid % core involvement',
                  'Transition zone % core involvement')
-shap.force_plot(explainer.expected_value, shap_values, user_input, features_list, matplotlib=True, text_rotation=10)
+shap.force_plot(explainer.expected_value, shap_values, features_list, text_rotation=10, plot_cmap=['#e50000','#0343df'])
+#shap.force_plot(explainer.expected_value, shap_values, user_input, features_list, matplotlib=True, text_rotation=10)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 plt.clf()
 
