@@ -418,7 +418,8 @@ features_list = ('Age',
                  'Mid % core involvement',
                  'Transition zone % core involvement')
 with col2:
-    st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], user_input.iloc[0,:], text_rotation=10, plot_cmap=['#e50000','#0343df']))
+    st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], user_input.iloc[0,:], text_rotation=10,
+                            plot_cmap=['#e50000','#0343df'], matplotlib=True))
 #shap.force_plot(explainer.expected_value, shap_values, user_input, features_list, matplotlib=True, text_rotation=10)
 #col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 #plt.clf()
