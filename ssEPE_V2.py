@@ -400,7 +400,7 @@ Each plot highlights which features have the greatest impact on the predicted pr
 # SHAP plot for left lobe
 col2.subheader('Left lobe')
 st.set_option('deprecation.showPyplotGlobalUse', False)
-# shap.initjs()
+shap.initjs()
 shap_values = explainer.shap_values(user_input)
 features_list = ('Age',
                  'PSA',
