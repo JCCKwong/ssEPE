@@ -415,7 +415,7 @@ features_list = ('Age',
                  'Transition zone % core involvement')
 shap.force_plot(explainer.expected_value, shap_values, user_input, features_list, text_rotation=10,
                 plot_cmap=['#e50000','#0343df'], matplotlib=True)
-col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto', facecolor=['#e50000','#0343df'])
+col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 plt.clf()
 
 # SHAP plot for right lobe
