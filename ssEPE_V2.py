@@ -398,10 +398,6 @@ Each plot highlights which features have the greatest impact on the predicted pr
 
 
 # SHAP plot for left lobe
-import streamlit.components.v1 as components
-def st_shap(plot, height=None):
-    shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
-    components.html(shap_html, height=height)
 col2.subheader('Left lobe')
 st.set_option('deprecation.showPyplotGlobalUse', False)
 # shap.initjs()
@@ -417,12 +413,10 @@ features_list = ('Age',
                  'Base % core involvement',
                  'Mid % core involvement',
                  'Transition zone % core involvement')
-with col2:
-    st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], user_input.iloc[0,:], text_rotation=10,
-                            plot_cmap=['#e50000','#0343df']))
-#shap.force_plot(explainer.expected_value, shap_values, user_input, features_list, matplotlib=True, text_rotation=10)
-#col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-#plt.clf()
+shap.force_plot(explainer.expected_value, shap_values, user_input, features_list, text_rotation=10,
+                plot_cmap=['#e50000','#0343df'], matplotlib=False, show=True)
+col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+plt.clf()
 
 # SHAP plot for right lobe
 col2.subheader('Right lobe')
