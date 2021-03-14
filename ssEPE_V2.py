@@ -580,7 +580,7 @@ col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE  \n'
 with st.beta_expander("See how the model explanations were determined"):
     st.write("""""")
     st.write('Model explanations were calculated based on SHAP (SHapley Additive exPlanations) values,\
-    originally developed by [Lundberg et al. (2006)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf).\
+    originally developed by [Lundberg and Lee (2017)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf).\
     This is an additive feature attribution method that satisfies all three properties of explanation models: local accuracy, missingness, and consistency.')
     st.write('**Accuracy**: the output of the explanation model must match the output of the original model for a\
      given prediction.  \n'
