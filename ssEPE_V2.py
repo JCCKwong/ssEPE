@@ -58,13 +58,13 @@ Model evaluation: The following performance metrics were used for cross-validati
                   on the testing cohort
                       1) Area under receiver-operating-characteristic curve (AUROC)
                       2) Area under precision-recall curve (AUPRC)
-                      3) Calibration curves
+                      3) Calibration curve
                       4) Decision curve analysis and number of avoidable treatments per 100 patients
 Cross-validation: Ten-fold, stratified cross-validation
 Model interpretation: SHAP version 0.37.0
 Final model:
     Model: XGBoost classifier
-    Hyperparameters: n_estimators=894, max_depth=9, learning_rate=0.08, base_score=0.307, colsample_bylevel=0.1,
+    Hyperparameters: n_estimators=831, max_depth=10, learning_rate=0.06, base_score=0.307, colsample_bylevel=0.1,
                      colsample_bynode: 0.1, colsample_bytree=0.3
     Features: Age, PSA, perineural invasion, worst Gleason Grade Group, maximum % core involvement, % positive cores,
               % Gleason pattern 4/5, base findings, base % core involvement, mid % core involvement, transition zone
@@ -625,12 +625,12 @@ with st.beta_expander("See how the model was developed"):
                 and treat only those predicted to have ssEPE by our model.')
     st.write('The incidence of ssEPE in the training and testing cohorts were 30.7 and 41.8%, respectively.\
      Our model outperformed the baseline model with a **mean AUROC of 0.81** vs 0.75 (p<0.01)\
-      and **mean AUPRC of 0.69** vs 0.60, respectively, in the training cohort. Similarly, our model performed\
-       favourably on the external testing cohort with an **AUROC of 0.81** vs 0.76 (p=0.03) and\
+      and **mean AUPRC of 0.68** vs 0.60, respectively, on cross-validation of the training cohort. Similarly, our\
+       model performed favourably on the external testing cohort with an **AUROC of 0.81** vs 0.76 (p=0.03) and\
         **AUPRC of 0.78** vs 0.72. On decision curve analysis, our model achieved a higher net benefit than the\
-         baseline model for threshold probabilities between 0.15 to 0.65 (Figure 2). This translates to a\
-          **reduction in avoidable non-nerve-sparing radical prostatectomies by 36 vs 32 per 100 patients at\
-           a threshold probability of 0.4**.')
+         baseline model for threshold probabilities between 0.15 to 0.65. This translates to a\
+          **reduction in avoidable non-nerve-sparing radical prostatectomies by 26 vs 22 per 100 patients at\
+           a threshold probability of 0.3**.')
     st.write("""""")
 
     # Performance metric figures
