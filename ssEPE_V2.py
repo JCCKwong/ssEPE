@@ -644,7 +644,7 @@ with st.beta_expander("See how the model was developed"):
     st.write("""""")
 with st.beta_expander("Additional model interpretation"):
     st.write("""""")
-    colA, colB, colC = st.beta_columns([1, 1, 2])
+    colA, colB, colC = st.beta_columns([1, 1.5, 1.5])
     colA.write("**Feature importance rankings:** helps identify which features had the overall greatest impact on\
              our ML model's predictions. Here we see that PSA, Maximum % core involvement, and % Gleason pattern 4/5\
              were the top three most important features in our ML model.")
