@@ -183,6 +183,8 @@ def load_images():
     image_tr_G5 = PIL.ImageOps.mirror(PIL.Image.open('Images/TZ_Gleason5.png'))
     metrics = PIL.Image.open('Performance Metrics/Performance metrics.png')
     stream_uro = PIL.Image.open('Performance Metrics/ssEPE STREAM-URO.png')
+    summary = PIL.Image.open('Performance Metrics/Feature rankings.png')
+    pdp = PIL.Image.open('Performance Metrics/Partial dependence plots')
     return image2, image_bl_G1, image_bl_G2, image_bl_G3, image_bl_G4, image_bl_G5, \
            image_ml_G1, image_ml_G2, image_ml_G3, image_ml_G4, image_ml_G5, \
            image_al_G1, image_al_G2, image_al_G3, image_al_G4, image_al_G5, \
@@ -191,7 +193,7 @@ def load_images():
            image_mr_G1, image_mr_G2, image_mr_G3, image_mr_G4, image_mr_G5, \
            image_ar_G1, image_ar_G2, image_ar_G3, image_ar_G4, image_ar_G5, \
            image_tr_G1, image_tr_G2, image_tr_G3, image_tr_G4, image_tr_G5, \
-           metrics, stream_uro
+           metrics, stream_uro, summary, pdp
 
 
 image2, image_bl_G1, image_bl_G2, image_bl_G3, image_bl_G4, image_bl_G5, \
@@ -202,7 +204,7 @@ image_br_G1, image_br_G2, image_br_G3, image_br_G4, image_br_G5, \
 image_mr_G1, image_mr_G2, image_mr_G3, image_mr_G4, image_mr_G5, \
 image_ar_G1, image_ar_G2, image_ar_G3, image_ar_G4, image_ar_G5, \
 image_tr_G1, image_tr_G2, image_tr_G3, image_tr_G4, image_tr_G5, \
-metrics, stream_uro = load_images()
+metrics, stream_uro, summary, pdp = load_images()
 
 # Define choices and labels for feature inputs
 CHOICES = {0: 'No', 1: 'Yes'}
@@ -640,6 +642,18 @@ with st.beta_expander("See how the model was developed"):
     st.write("""""")
     st.image(stream_uro, width=800)
     st.write("""""")
+with st.beta_expander("Additional model interpretation"):
+    st.write("""""")
+    st.write("**Feature importance rankings:** helps identify which features had the overall greatest impact on\
+             our ML model's predictions. Here we see that PSA, Maximum % core involvement, and % Gleason pattern 4/5\
+             were the top three most important features in our ML model.")
+    st.write('**Partial dependence plots:** allows us to visualize how a given feature can impact the probability of \
+             ssEPE across all its possible values (ie: how does % Gleason pattern 4/5, from 0 to 100%, positively or\
+              negatively impact probability of ssEPE?). We see that our ML model represents each feature in different\
+             ways. Some have a linear or logarithmic relationship, while others are more complex.')
+    colA, colB = st.beta_columns([1, 3])
+    colA.image(summary, use_column_width='auto')
+    colB.image(pdp, use_column_width='auto')
 st.write("""""")
 st.write("""""")
 st.write('Developed by: Jethro CC. Kwong$^{1,2}$, Adree Khondker$^{3}$, Christopher Tran$^{3}$, Emily Evans$^{3}$,\
