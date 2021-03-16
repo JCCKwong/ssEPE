@@ -649,6 +649,7 @@ with st.beta_expander("Additional model interpretation"):
              our ML model's predictions. Here we see that PSA, Maximum % core involvement, and % Gleason pattern 4/5\
              were the top three most important features in our ML model.")
     colB.image(summary, use_column_width='auto')
+    st.write("""""")
     colD, colE = st.beta_columns([1,3])
     colD.write('**Partial dependence plots:** allows us to visualize how a given feature can impact the probability of \
              ssEPE across all its possible values (ie: how does % Gleason pattern 4/5, from 0 to 100%, positively or\
