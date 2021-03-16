@@ -628,7 +628,7 @@ with st.beta_expander("See how the model was developed"):
       and **mean AUPRC of 0.68** vs 0.60, respectively, on cross-validation of the training cohort. Similarly, our\
        model performed favourably on the external testing cohort with an **AUROC of 0.81** vs 0.76 (p=0.03) and\
         **AUPRC of 0.78** vs 0.72. On decision curve analysis, our model achieved a higher net benefit than the\
-         baseline model for threshold probabilities between 0.15 to 0.65. This translates to a\
+         baseline model for threshold probabilities above 0.15. This translates to a\
           **reduction in avoidable non-nerve-sparing radical prostatectomies by 26 vs 22 per 100 patients at\
            a threshold probability of 0.3**.')
     st.write("""""")
