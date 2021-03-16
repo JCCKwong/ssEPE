@@ -106,8 +106,8 @@ st.write('Determine the probability of ssEPE in the ipsilateral lobe using clini
 machine learning')
 
 # Load saved items from Google Drive
-GD_model_location = '1T0Hrtt4XPFaCZDdu6tupll4CQplSFBub'
-GD_feature_location = '1UVWSyaB_9bzDHGXKzAEfFo-jsY_vljZx'
+GD_model_location = '1yZXAHeWWWNeKgI78a6XrU7pPCo1KPC_G'
+GD_feature_location = '1-2s8lbDBF4W3UJt8qh2i9cQ7WTGafY8H'
 
 @st.cache(allow_output_mutation=True)
 def load_items():
