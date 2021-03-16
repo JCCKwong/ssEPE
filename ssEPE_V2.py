@@ -184,7 +184,7 @@ def load_images():
     metrics = PIL.Image.open('Performance Metrics/Performance metrics.png')
     stream_uro = PIL.Image.open('Performance Metrics/ssEPE STREAM-URO.png')
     summary = PIL.Image.open('Performance Metrics/Feature rankings.png')
-    pdp = PIL.Image.open('Performance Metrics/Partial dependence plots')
+    pdp = PIL.Image.open('Performance Metrics/Partial dependence plots.png')
     return image2, image_bl_G1, image_bl_G2, image_bl_G3, image_bl_G4, image_bl_G5, \
            image_ml_G1, image_ml_G2, image_ml_G3, image_ml_G4, image_ml_G5, \
            image_al_G1, image_al_G2, image_al_G3, image_al_G4, image_al_G5, \
