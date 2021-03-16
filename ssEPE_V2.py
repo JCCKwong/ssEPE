@@ -644,17 +644,17 @@ with st.beta_expander("See how the model was developed"):
     st.write("""""")
 with st.beta_expander("Additional model interpretation"):
     st.write("""""")
-    colA, colB = st.beta_columns([2, 1])
+    colA, colB, colC = st.beta_columns([1, 2, 1])
     colA.write("**Feature importance rankings:** helps identify which features had the overall greatest impact on\
              our ML model's predictions. Here we see that PSA, Maximum % core involvement, and % Gleason pattern 4/5\
              were the top three most important features in our ML model.")
     colB.image(summary, use_column_width='auto')
-    colC, colD = st.beta_columns([1,3])
-    colC.write('**Partial dependence plots:** allows us to visualize how a given feature can impact the probability of \
+    colD, colE = st.beta_columns([1,3])
+    colD.write('**Partial dependence plots:** allows us to visualize how a given feature can impact the probability of \
              ssEPE across all its possible values (ie: how does % Gleason pattern 4/5, from 0 to 100%, positively or\
               negatively impact probability of ssEPE?). We see that our ML model represents each feature in different\
              ways. Some have a linear or logarithmic relationship, while others are more complex.')
-    colD.image(pdp, use_column_width='auto')
+    colE.image(pdp, use_column_width='auto')
 st.write("""""")
 st.write("""""")
 st.write('Developed by: Jethro CC. Kwong$^{1,2}$, Adree Khondker$^{3}$, Christopher Tran$^{3}$, Emily Evans$^{3}$,\
