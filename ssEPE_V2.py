@@ -106,7 +106,7 @@ st.write('Determine the probability of ssEPE in the ipsilateral lobe using clini
 machine learning')
 
 # Load saved items from Google Drive
-GD_model_location = '1k3AMUeQkm3n1UiI0V33DZv9ERc3BV0N_'
+GD_model_location = '1ZRTQclmFRR-GScjOlSoO2mqhVaHv1WXY'
 GD_feature_location = '1ShHxTw-yOy_8rM2AXlsdpOfztvMoXAgn'
 
 @st.cache(allow_output_mutation=True)
@@ -128,8 +128,8 @@ def load_items():
     model = joblib.load(f_checkpoint)
     features = joblib.load(f_checkpoint1)
     if not f_checkpoint2.exists():
-        #explainer = shap.TreeExplainer(model, model_output='probability')
-        explainer = shap.TreeExplainer(model, features, model_output='probability')
+        explainer = shap.TreeExplainer(model)
+        #explainer = shap.TreeExplainer(model, features, model_output='probability')
         joblib.dump(explainer,f_checkpoint2)
     explainer2 = joblib.load(f_checkpoint2)
     return model, explainer2
