@@ -231,7 +231,7 @@ def get_user_input():
     with st.sidebar.beta_expander('Global variables', expanded=True):
         age = st.number_input('Age (years)', 0.0, 100.0, 60.0)
         psa = st.number_input('PSA (ng/ml)', 0.00, 200.00, 7.00)
-        p_high = st.slider('% Gleason pattern 4/5', 0.0, 100.00, 22.5, 0.5)
+        p_high = st.number_input('% Gleason pattern 4/5', 0.0, 100.00, 22.5)
         perineural_inv = st.selectbox('Perineural invasion', options=list(CHOICES.keys()), format_func=format_func_yn, index=1)
     with st.sidebar.beta_expander('Side-specific variables (Left)', expanded=True):
         base_findings = st.selectbox('Base findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
