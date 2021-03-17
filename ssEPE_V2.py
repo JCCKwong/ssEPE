@@ -181,7 +181,10 @@ def load_images():
     image_tr_G3 = PIL.ImageOps.mirror(PIL.Image.open('Images/TZ_Gleason3.png'))
     image_tr_G4 = PIL.ImageOps.mirror(PIL.Image.open('Images/TZ_Gleason4.png'))
     image_tr_G5 = PIL.ImageOps.mirror(PIL.Image.open('Images/TZ_Gleason5.png'))
-    metrics = PIL.Image.open('Performance Metrics/Performance metrics.png')
+    auroc = PIL.Image.open('Performance Metrics/AUROC.png')
+    auprc = PIL.Image.open('Performance Metrics/AUPRC.png')
+    calib = PIL.Image.open('Performance Metrics/Calibration.png')
+    dca = PIL.Image.open('Performance Metrics/DCA.png')
     stream_uro = PIL.Image.open('Performance Metrics/ssEPE STREAM-URO.png')
     summary = PIL.Image.open('Performance Metrics/Feature rankings.png')
     pdp = PIL.Image.open('Performance Metrics/Partial dependence plots.png')
@@ -193,7 +196,7 @@ def load_images():
            image_mr_G1, image_mr_G2, image_mr_G3, image_mr_G4, image_mr_G5, \
            image_ar_G1, image_ar_G2, image_ar_G3, image_ar_G4, image_ar_G5, \
            image_tr_G1, image_tr_G2, image_tr_G3, image_tr_G4, image_tr_G5, \
-           metrics, stream_uro, summary, pdp
+           auroc, auprc, calib, dca, stream_uro, summary, pdp
 
 
 image2, image_bl_G1, image_bl_G2, image_bl_G3, image_bl_G4, image_bl_G5, \
@@ -204,7 +207,7 @@ image_br_G1, image_br_G2, image_br_G3, image_br_G4, image_br_G5, \
 image_mr_G1, image_mr_G2, image_mr_G3, image_mr_G4, image_mr_G5, \
 image_ar_G1, image_ar_G2, image_ar_G3, image_ar_G4, image_ar_G5, \
 image_tr_G1, image_tr_G2, image_tr_G3, image_tr_G4, image_tr_G5, \
-metrics, stream_uro, summary, pdp = load_images()
+auroc, auprc, calib, dca, stream_uro, summary, pdp = load_images()
 
 # Define choices and labels for feature inputs
 CHOICES = {0: 'No', 1: 'Yes'}
@@ -620,29 +623,64 @@ with st.beta_expander("See how the model was developed"):
           performance was determined based on the average performance across all ten validation cohorts to improve\
            generalizability of the models. All models were further externally validated using a testing cohort of\
             122 lobes (61 patients) from RP specimens at Mississauga Hospital, Mississauga, between 2016 and 2020.\
-            Model performance was assessed by area under receiver-operating-characteristic curve (AUROC),\
-             precision-recall curve (AUPRC), and calibration curve analysis. Clinical utility was determined by\
-              [decision curve analysis](https://pubmed.ncbi.nlm.nih.gov/17099194/), in which the net benefit is plotted\
-               against various threshold probabilities for three different treatment strategies: treat all, treat none,\
-                and treat only those predicted to have ssEPE by our model.')
-    st.write('The incidence of ssEPE in the training and testing cohorts were 30.7 and 41.8%, respectively.\
-     Our model outperformed the baseline model with a **mean AUROC of 0.81** vs 0.75 (p<0.01)\
-      and **mean AUPRC of 0.68** vs 0.60, respectively, on cross-validation of the training cohort. Similarly, our\
-       model performed favourably on the external testing cohort with an **AUROC of 0.81** vs 0.76 (p=0.03) and\
-        **AUPRC of 0.78** vs 0.72. On decision curve analysis, our model achieved a higher net benefit than the\
-         baseline model for threshold probabilities above 0.15. This translates to a\
-          **reduction in avoidable non-nerve-sparing radical prostatectomies by 26 vs 22 per 100 patients at\
-           a threshold probability of 0.3**.')
-    st.write("""""")
+            All models were assessed by area under receiver-operating-characteristic curve (AUROC),\
+             precision-recall curve (AUPRC), calibration curve, and decision curve analysis.')
 
-    # Performance metric figures
-    st.image(metrics)
+    st.write("""""")
+    st.write("""""")
+    colF, colG = st.beta_columns([1, 3])
+    colF.write('**Area under receiver-operating-characteristic curve (AUROC):** is used to measure the discriminative\
+               capability of predictive models by comparing the true positive rate (sensitivity) and false positive\
+               rate (1-specificity) across various decision thresholds.')
+    colF.write('Our ML model outperformed the baseline model with a **mean AUROC of 0.81** vs 0.75 on cross-validation\
+                of the training cohort. Similarly, our ML model performed favourably on the external testing cohort\
+                 with an **AUROC of 0.81** vs 0.76.')
+    colG.image(auroc, use_column_width='auto')
+    st.write("""""")
+    st.write("""""")
+    colH, colI = st.beta_columns([1, 3])
+    colH.write('**Area under precision-recall curve (AUPRC):** compares precision (positive predictive value) and \
+               recall (sensitivity) acorss various decision thresholds. It is more informative than AUROC curves when\
+               evaluating the performance of classifiers for imbalanced datasets, such as in our case where there are\
+                more patients without ssEPE than with ssEPE. This is because AUPRC evaluates the proportion of true\
+               positives among positive predictions, which is our outcome of interest')
+    colH.write('Our ML model outperformed the baseline model with a **mean AUPRC of 0.68** vs 0.60 on cross-validation\
+                of the training cohort. Similarly, our ML model performed favourably on the external testing cohort\
+                 with an **AUPRC of 0.78** vs 0.72.')
+    colI.image(auprc, use_column_width='auto')
+    st.write("""""")
+    st.write("""""")
+    colJ, colK = st.beta_columns([1, 3])
+    colJ.write('**Calibration curves:** is used to evaluate the accuracy of model risk estimates by measuring the\
+               agreement between the predicted and observed number of outcomes. A perfectly calibrated model is\
+               depicted as a 45 degree line through the origin. In our case, if a calibration curve is above the\
+                reference line, it underestimates the risk of ssEPE, which may lead to undertreatment (ie: leaving\
+                some cancer behind). However, if a calibration curve is below the reference line, it overestimates the\
+                 risk of ssEPE, which may lead to overtreatment (ie: patient gets unnecessarily treated with a non-\
+                 nerve sparing approach). Therefore, calibration is especially important when evaluating predictive\
+                  models used to support decision-making.')
+    colJ.write('Our ML model is well calibrated compared to the baseline model on cross-validation of the training\
+                cohort and on the external testing cohort')
+    colK.image(calib, use_column_width='auto')
+    st.write("""""")
+    st.write("""""")
+    colL, colM = st.beta_columns([1, 3])
+    colL.write('**[Decision curve analysis](https://pubmed.ncbi.nlm.nih.gov/17099194/):** is used to evaluate clinical\
+                utility. Here, the net benefit of the model is plotted against various threshold probabilities for\
+                 three different treatment strategies: treat all, treat none, or treat only those predicted to have\
+                  ssEPE by the model.')
+    colL.write('Our ML model achieved a higher net benefit than the baseline model for threshold probabilities above\
+                0.15. This translates to a **reduction in avoidable non-nerve-sparing radical prostatectomies by 26 vs\
+                 22 per 100 patients at a threshold probability of 0.3**.')
+    colM.image(dca, use_column_width='auto')
+
+    st.write("""""")
     st.write("""""")
     st.write('This model was developed in accordance to the STREAM-URO framework (see table below).')
     st.write("""""")
     st.image(stream_uro, width=800)
     st.write("""""")
-with st.beta_expander("Additional model interpretation"):
+with st.beta_expander("Additional model interpretations"):
     st.write("""""")
     colA, colB, colC = st.beta_columns([1, 1.5, 1.5])
     colA.write("**Feature importance rankings:** helps identify which features had the overall greatest impact on\
@@ -650,7 +688,8 @@ with st.beta_expander("Additional model interpretation"):
              were the top three most important features in our ML model.")
     colB.image(summary, use_column_width='auto')
     st.write("""""")
-    colD, colE = st.beta_columns([1,3])
+    st.write("""""")
+    colD, colE = st.beta_columns([1, 3])
     colD.write('**Partial dependence plots:** allows us to visualize how a given feature can impact the probability of \
              ssEPE across all its possible values (ie: how does % Gleason pattern 4/5, from 0 to 100%, positively or\
               negatively impact probability of ssEPE?). We see that our ML model represents each feature in different\
