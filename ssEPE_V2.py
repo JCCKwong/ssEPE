@@ -107,7 +107,7 @@ machine learning')
 
 # Load saved items from Google Drive
 GD_model_location = '1jMBr25GlaS_07jvNUxYE09UUkSspHnBc'
-GD_feature_location = '1khNho8h1QrBjQVEA_yfzOwF5ZEv0pmOt'
+GD_feature_location = '1ShHxTw-yOy_8rM2AXlsdpOfztvMoXAgn'
 
 @st.cache(allow_output_mutation=True)
 def load_items():
@@ -408,8 +408,8 @@ features_list = ('Age',
                  'PSA',
                  '% Gleason pattern 4/5',
                  'Perineural invasion',
-                 '% core involvement',
-                 'Worst Gleason',
+                 '% positive cores',
+                 'Worst Gleason Grade Group',
                  'Maximum % core involvement',
                  'Base findings',
                  'Base % core involvement',
@@ -427,8 +427,8 @@ features_list_r = ('Age',
                    'PSA',
                    '% Gleason pattern 4/5',
                    'Perineural invasion',
-                   '% core involvement',
-                   'Worst Gleason',
+                   '% positive cores',
+                   'Worst Gleason Grade Group',
                    'Maximum % core involvement',
                    'Base findings',
                    'Base % core involvement',
