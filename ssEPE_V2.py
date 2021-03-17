@@ -624,7 +624,8 @@ with st.beta_expander("See how the model was developed"):
            generalizability of the models. All models were further externally validated using a testing cohort of\
             122 lobes (61 patients) from RP specimens at Mississauga Hospital, Mississauga, between 2016 and 2020.\
             All models were assessed by area under receiver-operating-characteristic curve (AUROC),\
-             precision-recall curve (AUPRC), calibration curve, and decision curve analysis.')
+             precision-recall curve (AUPRC), calibration curve, and decision curve analysis. The incidence of ssEPE in\
+              the training and testing cohorts were 30.7 and 41.8%, respectively')
 
     st.write("""""")
     st.write("""""")
@@ -664,7 +665,7 @@ with st.beta_expander("See how the model was developed"):
     colK.image(calib, use_column_width='auto')
     st.write("""""")
     st.write("""""")
-    colL, colM, colN = st.beta_columns([1, 1.5, 1.5])
+    colL, colM, colN = st.beta_columns([1, 2, 1])
     colL.write('**[Decision curve analysis](https://pubmed.ncbi.nlm.nih.gov/17099194/):** is used to evaluate clinical\
                 utility. Here, the net benefit of the model is plotted against various threshold probabilities for\
                  three different treatment strategies: treat all, treat none, or treat only those predicted to have\
