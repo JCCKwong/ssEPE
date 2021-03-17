@@ -664,14 +664,14 @@ with st.beta_expander("See how the model was developed"):
     colK.image(calib, use_column_width='auto')
     st.write("""""")
     st.write("""""")
-    colL, colM = st.beta_columns([1, 3])
+    colL, colM, colN = st.beta_columns([1, 1.5, 1.5])
     colL.write('**[Decision curve analysis](https://pubmed.ncbi.nlm.nih.gov/17099194/):** is used to evaluate clinical\
                 utility. Here, the net benefit of the model is plotted against various threshold probabilities for\
                  three different treatment strategies: treat all, treat none, or treat only those predicted to have\
                   ssEPE by the model.')
     colL.write('Our ML model achieved a higher net benefit than the baseline model for threshold probabilities above\
-                0.15. This translates to a **reduction in avoidable non-nerve-sparing radical prostatectomies by 26 vs\
-                 22 per 100 patients at a threshold probability of 0.3**.')
+                0.15. This translates to a **reduction in avoidable non-nerve-sparing radical prostatectomies by 13 vs\
+                 4 per 100 patients at a threshold probability of 0.2**.')
     colM.image(dca, use_column_width='auto')
 
     st.write("""""")
