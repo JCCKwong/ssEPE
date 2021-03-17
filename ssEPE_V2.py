@@ -137,6 +137,19 @@ def load_items():
 
 model, explainer = load_items()
 
+@st.cache()
+def load_static_images():
+    auroc = PIL.Image.open('Performance Metrics/AUROC.png')
+    auprc = PIL.Image.open('Performance Metrics/AUPRC.png')
+    calib = PIL.Image.open('Performance Metrics/Calibration.png')
+    dca = PIL.Image.open('Performance Metrics/DCA.png')
+    stream_uro = PIL.Image.open('Performance Metrics/ssEPE STREAM-URO.png')
+    summary = PIL.Image.open('Performance Metrics/Feature rankings.png')
+    pdp = PIL.Image.open('Performance Metrics/Partial dependence plots.png')
+    return auroc, auprc, calib, dca, stream_uro, summary, pdp
+
+
+auroc, auprc, calib, dca, stream_uro, summary, pdp = load_static_images()
 
 # Load blank prostate and all colour coded sites as image objects from GitHub repository
 def load_images():
@@ -181,13 +194,6 @@ def load_images():
     image_tr_G3 = PIL.ImageOps.mirror(PIL.Image.open('Images/TZ_Gleason3.png'))
     image_tr_G4 = PIL.ImageOps.mirror(PIL.Image.open('Images/TZ_Gleason4.png'))
     image_tr_G5 = PIL.ImageOps.mirror(PIL.Image.open('Images/TZ_Gleason5.png'))
-    auroc = PIL.Image.open('Performance Metrics/AUROC.png')
-    auprc = PIL.Image.open('Performance Metrics/AUPRC.png')
-    calib = PIL.Image.open('Performance Metrics/Calibration.png')
-    dca = PIL.Image.open('Performance Metrics/DCA.png')
-    stream_uro = PIL.Image.open('Performance Metrics/ssEPE STREAM-URO.png')
-    summary = PIL.Image.open('Performance Metrics/Feature rankings.png')
-    pdp = PIL.Image.open('Performance Metrics/Partial dependence plots.png')
     return image2, image_bl_G1, image_bl_G2, image_bl_G3, image_bl_G4, image_bl_G5, \
            image_ml_G1, image_ml_G2, image_ml_G3, image_ml_G4, image_ml_G5, \
            image_al_G1, image_al_G2, image_al_G3, image_al_G4, image_al_G5, \
@@ -195,8 +201,7 @@ def load_images():
            image_br_G1, image_br_G2, image_br_G3, image_br_G4, image_br_G5, \
            image_mr_G1, image_mr_G2, image_mr_G3, image_mr_G4, image_mr_G5, \
            image_ar_G1, image_ar_G2, image_ar_G3, image_ar_G4, image_ar_G5, \
-           image_tr_G1, image_tr_G2, image_tr_G3, image_tr_G4, image_tr_G5, \
-           auroc, auprc, calib, dca, stream_uro, summary, pdp
+           image_tr_G1, image_tr_G2, image_tr_G3, image_tr_G4, image_tr_G5
 
 
 image2, image_bl_G1, image_bl_G2, image_bl_G3, image_bl_G4, image_bl_G5, \
@@ -206,8 +211,7 @@ image_tl_G1, image_tl_G2, image_tl_G3, image_tl_G4, image_tl_G5, \
 image_br_G1, image_br_G2, image_br_G3, image_br_G4, image_br_G5, \
 image_mr_G1, image_mr_G2, image_mr_G3, image_mr_G4, image_mr_G5, \
 image_ar_G1, image_ar_G2, image_ar_G3, image_ar_G4, image_ar_G5, \
-image_tr_G1, image_tr_G2, image_tr_G3, image_tr_G4, image_tr_G5, \
-auroc, auprc, calib, dca, stream_uro, summary, pdp = load_images()
+image_tr_G1, image_tr_G2, image_tr_G3, image_tr_G4, image_tr_G5 = load_images()
 
 # Define choices and labels for feature inputs
 CHOICES = {0: 'No', 1: 'Yes'}
