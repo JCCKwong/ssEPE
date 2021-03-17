@@ -652,7 +652,7 @@ with st.beta_expander("See how the model was developed"):
     st.write("""""")
     st.write("""""")
     colJ, colK = st.beta_columns([1, 3])
-    colJ.write('**Calibration curves:** is used to evaluate the accuracy of model risk estimates by measuring the\
+    colJ.write('**Calibration curves:** are used to evaluate the accuracy of model risk estimates by measuring the\
                agreement between the predicted and observed number of outcomes. A perfectly calibrated model is\
                depicted as a 45 degree line through the origin. In our case, if a calibration curve is above the\
                 reference line, it underestimates the risk of ssEPE, which may lead to undertreatment (ie: leaving\
