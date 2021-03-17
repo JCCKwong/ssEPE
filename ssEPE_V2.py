@@ -625,7 +625,7 @@ with st.beta_expander("See how the model was developed"):
             122 lobes (61 patients) from RP specimens at Mississauga Hospital, Mississauga, between 2016 and 2020.\
             All models were assessed by area under receiver-operating-characteristic curve (AUROC),\
              precision-recall curve (AUPRC), calibration curve, and decision curve analysis. The incidence of ssEPE in\
-              the training and testing cohorts were 30.7 and 41.8%, respectively')
+              the training and testing cohorts were 30.7 and 41.8%, respectively.')
 
     st.write("""""")
     st.write("""""")
