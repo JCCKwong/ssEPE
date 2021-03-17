@@ -654,12 +654,12 @@ with st.beta_expander("See how the model was developed"):
     colJ, colK = st.beta_columns([1, 3])
     colJ.write('**Calibration curves:** are used to evaluate the accuracy of model risk estimates by measuring the\
                agreement between the predicted and observed number of outcomes. A perfectly calibrated model is\
-               depicted as a 45 degree line through the origin. In our case, if a calibration curve is above the\
-                reference line, it underestimates the risk of ssEPE, which may lead to undertreatment (ie: leaving\
-                some cancer behind). However, if a calibration curve is below the reference line, it overestimates the\
-                 risk of ssEPE, which may lead to overtreatment (ie: patient gets unnecessarily treated with a non-\
-                 nerve sparing approach). Therefore, calibration is especially important when evaluating predictive\
-                  models used to support decision-making.')
+               depicted as a 45 degree line. In our case, if a calibration curve is above the reference line, it\
+                underestimates the risk of ssEPE, which may lead to undertreatment (ie: leaving some cancer behind).\
+                 However, if a calibration curve is below the reference line, it overestimates the risk of ssEPE, which\
+                  may lead to overtreatment (ie: patient gets unnecessarily treated with a non-nerve sparing approach).\
+                   Therefore, calibration is especially important when evaluating predictive models used to support\
+                    decision-making.')
     colJ.write('Our ML model is well calibrated compared to the baseline model on cross-validation of the training\
                 cohort and on the external testing cohort.')
     colK.image(calib, use_column_width='auto')
