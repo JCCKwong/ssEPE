@@ -641,10 +641,10 @@ with st.beta_expander("See how the model was developed"):
     st.write("""""")
     colH, colI = st.beta_columns([1, 3])
     colH.write('**Area under precision-recall curve (AUPRC):** compares precision (positive predictive value) and \
-               recall (sensitivity) acorss various decision thresholds. It is more informative than AUROC curves when\
+               recall (sensitivity) across various decision thresholds. It is more informative than AUROC curves when\
                evaluating the performance of classifiers for imbalanced datasets, such as in our case where there are\
                 more patients without ssEPE than with ssEPE. This is because AUPRC evaluates the proportion of true\
-               positives among positive predictions, which is our outcome of interest')
+               positives among positive predictions, which is our outcome of interest.')
     colH.write('Our ML model outperformed the baseline model with a **mean AUPRC of 0.68** vs 0.60 on cross-validation\
                 of the training cohort. Similarly, our ML model performed favourably on the external testing cohort\
                  with an **AUPRC of 0.78** vs 0.72.')
@@ -661,7 +661,7 @@ with st.beta_expander("See how the model was developed"):
                  nerve sparing approach). Therefore, calibration is especially important when evaluating predictive\
                   models used to support decision-making.')
     colJ.write('Our ML model is well calibrated compared to the baseline model on cross-validation of the training\
-                cohort and on the external testing cohort')
+                cohort and on the external testing cohort.')
     colK.image(calib, use_column_width='auto')
     st.write("""""")
     st.write("""""")
