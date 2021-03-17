@@ -275,8 +275,8 @@ def get_user_input():
                'PSA': psa,
                '% Gleason pattern 4/5': p_high,
                'Perineural invasion': perineural_inv,
-               '% core involvement': p_core_total / t_core_total,
-               'Worst Gleason': sort_g_p_inv['Gleason'].max(),
+               '% positive cores': (p_core_total / t_core_total)*100,
+               'Worst Gleason Grade Group': sort_g_p_inv['Gleason'].max(),
                'Maximum % core involvement': sort_g_p_inv['% core involvement'].max(),
                'Base findings': base_findings,
                'Base % core involvement': base_p_inv,
@@ -353,8 +353,8 @@ def get_user_input_r():
                  'PSA': user_input['PSA'],
                  '% Gleason pattern 4/5': user_input['% Gleason pattern 4/5'],
                  'Perineural invasion': user_input['Perineural invasion'],
-                 '% core involvement': p_core_total_r / t_core_total_r,
-                 'Worst Gleason': sort_g_p_inv_r['Gleason'].max(),
+                 '% positive cores': (p_core_total_r / t_core_total_r)*100,
+                 'Worst Gleason Grade Group': sort_g_p_inv_r['Gleason'].max(),
                  'Maximum % core involvement': sort_g_p_inv_r['% core involvement'].max(),
                  'Base findings': base_findings_r,
                  'Base % core involvement': base_p_inv_r,
@@ -415,7 +415,7 @@ features_list = ('Age',
                  'Base % core involvement',
                  'Mid % core involvement',
                  'Transition zone % core involvement')
-shap.force_plot(explainer.expected_value, shap_values, user_input, text_rotation=10, #features_list, 
+shap.force_plot(explainer.expected_value, shap_values, user_input, text_rotation=10, #features_list,
                 matplotlib=True)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 plt.clf()
@@ -434,7 +434,7 @@ features_list_r = ('Age',
                    'Base % core involvement',
                    'Mid % core involvement',
                    'Transition zone % core involvement')
-shap.force_plot(explainer.expected_value, shap_values_r, user_input_r, features_list_r, matplotlib=True,
+shap.force_plot(explainer.expected_value, shap_values_r, user_input_r, matplotlib=True, #features_list_r, 
                 text_rotation=10)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 plt.clf()
