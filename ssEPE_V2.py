@@ -109,6 +109,7 @@ machine learning')
 GD_model_location = '1ZRTQclmFRR-GScjOlSoO2mqhVaHv1WXY'
 GD_feature_location = '1ShHxTw-yOy_8rM2AXlsdpOfztvMoXAgn'
 
+
 @st.cache(allow_output_mutation=True)
 def load_items():
     save_dest = Path('model')
@@ -128,16 +129,17 @@ def load_items():
     model = joblib.load(f_checkpoint)
     features = joblib.load(f_checkpoint1)
     if not f_checkpoint2.exists():
-        #explainer = shap.TreeExplainer(model, model_output='probability')
+        # explainer = shap.TreeExplainer(model, model_output='probability')
         explainer = shap.TreeExplainer(model, features, model_output='probability')
-        joblib.dump(explainer,f_checkpoint2)
+        joblib.dump(explainer, f_checkpoint2)
     explainer2 = joblib.load(f_checkpoint2)
     return model, explainer2
 
 
 model, explainer = load_items()
 
-@st.cache
+
+@st.cache(allow_output_mutation=False)
 def load_static_images():
     auroc = PIL.Image.open('Performance Metrics/AUROC.png')
     auprc = PIL.Image.open('Performance Metrics/AUPRC.png')
@@ -150,6 +152,7 @@ def load_static_images():
 
 
 auroc, auprc, calib, dca, stream_uro, summary, pdp = load_static_images()
+
 
 # Load blank prostate and all colour coded sites as image objects from GitHub repository
 def load_images():
@@ -239,7 +242,8 @@ def get_user_input():
         age = st.number_input('Age (years)', 0.0, 100.0, 60.0)
         psa = st.number_input('PSA (ng/ml)', 0.00, 200.00, 7.00)
         p_high = st.number_input('% Gleason pattern 4/5', 0.0, 100.00, 22.5)
-        perineural_inv = st.selectbox('Perineural invasion', options=list(CHOICES.keys()), format_func=format_func_yn, index=1)
+        perineural_inv = st.selectbox('Perineural invasion', options=list(CHOICES.keys()), format_func=format_func_yn,
+                                      index=1)
     with st.sidebar.beta_expander('Side-specific variables (Left)', expanded=True):
         base_findings = st.selectbox('Base findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
                                      key=0, index=3)
@@ -282,7 +286,7 @@ def get_user_input():
                'PSA': psa,
                '% Gleason pattern 4/5': p_high,
                'Perineural invasion': perineural_inv,
-               '% positive cores': round((p_core_total / t_core_total)*100, 1),
+               '% positive cores': round((p_core_total / t_core_total) * 100, 1),
                'Worst Gleason Grade Group': sort_g_p_inv['Gleason'].max(),
                'Maximum % core involvement': sort_g_p_inv['% core involvement'].max(),
                'Base findings': base_findings,
@@ -360,7 +364,7 @@ def get_user_input_r():
                  'PSA': user_input['PSA'],
                  '% Gleason pattern 4/5': user_input['% Gleason pattern 4/5'],
                  'Perineural invasion': user_input['Perineural invasion'],
-                 '% positive cores': round((p_core_total_r / t_core_total_r)*100, 1),
+                 '% positive cores': round((p_core_total_r / t_core_total_r) * 100, 1),
                  'Worst Gleason Grade Group': sort_g_p_inv_r['Gleason'].max(),
                  'Maximum % core involvement': sort_g_p_inv_r['% core involvement'].max(),
                  'Base findings': base_findings_r,
@@ -395,7 +399,7 @@ user_input_r = get_user_input_r()
 
 # Store the model predictions as a variable
 # = model.predict_proba(user_input)
-#prediction_r = model.predict_proba(user_input_r)
+# prediction_r = model.predict_proba(user_input_r)
 
 # Create 2 columns, one to show SHAP plots, one to show annotated prostate diagram
 col1, col2 = st.beta_columns([1, 1.75])
@@ -404,7 +408,6 @@ col1, col2 = st.beta_columns([1, 1.75])
 col2.header('Model explanations')
 col2.write('The probability of ssEPE for each lobe is indicated in **bold**. \
 Each plot highlights which features have the greatest impact on the predicted probability of ssEPE')
-
 
 # SHAP plot for left lobe
 col2.subheader('Left lobe')
@@ -422,7 +425,7 @@ features_list = ('Age',
                  'Base % core involvement',
                  'Mid % core involvement',
                  'Transition zone % core involvement')
-shap.force_plot(explainer.expected_value, shap_values, user_input, text_rotation=10, #features_list,
+shap.force_plot(explainer.expected_value, shap_values, user_input, text_rotation=10,  # features_list,
                 matplotlib=True)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 plt.clf()
@@ -441,11 +444,10 @@ features_list_r = ('Age',
                    'Base % core involvement',
                    'Mid % core involvement',
                    'Transition zone % core involvement')
-shap.force_plot(explainer.expected_value, shap_values_r, user_input_r, matplotlib=True, #features_list_r,
+shap.force_plot(explainer.expected_value, shap_values_r, user_input_r, matplotlib=True,  # features_list_r,
                 text_rotation=10)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 plt.clf()
-
 
 # Show annotated prostate diagram under column 2
 # Importing Image and ImageFont, ImageDraw module from PIL package
