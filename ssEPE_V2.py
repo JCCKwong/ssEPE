@@ -588,6 +588,7 @@ col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE  \n'
            '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE')
 
 # Display SHAP explanation
+@st.cache
 with st.beta_expander("See how the model explanations were determined"):
     st.write("""""")
     st.write('Model explanations were calculated based on SHAP (SHapley Additive exPlanations) values,\
@@ -604,6 +605,7 @@ with st.beta_expander("See how the model explanations were determined"):
     of [hypoxemia risk during anesthetic care](https://www.nature.com/articles/s41551-018-0304-0).')
     st.write("""""")
 
+@st.cache
 with st.beta_expander("See how the model was developed"):
     st.write("""""")
     st.write('A retrospective sample of 900 prostatic lobes (450 patients) from radical prostatectomy (RP) specimens at\
@@ -687,6 +689,8 @@ with st.beta_expander("See how the model was developed"):
     st.write("""""")
     st.image(stream_uro, width=800)
     st.write("""""")
+
+@st.cache
 with st.beta_expander("Additional model interpretations"):
     st.write("""""")
     colA, colB, colC = st.beta_columns([1, 1.5, 1.5])
@@ -704,9 +708,13 @@ with st.beta_expander("Additional model interpretations"):
     colE.image(pdp, use_column_width='auto')
 st.write("""""")
 st.write("""""")
+
+@st.cache
 st.write('Developed by: Jethro CC. Kwong$^{1,2}$, Adree Khondker$^{3}$, Christopher Tran$^{3}$, Emily Evans$^{3}$,\
  Amna Ali$^{4}$, Munir Jamal$^{1}$, Thomas Short$^{1}$, Frank Papanikolaou$^{1}$,\
   John R. Srigley$^{5}$, Andrew H. Feifer$^{1,4}$')
+
+@st.cache
 st.write('$^{1}$Division of Urology, Department of Surgery, University of Toronto, Toronto, ON, Canada  \n'
          '$^{2}$Temerty Centre for AI Research and Education in Medicine, University of Toronto, Toronto, Canada  \n'
          '$^{3}$Temerty Faculty of Medicine, University of Toronto, Toronto, ON, Canada  \n'
