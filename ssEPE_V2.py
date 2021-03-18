@@ -139,7 +139,7 @@ def load_items():
 model, explainer = load_items()
 
 
-@st.cache(allow_output_mutation=False)
+@st.cache(allow_output_mutation=True)
 def load_static_images():
     auroc = PIL.Image.open('Performance Metrics/AUROC.png')
     auprc = PIL.Image.open('Performance Metrics/AUPRC.png')
