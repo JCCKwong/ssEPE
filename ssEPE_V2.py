@@ -102,7 +102,7 @@ _max_width_()
 
 # Create a title for web app
 st.title('Side-specific extraprostatic extension (ssEPE) prediction')
-st.write('Determine the probability of ssEPE in the ipsilateral lobe using clinicopathological features and interpretable \
+st.write('Determine the probability of ssEPE in the ipsilateral lobe using clinicopathological features and explainable \
 machine learning')
 
 # Load saved items from Google Drive
