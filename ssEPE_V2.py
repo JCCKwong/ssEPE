@@ -587,24 +587,7 @@ col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE  \n'
            '**Blue bars**: Features that ***decrease*** the risk of ssEPE  \n'
            '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE')
 
-# Display SHAP explanation
-
-with st.beta_expander("See how the model explanations were determined"):
-    st.write("""""")
-    st.write('Model explanations were calculated based on SHAP (SHapley Additive exPlanations) values,\
-    originally developed by [Lundberg and Lee (2017)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf).\
-    This is an additive feature attribution method that satisfies all three properties of explanation models: local accuracy, missingness, and consistency.')
-    st.write('**Accuracy**: the output of the explanation model must match the output of the original model for a\
-     given prediction.  \n'
-             '**Missingness**: when a feature is missing, it should have no impact on the model.  \n'
-             '**Consistency**: a feature’s assigned attribution must match its degree of importance in the original model\
-    (ie: if overall – % tissue involvement has the highest attribution, it must also have the highest feature importance\
-    and the model must rely on this feature the most for a given prediction).')
-    st.write('SHAP allows us to understand why our model made a given prediction by simplifying our complex model into a\
-    linear function of binary variables. This approach has previously been implemented to improve understanding\
-    of [hypoxemia risk during anesthetic care](https://www.nature.com/articles/s41551-018-0304-0).')
-    st.write("""""")
-
+# Display additional text
 
 with st.beta_expander("See how the model was developed"):
     st.write("""""")
@@ -708,6 +691,23 @@ with st.beta_expander("Additional model explanations"):
               negatively impact probability of ssEPE?). We see that our ML model represents each feature in different\
              ways. Some have a linear or logarithmic relationship, while others are more complex.')
     colE.image(pdp, use_column_width='auto')
+    
+with st.beta_expander("See how the model explanations were determined"):
+    st.write("""""")
+    st.write('Model explanations were calculated based on SHAP (SHapley Additive exPlanations) values,\
+    originally developed by [Lundberg and Lee (2017)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf).\
+    This is an additive feature attribution method that satisfies all three properties of explanation models: local accuracy, missingness, and consistency.')
+    st.write('**Accuracy**: the output of the explanation model must match the output of the original model for a\
+     given prediction.  \n'
+             '**Missingness**: when a feature is missing, it should have no impact on the model.  \n'
+             '**Consistency**: a feature’s assigned attribution must match its degree of importance in the original model\
+    (ie: if overall – % tissue involvement has the highest attribution, it must also have the highest feature importance\
+    and the model must rely on this feature the most for a given prediction).')
+    st.write('SHAP allows us to understand why our model made a given prediction by simplifying our complex model into a\
+    linear function of binary variables. This approach has previously been implemented to improve understanding\
+    of [hypoxemia risk during anesthetic care](https://www.nature.com/articles/s41551-018-0304-0).')
+    st.write("""""")
+
 st.write("""""")
 st.write("""""")
 
