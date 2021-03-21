@@ -693,7 +693,7 @@ with st.beta_expander("See how the model was developed"):
     st.write("""""")
 
 
-with st.beta_expander("Additional model interpretations"):
+with st.beta_expander("Additional model explanations"):
     st.write("""""")
     colA, colB, colC = st.beta_columns([1, 1.5, 1.5])
     colA.write("**Feature importance rankings:** helps identify which features had the overall greatest impact on\
