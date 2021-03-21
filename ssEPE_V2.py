@@ -102,8 +102,8 @@ _max_width_()
 
 # Create a title for web app
 st.title('Side-specific extraprostatic extension (ssEPE) prediction')
-st.write('Determine the probability of ssEPE in the ipsilateral lobe using clinicopathological features and explainable \
-machine learning')
+st.write('Determine the probability of ssEPE in the ipsilateral lobe using clinicopathological features and explainable\
+ machine learning')
 
 # Load saved items from Google Drive
 GD_model_location = '1ZRTQclmFRR-GScjOlSoO2mqhVaHv1WXY'
@@ -612,8 +612,8 @@ with st.beta_expander("See how the model was developed"):
      Credit Valley Hospital, Mississauga, between 2010 and 2020, was used as the training cohort. Features\
      (ie: variables) included patient demographics, clinical, sonographic, and site-specific data from\
      transrectal ultrasound-guided prostate biopsy. The primary label (ie: outcome) of interest was the presence\
-     of EPE in the ipsilateral lobe of the prostatectomy specimen. All pathology was reviewed by a dedicated\
-    uro-pathologist. A previously developed [logistic regression model]\
+     of EPE in the ipsilateral lobe of the prostatectomy specimen. All pathology was reviewed by an expert\
+    uro-pathologist. A previously developed [model]\
     (https://bjui-journals.onlinelibrary.wiley.com/doi/full/10.1111/bju.13733), which has the highest performance out of\
      current predictive models for ssEPE, was used as the baseline model for comparison.')
     st.write('Dimensionality reduction was performed by removing highly correlated features\
@@ -697,7 +697,7 @@ with st.beta_expander("Additional model interpretations"):
     st.write("""""")
     colA, colB, colC = st.beta_columns([1, 1.5, 1.5])
     colA.write("**Feature importance rankings:** helps identify which features had the overall greatest impact on\
-             our ML model's predictions. Here we see that PSA, Maximum % core involvement, and % Gleason pattern 4/5\
+             our ML model's predictions. Here, we see that PSA, Maximum % core involvement, and % Gleason pattern 4/5\
              were the three most important features in our ML model.")
     colB.image(summary, use_column_width='auto')
     st.write("""""")
