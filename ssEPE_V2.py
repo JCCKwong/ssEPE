@@ -641,9 +641,10 @@ with st.beta_expander("See how the model was developed"):
     colF.write('**Area under receiver-operating-characteristic curve (AUROC):** is used to measure the discriminative\
                capability of predictive models by comparing the true positive rate (sensitivity) and false positive\
                rate (1-specificity) across various decision thresholds.')
-    colF.write('Our ML model outperformed the baseline model with a **mean AUROC of 0.81** vs 0.75 on cross-validation\
-                of the training cohort. Similarly, our ML model performed favourably on the external testing cohort\
-                 with an **AUROC of 0.81** vs 0.76.')
+    colF.write('Our ML model outperformed the baseline model with a **mean AUROC of 0.81 (95% CI 0.78-0.83) vs 0.74\
+                (95% CI 0.71-0.76) [p<0.01]** on cross-validation of the training cohort. Similarly, our ML model\
+                 performed favourably on the external testing cohort with an **AUROC of 0.81 (95% CI 0.73-0.87) vs 0.75\
+                  (95% CI 0.67-0.83) [p=0.03]**.')
     colG.image(auroc, use_column_width='auto')
     st.write("""""")
     st.write("""""")
@@ -653,9 +654,10 @@ with st.beta_expander("See how the model was developed"):
                evaluating the performance of classifiers for imbalanced datasets, such as in our case where there are\
                 more patients without ssEPE than with ssEPE. This is because AUPRC evaluates the proportion of true\
                positives among positive predictions, which is our outcome of interest.')
-    colH.write('Our ML model outperformed the baseline model with a **mean AUPRC of 0.68** vs 0.60 on cross-validation\
-                of the training cohort. Similarly, our ML model performed favourably on the external testing cohort\
-                 with an **AUPRC of 0.78** vs 0.72.')
+    colH.write('Our ML model outperformed the baseline model with a **mean AUPRC of 0.68 (95% CI 0.64-0.73) vs 0.59 \
+                (95% CI 0.54-0.65)** on cross-validation of the training cohort. Similarly, our ML model performed \
+                favourably on the external testing cohort with an **AUPRC of 0.78 (95% CI 0.67-0.85) vs 0.70 \
+                (95% CI 0.60-0.79)**.')
     colI.image(auprc, use_column_width='auto')
     st.write("""""")
     st.write("""""")
@@ -680,7 +682,7 @@ with st.beta_expander("See how the model was developed"):
                   ssEPE by the model.')
     colL.write('Our ML model achieved a higher net benefit than the baseline model for threshold probabilities above\
                 0.15. This translates to a **reduction in avoidable non-nerve-sparing radical prostatectomies by 13 vs\
-                 4 per 100 patients at a threshold probability of 0.2**.')
+                 3 per 100 patients at a threshold probability of 0.2**.')
     colM.image(dca, use_column_width='auto')
 
     st.write("""""")
