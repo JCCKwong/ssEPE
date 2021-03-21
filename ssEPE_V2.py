@@ -452,7 +452,7 @@ plt.clf()
 # Show annotated prostate diagram under column 2
 # Importing Image and ImageFont, ImageDraw module from PIL package
 col1.header('Annotated Prostate')
-col1.write('Automatically updates based on user entered values')
+col1.write('Automatically updates based on user-entered values')
 
 # Specify font size for annotated prostate diagram
 font = ImageFont.truetype('arial.ttf', 50)
