@@ -674,23 +674,6 @@ with st.beta_expander("See how the model was developed"):
     st.write("""""")
     st.image(stream_uro, width=800)
     st.write("""""")
-
-
-with st.beta_expander("Additional model explanations"):
-    st.write("""""")
-    colA, colB, colC = st.beta_columns([1, 1.5, 1.5])
-    colA.write("**Feature importance rankings:** helps identify which features had the overall greatest impact on\
-             our ML model's predictions. Here, we see that PSA, Maximum % core involvement, and % Gleason pattern 4/5\
-             were the three most important features in our ML model.")
-    colB.image(summary, use_column_width='auto')
-    st.write("""""")
-    st.write("""""")
-    colD, colE = st.beta_columns([1, 3])
-    colD.write('**Partial dependence plots:** allows us to visualize how a given feature can impact the probability of \
-             ssEPE across all its possible values (ie: how does % Gleason pattern 4/5, from 0 to 100%, positively or\
-              negatively impact probability of ssEPE?). We see that our ML model represents each feature in different\
-             ways. Some have a linear or logarithmic relationship, while others are more complex.')
-    colE.image(pdp, use_column_width='auto')
     
 with st.beta_expander("See how the model explanations were determined"):
     st.write("""""")
@@ -707,6 +690,22 @@ with st.beta_expander("See how the model explanations were determined"):
     linear function of binary variables. This approach has previously been implemented to improve understanding\
     of [hypoxemia risk during anesthetic care](https://www.nature.com/articles/s41551-018-0304-0).')
     st.write("""""")
+
+with st.beta_expander("Additional model explanations"):
+    st.write("""""")
+    colA, colB, colC = st.beta_columns([1, 1.5, 1.5])
+    colA.write("**Feature importance rankings:** helps identify which features had the overall greatest impact on\
+             our ML model's predictions. Here, we see that PSA, Maximum % core involvement, and % Gleason pattern 4/5\
+             were the three most important features in our ML model.")
+    colB.image(summary, use_column_width='auto')
+    st.write("""""")
+    st.write("""""")
+    colD, colE = st.beta_columns([1, 3])
+    colD.write('**Partial dependence plots:** allows us to visualize how a given feature can impact the probability of \
+             ssEPE across all its possible values (ie: how does % Gleason pattern 4/5, from 0 to 100%, positively or\
+              negatively impact probability of ssEPE?). We see that our ML model represents each feature in different\
+             ways. Some have a linear or logarithmic relationship, while others are more complex.')
+    colE.image(pdp, use_column_width='auto')
 
 st.write("""""")
 st.write("""""")
