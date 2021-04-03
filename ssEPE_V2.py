@@ -552,6 +552,8 @@ idx = features_list.index(left_option)
 
 col_left.write(features_list)
 col_left.write(idx)
+col_left.write(user_input[:, idx])
+col_left.write(shap_values[:, idx])
 shap.plots.scatter(model_shap[:, idx], hist=True, dot_size=5, show=False)
 plt.ylabel('Impact on probability of ssEPE')
 
