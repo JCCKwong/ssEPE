@@ -551,7 +551,7 @@ left_option = col_left.selectbox("Select left lobe feature to compare", features
 idx = features_list.index(left_option)
 col_left.write(features_list)
 col_left.write(idx)
-shap.plots.scatter(model_shap[:, idx], hist=True, dot_size=5, show=False)
+shap.plots.scatter(model_shap[idx], hist=True, dot_size=5, show=False)
 plt.ylabel('Impact on probability of ssEPE')
 
 # plot patient specific value
