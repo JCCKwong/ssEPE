@@ -66,6 +66,7 @@ def load_items():
     f_checkpoint = Path('model/XGB ssEPE model V4.pkl')
     f_checkpoint1 = Path('model/Features.pkl')
     f_checkpoint2 = Path('model/explainer.pkl')
+    f_checkpoint3 = Path('model/model shap.pkl')
 
     # download from Google Drive if model or features are not present
     if not f_checkpoint.exists():
@@ -81,10 +82,14 @@ def load_items():
         explainer = shap.TreeExplainer(model, np.array(features), model_output='probability')
         joblib.dump(explainer, f_checkpoint2)
     explainer2 = joblib.load(f_checkpoint2)
-    return model, explainer2
+    if not f_checkpoint3.exists():
+        model_shap = explainer2.shap_values(features)
+        joblib.dump(model_shap, f_checkpoint3)
+    model_shap2 = joblib.load(f_checkpoint3)
+    return model, features, explainer2, model_shap2
 
 
-model, explainer = load_items()
+model, features, explainer, model_shap = load_items()
 
 
 @st.cache(allow_output_mutation=True)
@@ -540,9 +545,30 @@ col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE  \n'
            '**Blue bars**: Features that ***decrease*** the risk of ssEPE  \n'
            '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE')
 
-st.header('See where you fit among the study population')
+st.subheader('See where you fit among the study population')
 col_left, col_right = st.beta_columns([1, 1])
-col_left.selectbox("Select left lobe feature to compare", features_list)
+left_option = col_left.selectbox("Select left lobe feature to compare", features_list)
+idx = np.where(features_list.columns == left_option)[0][0]
+shap.plots.scatter(model_shap[:, idx], hist=True, dot_size=5, show=False)
+plt.ylabel('Impact on probability of ssEPE')
+
+# plot patient specific value
+x_pt = user_input[:, idx]
+y_pt = shap_values[:, idx]
+plt.plot(x_pt, y_pt, 'ro', markersize=7, alpha=1)
+
+if left_option == 'Perineural invasion':
+    positions = (0, 1)
+    x_labels = ('No', 'Yes')
+    plt.xticks(positions, x_labels, rotation=0)
+
+if left_option == 'Base findings' or left_option == 'Worst Gleason Grade Group':
+    positions = (0, 1, 2, 3, 4, 5, 6, 7)
+    x_labels = ('Normal', 'HGPIN', 'ASAP', 'GGG1', 'GGG2', 'GGG3', 'GGG4', 'GGG5')
+    plt.xticks(positions, x_labels, rotation=0)
+
+col_left.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+
 col_right.selectbox("Select right lobe feature to compare", features_list_r)
 
 # Display additional text
