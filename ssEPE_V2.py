@@ -542,8 +542,8 @@ col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE  \n'
 
 st.header('See where you fit among the study population')
 col_left, col_right = st.beta_columns([1, 1])
-col_left.radio("Select left lobe feature to compare", features_list)
-col_right.radio("Select right lobe feature to compare", features_list_r)
+col_left.selectbox("Select left lobe feature to compare", features_list)
+col_right.selectbox("Select right lobe feature to compare", features_list_r)
 
 # Display additional text
 
