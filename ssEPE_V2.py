@@ -367,17 +367,17 @@ col2.subheader('Left lobe')
 st.set_option('deprecation.showPyplotGlobalUse', False)
 # shap.initjs()
 shap_values = explainer.shap_values(user_input)
-features_list = ('Age',
-                 'PSA',
+features_list = ('PSA',
+                 'Maximum % core involvement',
                  '% Gleason pattern 4/5',
                  'Perineural invasion',
-                 '% positive cores',
-                 'Worst Gleason Grade Group',
-                 'Maximum % core involvement',
-                 'Base findings',
                  'Base % core involvement',
-                 'Mid % core involvement',
-                 'Transition zone % core involvement')
+                 'Base findings',
+                 '% positive cores',
+                 'Transition zone % core involvement',
+                 'Age',
+                 'Worst Gleason Grade Group',
+                 'Mid % core involvement')
 shap.force_plot(explainer.expected_value, shap_values, user_input, features_list, text_rotation=10,  # features_list,
                 matplotlib=True)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
@@ -386,18 +386,18 @@ plt.clf()
 # SHAP plot for right lobe
 col2.subheader('Right lobe')
 shap_values_r = explainer.shap_values(user_input_r)
-features_list_r = ('Age',
-                   'PSA',
-                   '% Gleason pattern 4/5',
-                   'Perineural invasion',
-                   '% positive cores',
-                   'Worst Gleason Grade Group',
-                   'Maximum % core involvement',
-                   'Base findings',
-                   'Base % core involvement',
-                   'Mid % core involvement',
-                   'Transition zone % core involvement')
-shap.plots.force(explainer.expected_value, shap_values_r, user_input_r, matplotlib=True,  # features_list_r,
+features_list_r = ('PSA',
+                  'Maximum % core involvement',
+                  '% Gleason pattern 4/5',
+                  'Perineural invasion',
+                  'Base % core involvement',
+                  'Base findings',
+                  '% positive cores',
+                  'Transition zone % core involvement',
+                  'Age',
+                  'Worst Gleason Grade Group',
+                  'Mid % core involvement')
+shap.plots.force(explainer.expected_value, shap_values_r, user_input_r, features_list_r, matplotlib=True,
                 text_rotation=10)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 plt.clf()
