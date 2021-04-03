@@ -550,7 +550,7 @@ st.write('Each blue data point represents an individual case used to train this 
          and its corresponding impact on probability of ssEPE is shown in **red**. This allows you to visualize how\
          your specific clinicopathological profile compares with the study population to identify potential outliers.')
 col_left, col_left2, col_right, col_right2 = st.beta_columns([1, 1.5, 1, 1.5])
-left_option = col_left.selectbox("Select left lobe feature to compare", features_list, index='PSA')
+left_option = col_left.selectbox("Select left lobe feature to compare", features_list, index=0)
 idx = features_list.index(left_option)
 shap.plots.scatter(model_shap[:, idx], hist=True, dot_size=5, show=False)
 plt.ylabel('Impact on probability of ssEPE')
@@ -572,7 +572,7 @@ if left_option == 'Base findings' or left_option == 'Worst Gleason Grade Group':
 
 col_left2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
-right_option = col_right.selectbox("Select right lobe feature to compare", features_list_r, index='Worst Gleason Grade Group')
+right_option = col_right.selectbox("Select right lobe feature to compare", features_list_r, index=9)
 idx_r = features_list_r.index(right_option)
 shap.plots.scatter(model_shap[:, idx_r], hist=True, dot_size=5, show=False)
 plt.ylabel('Impact on probability of ssEPE')
