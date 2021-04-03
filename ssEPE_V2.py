@@ -367,7 +367,7 @@ Each plot highlights which features have the greatest impact on the predicted pr
 col2.subheader('Left lobe')
 st.set_option('deprecation.showPyplotGlobalUse', False)
 # shap.initjs()
-shap_values = explainer.shap_values(np.array(user_input).reshape(1,-1))
+shap_values = explainer.shap_values(user_input)
 features_list = ('Age',
                  'PSA',
                  '% Gleason pattern 4/5',
@@ -379,12 +379,13 @@ features_list = ('Age',
                  'Base % core involvement',
                  'Mid % core involvement',
                  'Transition zone % core involvement')
-shap.force_plot(explainer.expected_value[1], shap_values[1], user_input, text_rotation=10,  # features_list,
+shap.force_plot(explainer.expected_value, shap_values, user_input, text_rotation=10,  # features_list,
                 matplotlib=True)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 col2.write(explainer.expected_value) # delete later
 plt.clf()
-
+print(user_input)
+print(shap_values)
 # SHAP plot for right lobe
 col2.subheader('Right lobe')
 shap_values_r = explainer.shap_values(user_input_r)
