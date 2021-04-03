@@ -21,6 +21,7 @@ This model was developed in accordance to the STREAM-URO framework (to-be publis
 
 # Import packages and libraries
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import PIL.Image
 import streamlit as st
