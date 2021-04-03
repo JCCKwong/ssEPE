@@ -546,8 +546,8 @@ col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE  \n'
            '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE')
 
 st.subheader('See where you fit among the study population')
-col_left, col_right = st.beta_columns([1, 1])
-left_option = col_left.selectbox("Select left lobe feature to compare", features_list)
+col_left, col_left2, col_right, col_right2 = st.beta_columns([1, 1, 1, 1])
+left_option = col_left.radio("Select left lobe feature to compare", features_list)
 idx = features_list.index(left_option)
 shap.plots.scatter(model_shap[:, idx], hist=True, dot_size=5, show=False)
 plt.ylabel('Impact on probability of ssEPE')
@@ -567,9 +567,9 @@ if left_option == 'Base findings' or left_option == 'Worst Gleason Grade Group':
     x_labels = ('Normal', 'HGPIN', 'ASAP', 'GGG1', 'GGG2', 'GGG3', 'GGG4', 'GGG5')
     plt.xticks(positions, x_labels, rotation=0)
 
-col_left.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+col_left2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
-right_option = col_right.selectbox("Select right lobe feature to compare", features_list_r)
+right_option = col_right.radio("Select right lobe feature to compare", features_list_r)
 idx_r = features_list_r.index(right_option)
 shap.plots.scatter(model_shap[:, idx_r], hist=True, dot_size=5, show=False)
 plt.ylabel('Impact on probability of ssEPE')
@@ -589,7 +589,7 @@ if right_option == 'Base findings' or right_option == 'Worst Gleason Grade Group
     x_labels = ('Normal', 'HGPIN', 'ASAP', 'GGG1', 'GGG2', 'GGG3', 'GGG4', 'GGG5')
     plt.xticks(positions, x_labels, rotation=0)
 
-col_right.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+col_right2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
 # Display additional text
 
