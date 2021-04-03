@@ -34,7 +34,7 @@ from PIL import ImageFont, ImageDraw, ImageOps
 
 # Default widescreen mode
 def _max_width_():
-    max_width_str = f"max-width: 2000px;"
+    max_width_str = f"max-width: 1920px;"
     st.markdown(
         f"""
     <style>
@@ -47,7 +47,7 @@ def _max_width_():
     )
 
 
-#_max_width_()
+_max_width_()
 
 # Create a title for web app
 st.title('Side-specific extraprostatic extension (ssEPE) prediction')
