@@ -549,7 +549,7 @@ st.subheader('See where you fit among the study population')
 col_left, col_right = st.beta_columns([1, 1])
 left_option = col_left.selectbox("Select left lobe feature to compare", features_list)
 idx = np.where(features_list == left_option)[0]
-shap.plots.scatter(model_shap[:, idx], hist=True, dot_size=5, show=False)
+shap.plots.scatter(model_shap[:, left_option], hist=True, dot_size=5, show=False)
 plt.ylabel('Impact on probability of ssEPE')
 
 # plot patient specific value
