@@ -650,7 +650,7 @@ with st.beta_expander("See how the model explanations were determined"):
 
 with st.beta_expander("Additional model explanations"):
     st.write("""""")
-    colA, colB, colC = st.beta_columns([1, 1.5, 1.5])
+    colA, colB = st.beta_columns([1, 1])
     colA.write("**Feature importance rankings:** helps identify which features had the overall greatest impact on\
              our ML model's predictions. Here, we see that PSA, Maximum % core involvement, and perineural invasion\
              were the three most important features in our ML model.")
