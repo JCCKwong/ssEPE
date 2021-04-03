@@ -547,7 +547,7 @@ col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE  \n'
 
 st.subheader('See where you fit among the study population')
 col_left, col_right = st.beta_columns([1, 1])
-left_option = col_left.selectbox("Select left lobe feature to compare", features_list)
+left_option = col_left.selectbox("Select left lobe feature to compare", features_list, key=0)
 idx = features_list.index(left_option)
 shap.plots.scatter(model_shap[:, idx], hist=True, dot_size=5, show=False)
 plt.ylabel('Impact on probability of ssEPE')
@@ -570,7 +570,7 @@ if left_option == 'Base findings' or left_option == 'Worst Gleason Grade Group':
 col_left.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
 col_right.selectbox("Select right lobe feature to compare", features_list_r)
-right_option = col_right.selectbox("Select right lobe feature to compare", features_list_r)
+right_option = col_right.selectbox("Select right lobe feature to compare", features_list_r, key=1)
 idx_r = features_list_r.index(right_option)
 shap.plots.scatter(model_shap[:, idx_r], hist=True, dot_size=5, show=False)
 plt.ylabel('Impact on probability of ssEPE')
