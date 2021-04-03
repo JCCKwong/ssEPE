@@ -552,12 +552,12 @@ idx = features_list.index(left_option)
 
 col_left.write(features_list)
 col_left.write(idx)
-shap.plots.scatter(model_shap[:, 0], hist=True, dot_size=5, show=False)
+shap.plots.scatter(model_shap[idx], hist=True, dot_size=5, show=False)
 plt.ylabel('Impact on probability of ssEPE')
 
 # plot patient specific value
-x_pt = user_input[:, idx]
-y_pt = shap_values[:, idx]
+x_pt = user_input[idx]
+y_pt = shap_values[idx]
 plt.plot(x_pt, y_pt, 'ro', markersize=7, alpha=1)
 
 if left_option == 'Perineural invasion':
