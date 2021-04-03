@@ -77,12 +77,12 @@ def load_items():
 
     model = joblib.load(f_checkpoint)
     features = joblib.load(f_checkpoint1)
-    #if not f_checkpoint2.exists():
-        # explainer = shap.TreeExplainer(model, model_output='probability')
-    explainer = shap.TreeExplainer(model, np.array(features), model_output='probability')
-        #joblib.dump(explainer, f_checkpoint2)
-    #explainer2 = joblib.load(f_checkpoint2)
-    return model, explainer
+    if not f_checkpoint2.exists():
+        explainer = shap.TreeExplainer(model, model_output='probability')
+        #explainer = shap.TreeExplainer(model, np.array(features), model_output='probability')
+        joblib.dump(explainer, f_checkpoint2)
+    explainer2 = joblib.load(f_checkpoint2)
+    return model, explainer2
 
 
 model, explainer = load_items()
