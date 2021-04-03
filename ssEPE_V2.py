@@ -382,8 +382,7 @@ shap.force_plot(explainer.expected_value, shap_values, user_input, features_list
                 matplotlib=True)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 plt.clf()
-st.write(user_input)
-st.write(shap_values)
+
 # SHAP plot for right lobe
 col2.subheader('Right lobe')
 shap_values_r = explainer.shap_values(user_input_r)
