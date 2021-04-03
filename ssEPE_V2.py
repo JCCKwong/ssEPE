@@ -548,7 +548,7 @@ col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE  \n'
 st.subheader('See where you fit among the study population')
 col_left, col_right = st.beta_columns([1, 1])
 left_option = col_left.selectbox("Select left lobe feature to compare", features_list)
-idx = np.where(features_list == left_option)[0]
+idx = features_list.index(left_option)
 col_left.write(features_list)
 col_left.write(idx)
 shap.plots.scatter(model_shap[:, idx], hist=True, dot_size=5, show=False)
