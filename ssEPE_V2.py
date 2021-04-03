@@ -367,7 +367,7 @@ Each plot highlights which features have the greatest impact on the predicted pr
 col2.subheader('Left lobe')
 st.set_option('deprecation.showPyplotGlobalUse', False)
 # shap.initjs()
-shap_values = explainer.shap_values(user_input)
+shap_values = explainer(user_input)
 features_list = ('Age',
                  'PSA',
                  '% Gleason pattern 4/5',
@@ -386,7 +386,7 @@ plt.clf()
 
 # SHAP plot for right lobe
 col2.subheader('Right lobe')
-shap_values_r = explainer.shap_values(user_input_r)
+shap_values_r = explainer(user_input_r)
 features_list_r = ('Age',
                    'PSA',
                    '% Gleason pattern 4/5',
