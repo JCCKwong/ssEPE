@@ -549,7 +549,6 @@ st.subheader('See where you fit among the study population')
 col_left, col_right = st.beta_columns([1, 1])
 left_option = col_left.selectbox("Select left lobe feature to compare", features_list)
 idx = features_list.index(left_option)
-idx = np.where(ft.columns==feature)[0][0]
 
 col_left.write(features_list)
 col_left.write(idx)
