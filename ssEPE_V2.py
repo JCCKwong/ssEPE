@@ -382,6 +382,7 @@ features_list = ('Age',
 shap.plots.force(explainer.expected_value, shap_values, user_input, text_rotation=10,  # features_list,
                 matplotlib=True)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+col2.write(explainer.expected_value, shap_values, user_input) # delete later
 plt.clf()
 
 # SHAP plot for right lobe
