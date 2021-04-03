@@ -363,7 +363,7 @@ user_input_r = get_user_input_r()
 col1, col2 = st.beta_columns([1, 1.75])
 
 # SHAP plots under column 2
-col2.header('Model explanations')
+col2.subheader('Model explanations')
 col2.write('The probability of ssEPE for each lobe is indicated in **bold**. \
 Each plot highlights which features have the greatest impact on the predicted probability of ssEPE')
 
@@ -409,7 +409,7 @@ plt.clf()
 
 # Show annotated prostate diagram under column 2
 # Importing Image and ImageFont, ImageDraw module from PIL package
-col1.header('Annotated Prostate')
+col1.subheader('Annotated Prostate')
 col1.write('Automatically updates based on user-entered values')
 
 # Specify font size for annotated prostate diagram
