@@ -47,7 +47,7 @@ def _max_width_():
     )
 
 
-_max_width_()
+#_max_width_()
 
 # Create a title for web app
 st.title('Side-specific extraprostatic extension (ssEPE) prediction')
