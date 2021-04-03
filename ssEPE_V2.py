@@ -1,6 +1,6 @@
 """
-Title: Development and external validation of an explainable machine learning model to predict risk of side-specific
-extraprostatic extension in men with prostate cancer
+Title: Explainable artificial intelligence to predict the risk of side-specific extraprostatic extension in
+pre-prostatectomy patients
 
 Developed by: Jethro CC. Kwong (1,2), Adree Khondker (3), Christopher Tran (3), Emily Evans (3), Amna Ali (4),
 Munir Jamal (1), Thomas Short (1), Frank Papanikolaou (1), John R. Srigley (5), Andrew H. Feifer (1,4)
@@ -17,58 +17,6 @@ model will output a probability of ssEPE for the left and right lobe. This can b
 counselling and/or for tailoring surgical strategy (ie: nerve-sparing).
 
 This model was developed in accordance to the STREAM-URO framework (to-be published)
-
-Problem: Supervised, binary classification.
-Source of data: Electronic medical records of men with prostate cancer who underwent radical prostatectomy at Credit
-                Valley Hospital, Mississauga, ON, Canada from 2010 to 2020 and at Mississauga Hospital, Mississauga, ON,
-                Canada from 2016 to 2020.
-Eligibility criteria:
-    Inclusion criteria: Men with localized prostate cancer who received a 4-site prostate biopsy (base, mid, apex,
-                        transition zone) followed by a radical prostatectomy. Patients were included regardless of open
-                        or robotic-assisted approach.
-    Exclusion criteria: Patients who received neoadjuvant treatment were excluded. Patients with variant histologies
-                        like pure sarcomatoid tumours, small cell neoplasm of the prostate were excluded.
-Label: Presence of ssEPE in the ipsilateral lobe of the prostatectomy specimen. All pathology was reviewed by a
-       dedicated uro-pathologist.
-Data abstraction, cleaning, preparation:
-    Feature abstraction: Direct abstraction of clinicopathological data from electronic medical records.
-    Handling of missing data: Removal of all cases with missing data.
-    Feature engineering: Primary and Secondary Gleason Grade were replaced with Gleason Grade Group.
-    Removal of features: In the following order
-        1) All features were evaluated by Boruta method with SHAP as the feature importance measure instead of
-           Gini impurity.
-        2) Correlation analysis to remove all features with Pearson correlation > 0.8.
-Data splitting:
-    Training cohort: Patients treated at Credit Valley Hospital from 2010 to 2020. Ten-fold stratified cross-validation
-                     method was used to create validation cohorts.
-    Testing cohort: Patients treated at Mississauga Hospital from 2016 to 2020.
-Reference standard: Predictive model developed by Sayyid et al. (2016)
-                    https://bjui-journals.onlinelibrary.wiley.com/doi/full/10.1111/bju.13733
-Model selection: XGBoost version 1.3.3
-Hyperparameter tuning: GridSearch of the following hyperparameters using area under receiver-operating-characteristic
-                       curve as the evaluation metric
-                            n_estimators: 600 to 1200
-                            max_depth: 7 to 11,
-                            learning_rate: 0.01 to 0.1
-                            base_score: 0.307 (baseline frequency of the training cohort)
-                            colsample_bylevel: 0 to 1
-                            colsample_bynode: 0 to 1
-                            colsample_bytree: 0.3 to 0.8
-Model evaluation: The following performance metrics were used for cross-validation of the training cohort and evaluation
-                  on the testing cohort
-                      1) Area under receiver-operating-characteristic curve (AUROC)
-                      2) Area under precision-recall curve (AUPRC)
-                      3) Calibration curve
-                      4) Decision curve analysis and number of avoidable treatments per 100 patients
-Cross-validation: Ten-fold, stratified cross-validation
-Model interpretation: SHAP version 0.37.0
-Final model:
-    Model: XGBoost classifier
-    Hyperparameters: n_estimators=831, max_depth=10, learning_rate=0.06, base_score=0.307, colsample_bylevel=0.1,
-                     colsample_bynode: 0.1, colsample_bytree=0.3
-    Features: Age, PSA, perineural invasion, worst Gleason Grade Group, maximum % core involvement, % positive cores,
-              % Gleason pattern 4/5, base findings, base % core involvement, mid % core involvement, transition zone
-              % core involvement
 """
 
 # Import packages and libraries
@@ -106,7 +54,7 @@ st.write('Determine the probability of ssEPE in the ipsilateral lobe using clini
  machine learning')
 
 # Load saved items from Google Drive
-GD_model_location = '1ZRTQclmFRR-GScjOlSoO2mqhVaHv1WXY'
+GD_model_location = '1RrEJWueJLibz_LBdpR-Qu3lsAnZxN1tV' #1ZRTQclmFRR-GScjOlSoO2mqhVaHv1WXY
 GD_feature_location = '1ShHxTw-yOy_8rM2AXlsdpOfztvMoXAgn'
 
 
@@ -114,7 +62,7 @@ GD_feature_location = '1ShHxTw-yOy_8rM2AXlsdpOfztvMoXAgn'
 def load_items():
     save_dest = Path('model')
     save_dest.mkdir(exist_ok=True)
-    f_checkpoint = Path('model/XGB ssEPE model V3.pkl')
+    f_checkpoint = Path('model/XGB ssEPE model V4.pkl')
     f_checkpoint1 = Path('model/Features.pkl')
     f_checkpoint2 = Path('model/explainer.pkl')
 
@@ -141,17 +89,22 @@ model, explainer = load_items()
 
 @st.cache(allow_output_mutation=True)
 def load_static_images():
-    auroc = PIL.Image.open('Performance Metrics/AUROC.png')
-    auprc = PIL.Image.open('Performance Metrics/AUPRC.png')
-    calib = PIL.Image.open('Performance Metrics/Calibration.png')
+    auroc_train = PIL.Image.open('Performance Metrics/AUROC train.png')
+    auroc_test = PIL.Image.open('Performance Metrics/AUROC test.png')
+    auprc_train = PIL.Image.open('Performance Metrics/AUPRC train.png')
+    auprc_test = PIL.Image.open('Performance Metrics/AUPRC test.png')
+    calib_train = PIL.Image.open('Performance Metrics/Calibration train.png')
+    calib_test = PIL.Image.open('Performance Metrics/Calibration test.png')
     dca = PIL.Image.open('Performance Metrics/DCA.png')
     stream_uro = PIL.Image.open('Performance Metrics/ssEPE STREAM-URO.png')
     summary = PIL.Image.open('Performance Metrics/Feature rankings.png')
     pdp = PIL.Image.open('Performance Metrics/Partial dependence plots.png')
-    return auroc, auprc, calib, dca, stream_uro, summary, pdp
+    return auroc_train, auroc_test, auprc_train, auprc_test, calib_train, calib_test,\
+           dca, stream_uro, summary, pdp
 
 
-auroc, auprc, calib, dca, stream_uro, summary, pdp = load_static_images()
+auroc_train, auroc_test, auprc_train, auprc_test, calib_train, calib_test,\
+dca, stream_uro, summary, pdp = load_static_images()
 
 
 # Load blank prostate and all colour coded sites as image objects from GitHub repository
@@ -593,20 +546,20 @@ with st.beta_expander("See how the model was developed"):
     st.write("""""")
     st.write('A retrospective sample of 900 prostatic lobes (450 patients) from radical prostatectomy (RP) specimens at\
      Credit Valley Hospital, Mississauga, between 2010 and 2020, was used as the training cohort. Features\
-     (ie: variables) included patient demographics, clinical, sonographic, and site-specific data from\
+     (ie: variables) included patient demographics, clinical, and site-specific data from\
      transrectal ultrasound-guided prostate biopsy. The primary label (ie: outcome) of interest was the presence\
-     of EPE in the ipsilateral lobe of the prostatectomy specimen. All pathology was reviewed by an expert\
-    uro-pathologist. A previously developed [model]\
+     of EPE in the ipsilateral lobe of the prostatectomy specimen. A previously developed [model]\
     (https://bjui-journals.onlinelibrary.wiley.com/doi/full/10.1111/bju.13733), which has the highest performance out of\
-     current predictive models for ssEPE, was used as the baseline model for comparison.')
-    st.write('Dimensionality reduction was performed by removing highly correlated features\
-     (Pearson correlation > 0.8) and using a modified [Boruta](https://www.jstatsoft.org/article/view/v036i11/0)\
-      algorithm. This method involves fitting all features to a random forest model and determining feature importance\
+     current biopsy-derived predictive models for ssEPE that have been externally validated,\
+      was used as the baseline model for comparison.')
+    st.write('Dimensionality reduction was performed using a modified [Boruta](https://www.jstatsoft.org/article/view/v036i11/0)\
+      algorithm followed by removing highly correlated features (Pearson correlation > 0.8). This former involves\
+       fitting all features to a random forest model and determining feature importance\
        by comparing the relevance of each feature to that of random noise. Given that our dataset contains both\
         categorical and numerical features, SHAP was specifically selected in lieu of impurity-based measures\
          to reduce bias towards high cardinality features.')
-    st.write('Using the final set of the most important and independent features, a ten-fold stratified\
-     cross-validation method was performed to train a gradient-boosted model, optimize hyperparameters,\
+    st.write('Using the final set of the most important and independent features, a stratified ten-fold \
+     cross-validation method was performed to train a gradient-boosted machine, optimize hyperparameters,\
       and for internal validation. In stratified cross-validation, the training cohort was randomly partitioned\
        into ten equal folds, with each fold containing the same percentage of positive ssEPE cases. Nine folds\
         were used for model training and hyperparameter tuning while the remaining fold made up the validation cohort.\
@@ -620,31 +573,33 @@ with st.beta_expander("See how the model was developed"):
 
     st.write("""""")
     st.write("""""")
-    colF, colG = st.beta_columns([1, 3])
+    colF, colG, colZ = st.beta_columns([1, 1, 1])
     colF.write('**Area under receiver-operating-characteristic curve (AUROC):** is used to measure the discriminative\
                capability of predictive models by comparing the true positive rate (sensitivity) and false positive\
                rate (1-specificity) across various decision thresholds.')
     colF.write('Our ML model outperformed the baseline model with a **mean AUROC of 0.81** (95% CI 0.78-0.83) **vs \
                 0.74** (95% CI 0.71-0.76) **(p<0.01)** on cross-validation of the training cohort. Similarly, our ML\
-                 model performed favourably on the external testing cohort with an **AUROC of 0.81** (95% CI 0.73-0.87)\
+                 model performed favourably on the external testing cohort with an **AUROC of 0.81** (95% CI 0.73-0.88)\
                   **vs 0.75** (95% CI 0.67-0.83) **(p=0.03)**.')
-    colG.image(auroc, use_column_width='auto')
+    colG.image(auroc_train, use_column_width='auto')
+    colZ.image(auroc_test, use_column_width='auto')
     st.write("""""")
     st.write("""""")
-    colH, colI = st.beta_columns([1, 3])
+    colH, colI, colY = st.beta_columns([1, 1, 1])
     colH.write('**Area under precision-recall curve (AUPRC):** compares precision (positive predictive value) and \
                recall (sensitivity) across various decision thresholds. It is more informative than AUROC curves when\
                evaluating the performance of classifiers for imbalanced datasets, such as in our case where there are\
                 more patients without ssEPE than with ssEPE. This is because AUPRC evaluates the proportion of true\
                positives among positive predictions, which is our outcome of interest.')
-    colH.write('Our ML model outperformed the baseline model with a **mean AUPRC of 0.68** (95% CI 0.64-0.73) **vs \
+    colH.write('Our ML model outperformed the baseline model with a **mean AUPRC of 0.69** (95% CI 0.64-0.73) **vs \
                 0.59** (95% CI 0.54-0.65) on cross-validation of the training cohort. Similarly, our ML model \
-                performed favourably on the external testing cohort with an **AUPRC of 0.78** (95% CI 0.67-0.85) **vs \
+                performed favourably on the external testing cohort with an **AUPRC of 0.78** (95% CI 0.67-0.86) **vs \
                 0.70** (95% CI 0.60-0.79).')
-    colI.image(auprc, use_column_width='auto')
+    colI.image(auprc_train, use_column_width='auto')
+    colY.image(auprc_test, use_column_width='auto')
     st.write("""""")
     st.write("""""")
-    colJ, colK = st.beta_columns([1, 3])
+    colJ, colK, colX = st.beta_columns([1, 1, 1])
     colJ.write('**Calibration curves:** are used to evaluate the accuracy of model risk estimates by measuring the\
                agreement between the predicted and observed number of outcomes. A perfectly calibrated model is\
                depicted as a 45 degree line. In our case, if a calibration curve is above the reference line, it\
@@ -653,19 +608,21 @@ with st.beta_expander("See how the model was developed"):
                   may lead to overtreatment (ie: patient gets unnecessarily treated with a non-nerve sparing approach).\
                    Therefore, calibration is especially important when evaluating predictive models used to support\
                     decision-making.')
-    colJ.write('Our ML model is well calibrated compared to the baseline model on cross-validation of the training\
-                cohort and on the external testing cohort.')
-    colK.image(calib, use_column_width='auto')
+    colJ.write('Our ML model is well calibrated for predicted probabilities between 0-40%, while overestimating the risk\
+                of ssEPE above 40% probability in the testing cohort.')
+    colK.image(calib_train, use_column_width='auto')
+    colX.image(calib_test, use_column_width='auto')
     st.write("""""")
     st.write("""""")
-    colL, colM, colN = st.beta_columns([1, 2, 1])
+    colL, colM = st.beta_columns([1, 1])
     colL.write('**[Decision curve analysis](https://pubmed.ncbi.nlm.nih.gov/17099194/):** is used to evaluate clinical\
                 utility. Here, the net benefit of the model is plotted against various threshold probabilities for\
                  three different treatment strategies: treat all, treat none, or treat only those predicted to have\
                   ssEPE by the model.')
-    colL.write('Our ML model achieved a higher net benefit than the baseline model for threshold probabilities above\
-                0.15. This translates to a **reduction in avoidable non-nerve-sparing radical prostatectomies by 13 vs\
-                 3 per 100 patients at a threshold probability of 0.2**.')
+    colL.write('Threshold probabilities between 10-30% were deemed the most clinically relevant for consideration\
+                 of nerve-sparing. Our ML model achieved a higher net benefit than the baseline model across these\
+                 thresholds. This translates to a potential **increase in appropriate nerve-sparing by 20 vs\
+                 8 per 100 cases at a threshold probability of 20%** compared to a "treat all" strategy.')
     colM.image(dca, use_column_width='auto')
 
     st.write("""""")
@@ -674,7 +631,7 @@ with st.beta_expander("See how the model was developed"):
     st.write("""""")
     st.image(stream_uro, width=800)
     st.write("""""")
-    
+
 with st.beta_expander("See how the model explanations were determined"):
     st.write("""""")
     st.write('Model explanations were calculated based on SHAP (SHapley Additive exPlanations) values,\
@@ -695,7 +652,7 @@ with st.beta_expander("Additional model explanations"):
     st.write("""""")
     colA, colB, colC = st.beta_columns([1, 1.5, 1.5])
     colA.write("**Feature importance rankings:** helps identify which features had the overall greatest impact on\
-             our ML model's predictions. Here, we see that PSA, Maximum % core involvement, and % Gleason pattern 4/5\
+             our ML model's predictions. Here, we see that PSA, Maximum % core involvement, and perineural invasion\
              were the three most important features in our ML model.")
     colB.image(summary, use_column_width='auto')
     st.write("""""")
