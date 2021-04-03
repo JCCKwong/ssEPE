@@ -549,11 +549,6 @@ st.subheader('See where you fit among the study population')
 col_left, col_right = st.beta_columns([1, 1])
 left_option = col_left.selectbox("Select left lobe feature to compare", features_list)
 idx = features_list.index(left_option)
-
-col_left.write(features_list)
-col_left.write(idx)
-col_left.write(np.array(user_input)[:, idx])
-col_left.write(shap_values[:, idx])
 shap.plots.scatter(model_shap[:, idx], hist=True, dot_size=5, show=False)
 plt.ylabel('Impact on probability of ssEPE')
 
@@ -575,6 +570,27 @@ if left_option == 'Base findings' or left_option == 'Worst Gleason Grade Group':
 col_left.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
 col_right.selectbox("Select right lobe feature to compare", features_list_r)
+right_option = col_right.selectbox("Select right lobe feature to compare", features_list_r)
+idx_r = features_list_r.index(right_option)
+shap.plots.scatter(model_shap[:, idx_r], hist=True, dot_size=5, show=False)
+plt.ylabel('Impact on probability of ssEPE')
+
+# plot patient specific value
+x_pt_r = np.array(user_input_r)[:, idx_r]
+y_pt_r = shap_values_r[:, idx_r]
+plt.plot(x_pt_r, y_pt_r, 'ro', markersize=7, alpha=1)
+
+if right_option == 'Perineural invasion':
+    positions = (0, 1)
+    x_labels = ('No', 'Yes')
+    plt.xticks(positions, x_labels, rotation=0)
+
+if right_option == 'Base findings' or right_option == 'Worst Gleason Grade Group':
+    positions = (0, 1, 2, 3, 4, 5, 6, 7)
+    x_labels = ('Normal', 'HGPIN', 'ASAP', 'GGG1', 'GGG2', 'GGG3', 'GGG4', 'GGG5')
+    plt.xticks(positions, x_labels, rotation=0)
+
+col_right.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
 # Display additional text
 
