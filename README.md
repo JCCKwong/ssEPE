@@ -1,6 +1,6 @@
 # ssEPE
-Title: Development and external validation of an explainable machine learning model to predict risk of side-specific
-extraprostatic extension in men with prostate cancer
+Title: Explainable artificial intelligence to predict the risk of side-specific extraprostatic extension in
+pre-prostatectomy patients
 
 Developed by: Jethro CC. Kwong (1,2), Adree Khondker (3), Christopher Tran (3), Emily Evans (3), Amna Ali (4),
 Munir Jamal (1), Thomas Short (1), Frank Papanikolaou (1), John R. Srigley (5), Andrew H. Feifer (1,4)
