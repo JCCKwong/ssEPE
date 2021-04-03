@@ -379,7 +379,7 @@ features_list = ('Age',
                  'Base % core involvement',
                  'Mid % core involvement',
                  'Transition zone % core involvement')
-shap.plot.force(explainer.expected_value, shap_values, user_input, text_rotation=10,  # features_list,
+shap.plots.force(explainer.expected_value, shap_values, user_input, text_rotation=10,  # features_list,
                 matplotlib=True)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 plt.clf()
@@ -398,7 +398,7 @@ features_list_r = ('Age',
                    'Base % core involvement',
                    'Mid % core involvement',
                    'Transition zone % core involvement')
-shap.plot.force(explainer.expected_value, shap_values_r, user_input_r, matplotlib=True,  # features_list_r,
+shap.plots.force(explainer.expected_value, shap_values_r, user_input_r, matplotlib=True,  # features_list_r,
                 text_rotation=10)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 plt.clf()
