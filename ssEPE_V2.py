@@ -546,9 +546,10 @@ col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE  \n'
            '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE')
 
 st.subheader('See how you compare with the study population')
-st.write('Each blue data point represents an individual case used to train this model. The value that you have inputted\
-         and its corresponding impact on probability of ssEPE is shown in **red**. This allows you to visualize how\
-         your specific clinicopathological profile compares with the study population to identify potential outliers.')
+st.write('Each blue data point represents an individual case used to train this model, while histograms on each plot\
+         show the distribution of values for that feature. The value that you have inputted and its corresponding\
+          impact on probability of ssEPE is shown in **red**. This helps you to visualize how your specific\
+           clinicopathological profile compares with the study population to identify potential outliers.')
 col_left, col_left2, col_right, col_right2 = st.beta_columns([1, 1.5, 1, 1.5])
 left_option = col_left.selectbox("Select left lobe feature to compare", features_list, index=0)
 idx = features_list.index(left_option)
