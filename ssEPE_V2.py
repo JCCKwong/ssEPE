@@ -540,6 +540,10 @@ col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE  \n'
            '**Blue bars**: Features that ***decrease*** the risk of ssEPE  \n'
            '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE')
 
+st.write('See where you fit among the study population')
+col_left, col_right = st.beta_columns([1, 1])
+col_left.radio("Select left lobe feature to compare", user_input)
+
 # Display additional text
 
 with st.beta_expander("See how the model was developed"):
