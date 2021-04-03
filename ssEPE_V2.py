@@ -313,17 +313,17 @@ def get_user_input_r():
     t_core_total_r = base_t_core_r + mid_t_core_r + apex_t_core_r + tz_t_core_r
 
     # Store a dictionary into a variable
-    pt_data_r = {'Age': user_input['Age'],
-                 'PSA': user_input['PSA'],
+    pt_data_r = {'PSA': user_input['PSA'],
+                 'Maximum % core involvement': sort_g_p_inv_r['% core involvement'].max(),
                  '% Gleason pattern 4/5': user_input['% Gleason pattern 4/5'],
                  'Perineural invasion': user_input['Perineural invasion'],
-                 '% positive cores': round((p_core_total_r / t_core_total_r) * 100, 1),
-                 'Worst Gleason Grade Group': sort_g_p_inv_r['Gleason'].max(),
-                 'Maximum % core involvement': sort_g_p_inv_r['% core involvement'].max(),
-                 'Base findings': base_findings_r,
                  'Base % core involvement': base_p_inv_r,
-                 'Mid % core involvement': mid_p_inv_r,
-                 'Transition zone % core involvement': tz_p_inv_r
+                 'Base findings': base_findings_r,
+                 '% positive cores': round((p_core_total_r / t_core_total_r) * 100, 1),
+                 'Transition zone % core involvement': tz_p_inv_r,
+                 'Age': user_input['Age'],
+                 'Worst Gleason Grade Group': sort_g_p_inv_r['Gleason'].max(),
+                 'Mid % core involvement': mid_p_inv_r
                  }
 
     # Save positive cores and cores taken at each site for annotated prostate diagram later
