@@ -379,7 +379,7 @@ features_list = ('Age',
                  'Base % core involvement',
                  'Mid % core involvement',
                  'Transition zone % core involvement')
-shap.plots.force(explainer.expected_value[:,1], shap_values[:,1], user_input, text_rotation=10,  # features_list,
+shap.force_plot(explainer.expected_value[1], shap_values[1], user_input, text_rotation=10,  # features_list,
                 matplotlib=True)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 col2.write(explainer.expected_value) # delete later
