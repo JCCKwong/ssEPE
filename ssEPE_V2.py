@@ -378,7 +378,7 @@ features_list = ('PSA',
                  'Age',
                  'Worst Gleason Grade Group',
                  'Mid % core involvement')
-shap.force_plot(explainer.expected_value, shap_values, user_input, features_list, text_rotation=10,  # features_list,
+shap.force_plot(0.3, shap_values, user_input, features_list, text_rotation=10,  # features_list,
                 matplotlib=True)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 plt.clf()
@@ -397,7 +397,7 @@ features_list_r = ('PSA',
                   'Age',
                   'Worst Gleason Grade Group',
                   'Mid % core involvement')
-shap.plots.force(explainer.expected_value, shap_values_r, user_input_r, features_list_r, matplotlib=True,
+shap.plots.force(0.3, shap_values_r, user_input_r, features_list_r, matplotlib=True,
                 text_rotation=10)
 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 plt.clf()
