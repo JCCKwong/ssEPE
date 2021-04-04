@@ -101,7 +101,7 @@ def load_static_images():
     calib_train = PIL.Image.open('Performance Metrics/Calibration train.png')
     calib_test = PIL.Image.open('Performance Metrics/Calibration test.png')
     dca = PIL.Image.open('Performance Metrics/DCA.png')
-    stream_uro = pd.read_csv('Performance Metrics/ssEPE STREAM-URO.csv')
+    stream_uro = pd.read_csv('Performance Metrics/ssEPE STREAM-URO.csv', encoding='latin1')
     summary = PIL.Image.open('Performance Metrics/Feature rankings.png')
     pdp = PIL.Image.open('Performance Metrics/Partial dependence plots.png')
     return auroc_train, auroc_test, auprc_train, auprc_test, calib_train, calib_test,\
