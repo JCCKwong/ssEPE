@@ -101,7 +101,7 @@ def load_static_images():
     calib_train = PIL.Image.open('Performance Metrics/Calibration train.png')
     calib_test = PIL.Image.open('Performance Metrics/Calibration test.png')
     dca = PIL.Image.open('Performance Metrics/DCA.png')
-    stream_uro = PIL.Image.open('Performance Metrics/ssEPE STREAM-URO.png')
+    stream_uro = pd.read_csv('Performance Metrics/ssEPE STREAM-URO.csv')
     summary = PIL.Image.open('Performance Metrics/Feature rankings.png')
     pdp = PIL.Image.open('Performance Metrics/Partial dependence plots.png')
     return auroc_train, auroc_test, auprc_train, auprc_test, calib_train, calib_test,\
@@ -684,7 +684,8 @@ with st.beta_expander("See how the model was developed"):
     st.write("""""")
     st.write('This model was developed in accordance to the STREAM-URO framework (see table below).')
     st.write("""""")
-    st.image(stream_uro, width=800)
+    st.table(stream_uro)
+    #st.image(stream_uro, width=800)
     st.write("""""")
 
 with st.beta_expander("See how the model explanations were determined"):
