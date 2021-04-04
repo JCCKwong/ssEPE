@@ -7,4 +7,3 @@ joblib==0.16.0
 matplotlib==3.3.4
 Pillow==8.1.0
 googledrivedownloader==0.4
-xlrd==2.0.1
