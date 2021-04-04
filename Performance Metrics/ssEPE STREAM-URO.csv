@@ -1,0 +1,40 @@
+Section,Description
+Problem,"Supervised, binary classification"
+Source of data,"Electronic medical records of men with prostate cancer who underwent radical prostatectomy at Credit Valley Hospital, Mississauga, ON, Canada from 2010 to 2020 and at Mississauga Hospital, Mississauga, ON, Canada from 2016 to 2020"
+Eligibility criteria,"Inclusion criteria: Men with localized prostate cancer who received a 4-site prostate biopsy (base, mid, apex, transition zone) followed by a radical prostatectomy. Patients were included regardless of open or robotic-assisted approach"
+,"Exclusion criteria: Patients who received neoadjuvant treatment were excluded. Patients with variant histology like pure sarcomatoid tumours, or small cell neoplasm of the prostate were excluded"
+Label,"Presence of ssEPE in the prostatectomy specimen, defined as tumour that has extended beyond the prostatic capsule on the ipsilateral lobe"
+"Data abstraction, cleaning, preparation",Feature abstraction: Direct abstraction of clinicopathological data from electronic medical records
+,Handling of missing data: Removal of all cases with missing data
+,Feature engineering: Primary and Secondary Gleason Grade were replaced with Gleason Grade Group
+,Removal of features: In the following order:
+,     1) All features were evaluated by Boruta method with SHAP as the feature importance measure instead of Gini impurity
+,     2) Correlation analysis to remove all features with Pearson correlation > 0.8
+Data splitting,Training cohort: Patients treated at Credit Valley Hospital from 2010 to 2020
+,Validation cohort: Stratified tenfold cross-validation on the training cohort
+,Testing cohort: Patients treated at Mississauga Hospital from 2016 to 2020
+Reference standard,"Predictive model developed by Sayyid et al. (2016), which has the highest performance (AUROC = 0.74) out of current biopsy-derived models that have been externally validated. It is based on age, PSA, prostate volume, palpable nodule on DRE, hypoechoic nodule on TRUS, side-specific percent positive cores, maximum core involvement, and worst Gleason Grade Group"
+Model selection,XGBoost version 1.3.3
+Hyperparameter tuning,GridSearch of the following hyperparameters using area under receiver-operating-characteristic curve as the evaluation metric:
+,     n_estimators: 600 to 1200
+,     max_depth: 7 to 11
+,"     subsample: 0.8, 0.9"
+,"     learning_rate: 0.01, 0.05, 0.1"
+,     base_score: 0.3 (to reflect incidence of ssEPE reported in literature)
+,     colsample_bylevel: 0.5
+,     colsample_bynode: 0.5
+,     colsample_bytree: 0.5
+Model evaluation,All models were assessed using the following on stratified tenfold cross-validation of the training cohort and the testing cohort:
+,     1) Area under receiver-operating-characteristic curve (AUROC)
+,     2) Area under precision-recall curve (AUPRC)
+,     3) Calibration curve
+,     4) Decision curve analysis and number of avoidable treatments per 100 patients
+Cross-validation,"Stratified, tenfold cross-validation"
+Model interpretation,"SHAP version 0.39.0: feature importance rankings, partial dependence plots, individual feature contributions"
+Cohort characteristics,Incidence of ssEPE:
+,     Training cohort (n = 900): 30.7%
+,     Testing cohort (n = 122): 41.8%
+Model specification,Model: XGBoost classifier
+,"Hyperparameters: n_estimators = 831, max_depth = 10, base_score = 0.3, scale_pos_weight = 1, subsample = 0.8, learning_rate = 0.05, gamma = 5, booster = ‘gbtree’, colsample_bylevel = 0.5, colsample_bynode = 0.5,"
+,"colsample_bytree = 0.5, eval_metric = ‘auc’, importance_type = ‘gain’, min_child_weight = 1, num_parallel_tree = 1, tree_method = ‘exact’, reg_alpha = 0, reg_lambda = 1, random_state = 42, objective = ‘binary:logistic’"
+,"Features: Age, PSA, % Gleason pattern 4/5, Perineural invasion, % positive cores, Worst Gleason Grade Group, Maximum % core involvement, Base finding, Base % core involvement, Mid % core involvement, Transition zone % core involvement"
