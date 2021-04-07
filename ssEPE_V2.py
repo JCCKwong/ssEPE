@@ -544,7 +544,7 @@ col1.image(image2, use_column_width='auto')
 col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE  \n'
            '**Blue bars**: Features that ***decrease*** the risk of ssEPE  \n'
            '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE')
-"""
+
 st.subheader('See how you compare with the study population')
 st.write('Each blue data point represents an individual case used to train this model, while histograms on each plot\
          show the distribution of values for that feature. The value that you have inputted and its corresponding\
@@ -594,7 +594,7 @@ if right_option == 'Base findings' or right_option == 'Worst Gleason Grade Group
     plt.xticks(positions, x_labels, rotation=0)
 
 col_right2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-"""
+
 # Display additional text
 
 with st.beta_expander("See how the model was developed"):
