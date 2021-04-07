@@ -633,10 +633,10 @@ with st.beta_expander("See how the model was developed"):
     colF.write('**Area under receiver-operating-characteristic curve (AUROC):** is used to measure the discriminative\
                capability of predictive models by comparing the true positive rate (sensitivity) and false positive\
                rate (1-specificity) across various decision thresholds.')
-    colF.write('Our ML model achieved the highest AUROC with a **mean AUROC of 0.81** (95% CI 0.78-0.83) **followed by\
+    colF.write('Our ML model achieved the highest AUROC with a **mean AUROC of 0.81** (95% CI 0.78-0.83) followed by\
                 LR 0.78 (95% CI 0.75-0.80, p<0.01) and baseline 0.74 (95% CI 0.71-0.76, p<0.01) on cross-validation of\
                  the training cohort. Similarly, our ML model performed favourably on the external testing cohort with\
-                  an **AUROC of 0.81** (95% CI 0.73-0.88) ** compared to LR 0.76 (95% CI 0.67-0.83, p=0.01) and baseline \
+                  an **AUROC of 0.81** (95% CI 0.73-0.88) compared to LR 0.76 (95% CI 0.67-0.83, p=0.01) and baseline \
                 0.75 (95% CI 0.67-0.83, p=0.03).')
     colG.image(auroc_train, use_column_width='auto')
     colZ.image(auroc_test, use_column_width='auto')
@@ -648,7 +648,7 @@ with st.beta_expander("See how the model was developed"):
                evaluating the performance of classifiers for imbalanced datasets, such as in our case where there are\
                 more patients without ssEPE than with ssEPE. This is because AUPRC evaluates the proportion of true\
                positives among positive predictions, which is our outcome of interest.')
-    colH.write('Our ML model achieved the highest AUPRC with a **mean AUPRC of 0.69** (95% CI 0.64-0.73) ** followed by \
+    colH.write('Our ML model achieved the highest AUPRC with a **mean AUPRC of 0.69** (95% CI 0.64-0.73) followed by \
                 LR 0.64 (95% CI 0.59-0.69) and baseline 0.59 (95% CI 0.54-0.65) on cross-validation of the training \
                 cohort. Similarly, our ML model performed favourably on the external testing cohort with an \
                 **AUPRC of 0.78** (95% CI 0.67-0.86) compared to LR 0.75 (95% CI 0.65-0.84) and baseline 0.70 (95% CI \
