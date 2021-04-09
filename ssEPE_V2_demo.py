@@ -606,7 +606,8 @@ with st.beta_expander("See how the model was developed"):
      of EPE in the ipsilateral lobe of the prostatectomy specimen. A previously developed [model]\
     (https://bjui-journals.onlinelibrary.wiley.com/doi/full/10.1111/bju.13733), which has the highest performance out of\
      current biopsy-derived predictive models for ssEPE that have been externally validated,\
-      was used as the baseline model for comparison.')
+      was used as the baseline model for comparison. We also developed a separate logistic regression (LR) model using the\
+      same features included in our machine learning model for comparison.')
     st.write('Dimensionality reduction was performed using a modified [Boruta](https://www.jstatsoft.org/article/view/v036i11/0)\
       algorithm followed by removing highly correlated features (Pearson correlation > 0.8). This former involves\
        fitting all features to a random forest model and determining feature importance\
@@ -632,10 +633,11 @@ with st.beta_expander("See how the model was developed"):
     colF.write('**Area under receiver-operating-characteristic curve (AUROC):** is used to measure the discriminative\
                capability of predictive models by comparing the true positive rate (sensitivity) and false positive\
                rate (1-specificity) across various decision thresholds.')
-    colF.write('Our ML model outperformed the baseline model with a **mean AUROC of 0.81** (95% CI 0.78-0.83) **vs \
-                0.74** (95% CI 0.71-0.76) **(p<0.01)** on cross-validation of the training cohort. Similarly, our ML\
-                 model performed favourably on the external testing cohort with an **AUROC of 0.81** (95% CI 0.73-0.88)\
-                  **vs 0.75** (95% CI 0.67-0.83) **(p=0.03)**.')
+    colF.write('Our ML model achieved the highest AUROC with a **mean AUROC of 0.81** (95% CI 0.78-0.83) followed by\
+                LR 0.78 (95% CI 0.75-0.80, p<0.01) and baseline 0.74 (95% CI 0.71-0.76, p<0.01) on cross-validation of\
+                 the training cohort. Similarly, our ML model performed favourably on the external testing cohort with\
+                  an **AUROC of 0.81** (95% CI 0.73-0.88) compared to LR 0.76 (95% CI 0.67-0.83, p=0.01) and baseline \
+                0.75 (95% CI 0.67-0.83, p=0.03).')
     colG.image(auroc_train, use_column_width='auto')
     colZ.image(auroc_test, use_column_width='auto')
     st.write("""""")
@@ -646,10 +648,11 @@ with st.beta_expander("See how the model was developed"):
                evaluating the performance of classifiers for imbalanced datasets, such as in our case where there are\
                 more patients without ssEPE than with ssEPE. This is because AUPRC evaluates the proportion of true\
                positives among positive predictions, which is our outcome of interest.')
-    colH.write('Our ML model outperformed the baseline model with a **mean AUPRC of 0.69** (95% CI 0.64-0.73) **vs \
-                0.59** (95% CI 0.54-0.65) on cross-validation of the training cohort. Similarly, our ML model \
-                performed favourably on the external testing cohort with an **AUPRC of 0.78** (95% CI 0.67-0.86) **vs \
-                0.70** (95% CI 0.60-0.79).')
+    colH.write('Our ML model achieved the highest AUPRC with a **mean AUPRC of 0.69** (95% CI 0.64-0.73) followed by \
+                LR 0.64 (95% CI 0.59-0.69) and baseline 0.59 (95% CI 0.54-0.65) on cross-validation of the training \
+                cohort. Similarly, our ML model performed favourably on the external testing cohort with an \
+                **AUPRC of 0.78** (95% CI 0.67-0.86) compared to LR 0.75 (95% CI 0.65-0.84) and baseline 0.70 (95% CI \
+                0.60-0.79).')
     colI.image(auprc_train, use_column_width='auto')
     colY.image(auprc_test, use_column_width='auto')
     st.write("""""")
@@ -675,9 +678,10 @@ with st.beta_expander("See how the model was developed"):
                  three different treatment strategies: treat all, treat none, or treat only those predicted to have\
                   ssEPE by the model.')
     colL.write('Threshold probabilities between 10-30% were deemed the most clinically relevant for consideration\
-                 of nerve-sparing. Our ML model achieved a higher net benefit than the baseline model across these\
-                 thresholds. This translates to a potential **increase in appropriate nerve-sparing by 20 vs\
-                 8 per 100 cases at a threshold probability of 20%** compared to a "treat all" strategy.')
+                 of nerve-sparing. Our ML model achieved the highest net benefit across these\
+                 thresholds. This translates to a potential **increase in appropriate nerve-sparing by 14 (ML) vs\
+                 8 (LR) vs 1 (baseline) per 100 cases at a threshold probability of 15%** compared to a "treat all"\
+                  strategy.')
     colM.image(dca, use_column_width='auto')
 
     st.write("""""")
