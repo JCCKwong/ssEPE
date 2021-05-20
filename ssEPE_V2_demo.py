@@ -193,10 +193,9 @@ def format_func_gleason(option):
 # Create sidebar for user inputted values
 st.sidebar.write('Enter patient values')
 
+
 # Create sidebar inputs for global variables and left lobe variables
-with st.form(key='my_form'):
-    with st.sidebar:
-        submitted = st.form_submit_button(label='Submit')
+def get_user_input():
     with st.sidebar.beta_expander('Global variables', expanded=True):
         age = st.number_input('Age (years)', 0.0, 100.0, 60.0)
         psa = st.number_input('PSA (ng/ml)', 0.00, 200.00, 7.00)
@@ -224,31 +223,7 @@ with st.form(key='my_form'):
         tz_p_core = st.number_input('Transition zone # of positive cores', 0, 10, value=0, key=0)
         tz_t_core = st.number_input('Transition zone # of cores taken', 0, 10, value=1, key=0)
         tz_p_inv = st.number_input('Transition zone % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=0)
-    with st.sidebar.beta_expander('Side-specific variables (Right)', expanded=True):
-        base_findings_r = st.selectbox('Base findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
-                                       key=1, index=5)
-        base_p_core_r = st.number_input('Base # of positive cores', 0, 10, value=2, key=1)
-        base_t_core_r = st.number_input('Base # of cores taken', 0, 10, value=2, key=1)
-        base_p_inv_r = st.number_input('Base % core involvement (0 to 100)', 0.0, 100.0, value=45.0, key=1)
-        mid_findings_r = st.selectbox('Mid findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
-                                      key=1, index=4)
-        mid_p_core_r = st.number_input('Mid # of positive cores', 0, 10, value=2, key=1)
-        mid_t_core_r = st.number_input('Mid # of cores taken', 0, 10, value=2, key=1)
-        mid_p_inv_r = st.number_input('Mid % core involvement (0 to 100)', 0.0, 100.0, value=45.0, key=1)
-        apex_findings_r = st.selectbox('Apex findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
-                                       key=1, index=3)
-        apex_p_core_r = st.number_input('Apex # of positive cores', 0, 10, value=1, key=1)
-        apex_t_core_r = st.number_input('Apex # of cores taken', 0, 10, value=1, key=1)
-        apex_p_inv_r = st.number_input('Apex % core involvement (0 to 100)', 0.0, 100.0, value=20.0, key=1)
-        tz_findings_r = st.selectbox('Transition zone findings', options=list(G_CHOICES.keys()),
-                                     format_func=format_func_gleason, key=1, index=4)
-        tz_p_core_r = st.number_input('Transition zone # of positive cores', 0, 10, value=1, key=1)
-        tz_t_core_r = st.number_input('Transition zone # of cores taken', 0, 10, value=1, key=1)
-        tz_p_inv_r = st.number_input('Transition zone % core involvement (0 to 100)', 0.0, 100.0, value=80.0, key=1)
 
-
-
-def get_user_input():
     # Group site findings into a list
     gleason_t = [base_findings, mid_findings, apex_findings, tz_findings]
 
@@ -299,7 +274,34 @@ def get_user_input():
     pt_features = pd.DataFrame(pt_data, index=[0])
     return pt_features
 
+
+# Store the left lobe user input into a variable
+user_input = get_user_input()
+
+
 def get_user_input_r():
+    with st.sidebar.beta_expander('Side-specific variables (Right)', expanded=True):
+        base_findings_r = st.selectbox('Base findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
+                                       key=1, index=5)
+        base_p_core_r = st.number_input('Base # of positive cores', 0, 10, value=2, key=1)
+        base_t_core_r = st.number_input('Base # of cores taken', 0, 10, value=2, key=1)
+        base_p_inv_r = st.number_input('Base % core involvement (0 to 100)', 0.0, 100.0, value=45.0, key=1)
+        mid_findings_r = st.selectbox('Mid findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
+                                      key=1, index=4)
+        mid_p_core_r = st.number_input('Mid # of positive cores', 0, 10, value=2, key=1)
+        mid_t_core_r = st.number_input('Mid # of cores taken', 0, 10, value=2, key=1)
+        mid_p_inv_r = st.number_input('Mid % core involvement (0 to 100)', 0.0, 100.0, value=45.0, key=1)
+        apex_findings_r = st.selectbox('Apex findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
+                                       key=1, index=3)
+        apex_p_core_r = st.number_input('Apex # of positive cores', 0, 10, value=1, key=1)
+        apex_t_core_r = st.number_input('Apex # of cores taken', 0, 10, value=1, key=1)
+        apex_p_inv_r = st.number_input('Apex % core involvement (0 to 100)', 0.0, 100.0, value=20.0, key=1)
+        tz_findings_r = st.selectbox('Transition zone findings', options=list(G_CHOICES.keys()),
+                                     format_func=format_func_gleason, key=1, index=4)
+        tz_p_core_r = st.number_input('Transition zone # of positive cores', 0, 10, value=1, key=1)
+        tz_t_core_r = st.number_input('Transition zone # of cores taken', 0, 10, value=1, key=1)
+        tz_p_inv_r = st.number_input('Transition zone % core involvement (0 to 100)', 0.0, 100.0, value=80.0, key=1)
+
     # Group site findings into a list
     gleason_t_r = [base_findings_r, mid_findings_r, apex_findings_r, tz_findings_r]
 
@@ -350,9 +352,8 @@ def get_user_input_r():
     pt_features_r = pd.DataFrame(pt_data_r, index=[0])
     return pt_features_r
 
-if submitted:
-    user_input = get_user_input()
-    user_input_r = get_user_input_r()
+
+user_input_r = get_user_input_r()
 
 # Store the model predictions as a variable
 # = model.predict_proba(user_input)
