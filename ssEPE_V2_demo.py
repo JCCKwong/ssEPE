@@ -353,246 +353,246 @@ def get_user_input_r():
 if submitted:
     user_input = get_user_input()
     user_input_r = get_user_input_r()
-
-# Store the model predictions as a variable
-# = model.predict_proba(user_input)
-# prediction_r = model.predict_proba(user_input_r)
-
-# Create 2 columns, one to show SHAP plots, one to show annotated prostate diagram
-col1, col2 = st.beta_columns([1, 1.75])
-
-# SHAP plots under column 2
-col2.subheader('Model explanations')
-col2.write('The probability of ssEPE for each lobe is indicated in **bold**. \
-Each plot highlights which features have the greatest impact on the predicted probability of ssEPE')
-
-# SHAP plot for left lobe
-col2.subheader('Left lobe')
-st.set_option('deprecation.showPyplotGlobalUse', False)
-# shap.initjs()
-shap_values = explainer.shap_values(user_input)
-features_list = ('PSA',
-                 'Maximum % core involvement',
-                 '% Gleason pattern 4/5',
-                 'Perineural invasion',
-                 'Base % core involvement',
-                 'Base findings',
-                 '% positive cores',
-                 'Transition zone % core involvement',
-                 'Age',
-                 'Worst Gleason Grade Group',
-                 'Mid % core involvement')
-shap.force_plot(0.3, shap_values, user_input, features_list, text_rotation=10,  # features_list,
-                matplotlib=True)
-col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-plt.clf()
-
-# SHAP plot for right lobe
-col2.subheader('Right lobe')
-shap_values_r = explainer.shap_values(user_input_r)
-features_list_r = ('PSA',
-                  'Maximum % core involvement',
-                  '% Gleason pattern 4/5',
-                  'Perineural invasion',
-                  'Base % core involvement',
-                  'Base findings',
-                  '% positive cores',
-                  'Transition zone % core involvement',
-                  'Age',
-                  'Worst Gleason Grade Group',
-                  'Mid % core involvement')
-shap.plots.force(0.3, shap_values_r, user_input_r, features_list_r, matplotlib=True,
-                text_rotation=10)
-col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-plt.clf()
-
-# Show annotated prostate diagram under column 2
-# Importing Image and ImageFont, ImageDraw module from PIL package
-col1.subheader('Annotated Prostate')
-col1.write('Automatically updates based on user-entered values')
-
-# Specify font size for annotated prostate diagram
-font = ImageFont.truetype('arial.ttf', 50)
-
-# Create text to overlay on annotated prostate diagram, auto-updates based on user inputted values
-base_L = str(G_CHOICES[get_user_input.b_findings]) + '\n' \
-         + 'Positive cores: ' + str(get_user_input.b_p_core) + '/' + str(get_user_input.b_t_core) + '\n' \
-         + '% core inv: ' + str(get_user_input.b_p)
-mid_L = str(G_CHOICES[get_user_input.m_findings]) + '\n' \
-        + 'Positive cores: ' + str(get_user_input.m_p_core) + '/' + str(get_user_input.m_t_core) + '\n' \
-        + '% core inv: ' + str(get_user_input.m_p)
-apex_L = str(G_CHOICES[get_user_input.a_findings]) + '\n' \
-         + 'Positive cores: ' + str(get_user_input.a_p_core) + '/' + str(get_user_input.a_t_core) + '\n' \
-         + '% core inv: ' + str(get_user_input.a_p)
-tz_L = str(G_CHOICES[get_user_input.t_findings]) + '\n' \
-       + 'Positive cores: ' + str(get_user_input.t_p_core) + '/' + str(get_user_input.t_t_core) + '\n' \
-       + '% core inv: ' + str(get_user_input.t_p)
-base_R = str(G_CHOICES[get_user_input_r.b_findings_r]) + '\n' \
-         + 'Positive cores: ' + str(get_user_input_r.b_p_core_r) + '/' + str(get_user_input_r.b_t_core_r) + '\n' \
-         + '% core inv: ' + str(get_user_input_r.b_p_r)
-mid_R = str(G_CHOICES[get_user_input_r.m_findings_r]) + '\n' \
-        + 'Positive cores: ' + str(get_user_input_r.m_p_core_r) + '/' + str(get_user_input_r.m_t_core_r) + '\n' \
-        + '% core inv: ' + str(get_user_input_r.m_p_r)
-apex_R = str(G_CHOICES[get_user_input_r.a_findings_r]) + '\n' \
-         + 'Positive cores: ' + str(get_user_input_r.a_p_core_r) + '/' + str(get_user_input_r.a_t_core_r) + '\n' \
-         + '% core inv: ' + str(get_user_input_r.a_p_r)
-tz_R = str(G_CHOICES[get_user_input_r.t_findings_r]) + '\n' \
-       + 'Positive cores: ' + str(get_user_input_r.t_p_core_r) + '/' + str(get_user_input_r.t_t_core_r) + '\n' \
-       + '% core inv: ' + str(get_user_input_r.t_p_r)
-
-# Set conditions to show colour coded site images based on Gleason Grade Group for each site
-draw = ImageDraw.Draw(image2)
-if get_user_input.b_findings == 3:
-    image2.paste(image_bl_G1, (145, 958), mask=image_bl_G1)
-if get_user_input.b_findings == 4:
-    image2.paste(image_bl_G2, (145, 958), mask=image_bl_G2)
-if get_user_input.b_findings == 5:
-    image2.paste(image_bl_G3, (145, 958), mask=image_bl_G3)
-if get_user_input.b_findings == 6:
-    image2.paste(image_bl_G4, (145, 958), mask=image_bl_G4)
-if get_user_input.b_findings == 7:
-    image2.paste(image_bl_G5, (145, 958), mask=image_bl_G5)
-
-if get_user_input.m_findings == 3:
-    image2.paste(image_ml_G1, (145, 606), mask=image_ml_G1)
-if get_user_input.m_findings == 4:
-    image2.paste(image_ml_G2, (145, 606), mask=image_ml_G2)
-if get_user_input.m_findings == 5:
-    image2.paste(image_ml_G3, (145, 606), mask=image_ml_G3)
-if get_user_input.m_findings == 6:
-    image2.paste(image_ml_G4, (145, 606), mask=image_ml_G4)
-if get_user_input.m_findings == 7:
-    image2.paste(image_ml_G5, (145, 606), mask=image_ml_G5)
-
-if get_user_input.a_findings == 3:
-    image2.paste(image_al_G1, (145, 130), mask=image_al_G1)
-if get_user_input.a_findings == 4:
-    image2.paste(image_al_G2, (145, 130), mask=image_al_G2)
-if get_user_input.a_findings == 5:
-    image2.paste(image_al_G3, (145, 130), mask=image_al_G3)
-if get_user_input.a_findings == 6:
-    image2.paste(image_al_G4, (145, 130), mask=image_al_G4)
-if get_user_input.a_findings == 7:
-    image2.paste(image_al_G5, (145, 130), mask=image_al_G5)
-
-if get_user_input.t_findings == 3:
-    image2.paste(image_tl_G1, (665, 493), mask=image_tl_G1)
-if get_user_input.t_findings == 4:
-    image2.paste(image_tl_G2, (665, 493), mask=image_tl_G2)
-if get_user_input.t_findings == 5:
-    image2.paste(image_tl_G3, (665, 493), mask=image_tl_G3)
-if get_user_input.t_findings == 6:
-    image2.paste(image_tl_G4, (665, 493), mask=image_tl_G4)
-if get_user_input.t_findings == 7:
-    image2.paste(image_tl_G5, (665, 493), mask=image_tl_G5)
-
-if get_user_input_r.b_findings_r == 3:
-    image2.paste(image_br_G1, (1104, 958), mask=image_br_G1)
-if get_user_input_r.b_findings_r == 4:
-    image2.paste(image_br_G2, (1104, 958), mask=image_br_G2)
-if get_user_input_r.b_findings_r == 5:
-    image2.paste(image_br_G3, (1104, 958), mask=image_br_G3)
-if get_user_input_r.b_findings_r == 6:
-    image2.paste(image_br_G4, (1104, 958), mask=image_br_G4)
-if get_user_input_r.b_findings_r == 7:
-    image2.paste(image_br_G5, (1104, 958), mask=image_br_G5)
-
-if get_user_input_r.m_findings_r == 3:
-    image2.paste(image_mr_G1, (1542, 606), mask=image_mr_G1)
-if get_user_input_r.m_findings_r == 4:
-    image2.paste(image_mr_G2, (1542, 606), mask=image_mr_G2)
-if get_user_input_r.m_findings_r == 5:
-    image2.paste(image_mr_G3, (1542, 606), mask=image_mr_G3)
-if get_user_input_r.m_findings_r == 6:
-    image2.paste(image_mr_G4, (1542, 606), mask=image_mr_G4)
-if get_user_input_r.m_findings_r == 7:
-    image2.paste(image_mr_G5, (1542, 606), mask=image_mr_G5)
-
-if get_user_input_r.a_findings_r == 3:
-    image2.paste(image_ar_G1, (1104, 130), mask=image_ar_G1)
-if get_user_input_r.a_findings_r == 4:
-    image2.paste(image_ar_G2, (1104, 130), mask=image_ar_G2)
-if get_user_input_r.a_findings_r == 5:
-    image2.paste(image_ar_G3, (1104, 130), mask=image_ar_G3)
-if get_user_input_r.a_findings_r == 6:
-    image2.paste(image_ar_G4, (1104, 130), mask=image_ar_G4)
-if get_user_input_r.a_findings_r == 7:
-    image2.paste(image_ar_G5, (1104, 130), mask=image_ar_G5)
-
-if get_user_input_r.t_findings_r == 3:
-    image2.paste(image_tr_G1, (1100, 493), mask=image_tr_G1)
-if get_user_input_r.t_findings_r == 4:
-    image2.paste(image_tr_G2, (1100, 493), mask=image_tr_G2)
-if get_user_input_r.t_findings_r == 5:
-    image2.paste(image_tr_G3, (1100, 493), mask=image_tr_G3)
-if get_user_input_r.t_findings_r == 6:
-    image2.paste(image_tr_G4, (1100, 493), mask=image_tr_G4)
-if get_user_input_r.t_findings_r == 7:
-    image2.paste(image_tr_G5, (1100, 493), mask=image_tr_G5)
-
-# Overlay text showing Gleason Grade Group, % positive cores, and % core involvement for each site
-draw.text((525, 1110), base_L, fill="black", font=font, align="center")
-draw.text((205, 690), mid_L, fill="black", font=font, align="center")
-draw.text((525, 275), apex_L, fill="black", font=font, align="center")
-draw.text((685, 690), tz_L, fill="black", font=font, align="center")
-draw.text((1300, 1110), base_R, fill="black", font=font, align="center")
-draw.text((1590, 690), mid_R, fill="black", font=font, align="center")
-draw.text((1300, 275), apex_R, fill="black", font=font, align="center")
-draw.text((1125, 690), tz_R, fill="black", font=font, align="center")
-col1.image(image2, use_column_width='auto')
-col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE  \n'
-           '**Blue bars**: Features that ***decrease*** the risk of ssEPE  \n'
-           '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE')
-
-st.subheader('See how you compare with the study population')
-st.write('Each blue data point represents an individual case used to train this model, while histograms on each plot\
-         show the distribution of values for that feature. The value that you have inputted and its corresponding\
-          impact on probability of ssEPE is shown in **red**. This helps you to visualize how your specific\
-           clinicopathological profile compares with the study population to identify potential outliers.')
-col_left, col_left2, col_right, col_right2 = st.beta_columns([1, 1.5, 1, 1.5])
-left_option = col_left.selectbox("Left lobe: select feature to compare", features_list, index=0)
-idx = features_list.index(left_option)
-shap.plots.scatter(model_shap[:, idx], hist=True, dot_size=5, show=False)
-plt.ylabel('Impact on probability of ssEPE')
-
-# plot patient specific value
-x_pt = np.array(user_input)[:, idx]
-y_pt = shap_values[:, idx]
-plt.plot(x_pt, y_pt, 'ro', markersize=7, alpha=1)
-
-if left_option == 'Perineural invasion':
-    positions = (0, 1)
-    x_labels = ('No', 'Yes')
-    plt.xticks(positions, x_labels, rotation=0)
-
-if left_option == 'Base findings' or left_option == 'Worst Gleason Grade Group':
-    positions = (0, 1, 2, 3, 4, 5, 6, 7)
-    x_labels = ('Normal', 'HGPIN', 'ASAP', 'GGG1', 'GGG2', 'GGG3', 'GGG4', 'GGG5')
-    plt.xticks(positions, x_labels, rotation=0)
-
-col_left2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-
-right_option = col_right.selectbox("Right lobe: select feature to compare", features_list_r, index=9)
-idx_r = features_list_r.index(right_option)
-shap.plots.scatter(model_shap[:, idx_r], hist=True, dot_size=5, show=False)
-plt.ylabel('Impact on probability of ssEPE')
-
-# plot patient specific value
-x_pt_r = np.array(user_input_r)[:, idx_r]
-y_pt_r = shap_values_r[:, idx_r]
-plt.plot(x_pt_r, y_pt_r, 'ro', markersize=7, alpha=1)
-
-if right_option == 'Perineural invasion':
-    positions = (0, 1)
-    x_labels = ('No', 'Yes')
-    plt.xticks(positions, x_labels, rotation=0)
-
-if right_option == 'Base findings' or right_option == 'Worst Gleason Grade Group':
-    positions = (0, 1, 2, 3, 4, 5, 6, 7)
-    x_labels = ('Normal', 'HGPIN', 'ASAP', 'GGG1', 'GGG2', 'GGG3', 'GGG4', 'GGG5')
-    plt.xticks(positions, x_labels, rotation=0)
-
-col_right2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+    
+    # Store the model predictions as a variable
+    # = model.predict_proba(user_input)
+    # prediction_r = model.predict_proba(user_input_r)
+    
+    # Create 2 columns, one to show SHAP plots, one to show annotated prostate diagram
+    col1, col2 = st.beta_columns([1, 1.75])
+    
+    # SHAP plots under column 2
+    col2.subheader('Model explanations')
+    col2.write('The probability of ssEPE for each lobe is indicated in **bold**. \
+    Each plot highlights which features have the greatest impact on the predicted probability of ssEPE')
+    
+    # SHAP plot for left lobe
+    col2.subheader('Left lobe')
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    # shap.initjs()
+    shap_values = explainer.shap_values(user_input)
+    features_list = ('PSA',
+                     'Maximum % core involvement',
+                     '% Gleason pattern 4/5',
+                     'Perineural invasion',
+                     'Base % core involvement',
+                     'Base findings',
+                     '% positive cores',
+                     'Transition zone % core involvement',
+                     'Age',
+                     'Worst Gleason Grade Group',
+                     'Mid % core involvement')
+    shap.force_plot(0.3, shap_values, user_input, features_list, text_rotation=10,  # features_list,
+                    matplotlib=True)
+    col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+    plt.clf()
+    
+    # SHAP plot for right lobe
+    col2.subheader('Right lobe')
+    shap_values_r = explainer.shap_values(user_input_r)
+    features_list_r = ('PSA',
+                      'Maximum % core involvement',
+                      '% Gleason pattern 4/5',
+                      'Perineural invasion',
+                      'Base % core involvement',
+                      'Base findings',
+                      '% positive cores',
+                      'Transition zone % core involvement',
+                      'Age',
+                      'Worst Gleason Grade Group',
+                      'Mid % core involvement')
+    shap.plots.force(0.3, shap_values_r, user_input_r, features_list_r, matplotlib=True,
+                    text_rotation=10)
+    col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+    plt.clf()
+    
+    # Show annotated prostate diagram under column 2
+    # Importing Image and ImageFont, ImageDraw module from PIL package
+    col1.subheader('Annotated Prostate')
+    col1.write('Automatically updates based on user-entered values')
+    
+    # Specify font size for annotated prostate diagram
+    font = ImageFont.truetype('arial.ttf', 50)
+    
+    # Create text to overlay on annotated prostate diagram, auto-updates based on user inputted values
+    base_L = str(G_CHOICES[get_user_input.b_findings]) + '\n' \
+             + 'Positive cores: ' + str(get_user_input.b_p_core) + '/' + str(get_user_input.b_t_core) + '\n' \
+             + '% core inv: ' + str(get_user_input.b_p)
+    mid_L = str(G_CHOICES[get_user_input.m_findings]) + '\n' \
+            + 'Positive cores: ' + str(get_user_input.m_p_core) + '/' + str(get_user_input.m_t_core) + '\n' \
+            + '% core inv: ' + str(get_user_input.m_p)
+    apex_L = str(G_CHOICES[get_user_input.a_findings]) + '\n' \
+             + 'Positive cores: ' + str(get_user_input.a_p_core) + '/' + str(get_user_input.a_t_core) + '\n' \
+             + '% core inv: ' + str(get_user_input.a_p)
+    tz_L = str(G_CHOICES[get_user_input.t_findings]) + '\n' \
+           + 'Positive cores: ' + str(get_user_input.t_p_core) + '/' + str(get_user_input.t_t_core) + '\n' \
+           + '% core inv: ' + str(get_user_input.t_p)
+    base_R = str(G_CHOICES[get_user_input_r.b_findings_r]) + '\n' \
+             + 'Positive cores: ' + str(get_user_input_r.b_p_core_r) + '/' + str(get_user_input_r.b_t_core_r) + '\n' \
+             + '% core inv: ' + str(get_user_input_r.b_p_r)
+    mid_R = str(G_CHOICES[get_user_input_r.m_findings_r]) + '\n' \
+            + 'Positive cores: ' + str(get_user_input_r.m_p_core_r) + '/' + str(get_user_input_r.m_t_core_r) + '\n' \
+            + '% core inv: ' + str(get_user_input_r.m_p_r)
+    apex_R = str(G_CHOICES[get_user_input_r.a_findings_r]) + '\n' \
+             + 'Positive cores: ' + str(get_user_input_r.a_p_core_r) + '/' + str(get_user_input_r.a_t_core_r) + '\n' \
+             + '% core inv: ' + str(get_user_input_r.a_p_r)
+    tz_R = str(G_CHOICES[get_user_input_r.t_findings_r]) + '\n' \
+           + 'Positive cores: ' + str(get_user_input_r.t_p_core_r) + '/' + str(get_user_input_r.t_t_core_r) + '\n' \
+           + '% core inv: ' + str(get_user_input_r.t_p_r)
+    
+    # Set conditions to show colour coded site images based on Gleason Grade Group for each site
+    draw = ImageDraw.Draw(image2)
+    if get_user_input.b_findings == 3:
+        image2.paste(image_bl_G1, (145, 958), mask=image_bl_G1)
+    if get_user_input.b_findings == 4:
+        image2.paste(image_bl_G2, (145, 958), mask=image_bl_G2)
+    if get_user_input.b_findings == 5:
+        image2.paste(image_bl_G3, (145, 958), mask=image_bl_G3)
+    if get_user_input.b_findings == 6:
+        image2.paste(image_bl_G4, (145, 958), mask=image_bl_G4)
+    if get_user_input.b_findings == 7:
+        image2.paste(image_bl_G5, (145, 958), mask=image_bl_G5)
+    
+    if get_user_input.m_findings == 3:
+        image2.paste(image_ml_G1, (145, 606), mask=image_ml_G1)
+    if get_user_input.m_findings == 4:
+        image2.paste(image_ml_G2, (145, 606), mask=image_ml_G2)
+    if get_user_input.m_findings == 5:
+        image2.paste(image_ml_G3, (145, 606), mask=image_ml_G3)
+    if get_user_input.m_findings == 6:
+        image2.paste(image_ml_G4, (145, 606), mask=image_ml_G4)
+    if get_user_input.m_findings == 7:
+        image2.paste(image_ml_G5, (145, 606), mask=image_ml_G5)
+    
+    if get_user_input.a_findings == 3:
+        image2.paste(image_al_G1, (145, 130), mask=image_al_G1)
+    if get_user_input.a_findings == 4:
+        image2.paste(image_al_G2, (145, 130), mask=image_al_G2)
+    if get_user_input.a_findings == 5:
+        image2.paste(image_al_G3, (145, 130), mask=image_al_G3)
+    if get_user_input.a_findings == 6:
+        image2.paste(image_al_G4, (145, 130), mask=image_al_G4)
+    if get_user_input.a_findings == 7:
+        image2.paste(image_al_G5, (145, 130), mask=image_al_G5)
+    
+    if get_user_input.t_findings == 3:
+        image2.paste(image_tl_G1, (665, 493), mask=image_tl_G1)
+    if get_user_input.t_findings == 4:
+        image2.paste(image_tl_G2, (665, 493), mask=image_tl_G2)
+    if get_user_input.t_findings == 5:
+        image2.paste(image_tl_G3, (665, 493), mask=image_tl_G3)
+    if get_user_input.t_findings == 6:
+        image2.paste(image_tl_G4, (665, 493), mask=image_tl_G4)
+    if get_user_input.t_findings == 7:
+        image2.paste(image_tl_G5, (665, 493), mask=image_tl_G5)
+    
+    if get_user_input_r.b_findings_r == 3:
+        image2.paste(image_br_G1, (1104, 958), mask=image_br_G1)
+    if get_user_input_r.b_findings_r == 4:
+        image2.paste(image_br_G2, (1104, 958), mask=image_br_G2)
+    if get_user_input_r.b_findings_r == 5:
+        image2.paste(image_br_G3, (1104, 958), mask=image_br_G3)
+    if get_user_input_r.b_findings_r == 6:
+        image2.paste(image_br_G4, (1104, 958), mask=image_br_G4)
+    if get_user_input_r.b_findings_r == 7:
+        image2.paste(image_br_G5, (1104, 958), mask=image_br_G5)
+    
+    if get_user_input_r.m_findings_r == 3:
+        image2.paste(image_mr_G1, (1542, 606), mask=image_mr_G1)
+    if get_user_input_r.m_findings_r == 4:
+        image2.paste(image_mr_G2, (1542, 606), mask=image_mr_G2)
+    if get_user_input_r.m_findings_r == 5:
+        image2.paste(image_mr_G3, (1542, 606), mask=image_mr_G3)
+    if get_user_input_r.m_findings_r == 6:
+        image2.paste(image_mr_G4, (1542, 606), mask=image_mr_G4)
+    if get_user_input_r.m_findings_r == 7:
+        image2.paste(image_mr_G5, (1542, 606), mask=image_mr_G5)
+    
+    if get_user_input_r.a_findings_r == 3:
+        image2.paste(image_ar_G1, (1104, 130), mask=image_ar_G1)
+    if get_user_input_r.a_findings_r == 4:
+        image2.paste(image_ar_G2, (1104, 130), mask=image_ar_G2)
+    if get_user_input_r.a_findings_r == 5:
+        image2.paste(image_ar_G3, (1104, 130), mask=image_ar_G3)
+    if get_user_input_r.a_findings_r == 6:
+        image2.paste(image_ar_G4, (1104, 130), mask=image_ar_G4)
+    if get_user_input_r.a_findings_r == 7:
+        image2.paste(image_ar_G5, (1104, 130), mask=image_ar_G5)
+    
+    if get_user_input_r.t_findings_r == 3:
+        image2.paste(image_tr_G1, (1100, 493), mask=image_tr_G1)
+    if get_user_input_r.t_findings_r == 4:
+        image2.paste(image_tr_G2, (1100, 493), mask=image_tr_G2)
+    if get_user_input_r.t_findings_r == 5:
+        image2.paste(image_tr_G3, (1100, 493), mask=image_tr_G3)
+    if get_user_input_r.t_findings_r == 6:
+        image2.paste(image_tr_G4, (1100, 493), mask=image_tr_G4)
+    if get_user_input_r.t_findings_r == 7:
+        image2.paste(image_tr_G5, (1100, 493), mask=image_tr_G5)
+    
+    # Overlay text showing Gleason Grade Group, % positive cores, and % core involvement for each site
+    draw.text((525, 1110), base_L, fill="black", font=font, align="center")
+    draw.text((205, 690), mid_L, fill="black", font=font, align="center")
+    draw.text((525, 275), apex_L, fill="black", font=font, align="center")
+    draw.text((685, 690), tz_L, fill="black", font=font, align="center")
+    draw.text((1300, 1110), base_R, fill="black", font=font, align="center")
+    draw.text((1590, 690), mid_R, fill="black", font=font, align="center")
+    draw.text((1300, 275), apex_R, fill="black", font=font, align="center")
+    draw.text((1125, 690), tz_R, fill="black", font=font, align="center")
+    col1.image(image2, use_column_width='auto')
+    col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE  \n'
+               '**Blue bars**: Features that ***decrease*** the risk of ssEPE  \n'
+               '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has on risk of ssEPE')
+    
+    st.subheader('See how you compare with the study population')
+    st.write('Each blue data point represents an individual case used to train this model, while histograms on each plot\
+             show the distribution of values for that feature. The value that you have inputted and its corresponding\
+              impact on probability of ssEPE is shown in **red**. This helps you to visualize how your specific\
+               clinicopathological profile compares with the study population to identify potential outliers.')
+    col_left, col_left2, col_right, col_right2 = st.beta_columns([1, 1.5, 1, 1.5])
+    left_option = col_left.selectbox("Left lobe: select feature to compare", features_list, index=0)
+    idx = features_list.index(left_option)
+    shap.plots.scatter(model_shap[:, idx], hist=True, dot_size=5, show=False)
+    plt.ylabel('Impact on probability of ssEPE')
+    
+    # plot patient specific value
+    x_pt = np.array(user_input)[:, idx]
+    y_pt = shap_values[:, idx]
+    plt.plot(x_pt, y_pt, 'ro', markersize=7, alpha=1)
+    
+    if left_option == 'Perineural invasion':
+        positions = (0, 1)
+        x_labels = ('No', 'Yes')
+        plt.xticks(positions, x_labels, rotation=0)
+    
+    if left_option == 'Base findings' or left_option == 'Worst Gleason Grade Group':
+        positions = (0, 1, 2, 3, 4, 5, 6, 7)
+        x_labels = ('Normal', 'HGPIN', 'ASAP', 'GGG1', 'GGG2', 'GGG3', 'GGG4', 'GGG5')
+        plt.xticks(positions, x_labels, rotation=0)
+    
+    col_left2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+    
+    right_option = col_right.selectbox("Right lobe: select feature to compare", features_list_r, index=9)
+    idx_r = features_list_r.index(right_option)
+    shap.plots.scatter(model_shap[:, idx_r], hist=True, dot_size=5, show=False)
+    plt.ylabel('Impact on probability of ssEPE')
+    
+    # plot patient specific value
+    x_pt_r = np.array(user_input_r)[:, idx_r]
+    y_pt_r = shap_values_r[:, idx_r]
+    plt.plot(x_pt_r, y_pt_r, 'ro', markersize=7, alpha=1)
+    
+    if right_option == 'Perineural invasion':
+        positions = (0, 1)
+        x_labels = ('No', 'Yes')
+        plt.xticks(positions, x_labels, rotation=0)
+    
+    if right_option == 'Base findings' or right_option == 'Worst Gleason Grade Group':
+        positions = (0, 1, 2, 3, 4, 5, 6, 7)
+        x_labels = ('Normal', 'HGPIN', 'ASAP', 'GGG1', 'GGG2', 'GGG3', 'GGG4', 'GGG5')
+        plt.xticks(positions, x_labels, rotation=0)
+    
+    col_right2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
 # Display additional text
 
