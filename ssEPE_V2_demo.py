@@ -223,22 +223,22 @@ with st.form(key='my_form'):
             tz_p_core = st.number_input('Transition zone # of positive cores', 0, 10, value=0, key=0)
             tz_t_core = st.number_input('Transition zone # of cores taken', 0, 10, value=1, key=0)
             tz_p_inv = st.number_input('Transition zone % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=0)
-    
+
         # Group site findings into a list
         gleason_t = [base_findings, mid_findings, apex_findings, tz_findings]
-    
+
         # Group % core involvements at each site into a list
         p_inv_t = [base_p_inv, mid_p_inv, apex_p_inv, tz_p_inv]
-    
+
         # Combine site findings and % core involvements into a pandas DataFrame and sort by descending Gleason then
         # descending % core involvement
         g_p_inv = pd.DataFrame({'Gleason': gleason_t, '% core involvement': p_inv_t})
         sort_g_p_inv = g_p_inv.sort_values(by=['Gleason', '% core involvement'], ascending=False)
-    
+
         # Calculate total positive cores and total cores taken for left lobe
         p_core_total = base_p_core + mid_p_core + apex_p_core + tz_p_core
         t_core_total = base_t_core + mid_t_core + apex_t_core + tz_t_core
-    
+
         # Store a dictionary into a variable
         pt_data = {'PSA': psa,
                    'Maximum % core involvement': sort_g_p_inv['% core involvement'].max(),
@@ -252,7 +252,7 @@ with st.form(key='my_form'):
                    'Worst Gleason Grade Group': sort_g_p_inv['Gleason'].max(),
                    'Mid % core involvement': mid_p_inv
                    }
-    
+
         # Save positive cores and cores taken at each site for annotated prostate diagram later
         get_user_input.b_findings = base_findings
         get_user_input.b_p_core = base_p_core
@@ -270,15 +270,15 @@ with st.form(key='my_form'):
         get_user_input.t_p_core = tz_p_core
         get_user_input.t_t_core = tz_t_core
         get_user_input.t_p = tz_p_inv
-    
+
         pt_features = pd.DataFrame(pt_data, index=[0])
         return pt_features
-    
-    
+
+
     # Store the left lobe user input into a variable
     user_input = get_user_input()
-    
-    
+
+
     def get_user_input_r():
         with st.sidebar.beta_expander('Side-specific variables (Right)', expanded=True):
             base_findings_r = st.selectbox('Base findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
@@ -301,22 +301,22 @@ with st.form(key='my_form'):
             tz_p_core_r = st.number_input('Transition zone # of positive cores', 0, 10, value=1, key=1)
             tz_t_core_r = st.number_input('Transition zone # of cores taken', 0, 10, value=1, key=1)
             tz_p_inv_r = st.number_input('Transition zone % core involvement (0 to 100)', 0.0, 100.0, value=80.0, key=1)
-    
+
         # Group site findings into a list
         gleason_t_r = [base_findings_r, mid_findings_r, apex_findings_r, tz_findings_r]
-    
+
         # Group % core involvements at each site into a list
         p_inv_t_r = [base_p_inv_r, mid_p_inv_r, apex_p_inv_r, tz_p_inv_r]
-    
+
         # Combine site findings and % core involvements into a pandas DataFrame and sort by descending Gleason then
         # descending % core involvement
         g_p_inv_r = pd.DataFrame({'Gleason': gleason_t_r, '% core involvement': p_inv_t_r})
         sort_g_p_inv_r = g_p_inv_r.sort_values(by=['Gleason', '% core involvement'], ascending=False)
-    
+
         # Calculate total positive cores and total cores taken for left lobe
         p_core_total_r = base_p_core_r + mid_p_core_r + apex_p_core_r + tz_p_core_r
         t_core_total_r = base_t_core_r + mid_t_core_r + apex_t_core_r + tz_t_core_r
-    
+
         # Store a dictionary into a variable
         pt_data_r = {'PSA': user_input['PSA'],
                      'Maximum % core involvement': sort_g_p_inv_r['% core involvement'].max(),
@@ -330,7 +330,7 @@ with st.form(key='my_form'):
                      'Worst Gleason Grade Group': sort_g_p_inv_r['Gleason'].max(),
                      'Mid % core involvement': mid_p_inv_r
                      }
-    
+
         # Save positive cores and cores taken at each site for annotated prostate diagram later
         get_user_input_r.b_findings_r = base_findings_r
         get_user_input_r.b_p_core_r = base_p_core_r
@@ -348,13 +348,14 @@ with st.form(key='my_form'):
         get_user_input_r.t_p_core_r = tz_p_core_r
         get_user_input_r.t_t_core_r = tz_t_core_r
         get_user_input_r.t_p_r = tz_p_inv_r
-    
+
         pt_features_r = pd.DataFrame(pt_data_r, index=[0])
         return pt_features_r
-    
+
     user_input_r = get_user_input_r()
 
-    submit_button = st.form_submit_button(label='Submit')
+    with st.sidebar:
+        submit_button = st.form_submit_button(label='Submit')
 
 # Store the model predictions as a variable
 # = model.predict_proba(user_input)
