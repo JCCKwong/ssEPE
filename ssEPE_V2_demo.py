@@ -274,11 +274,6 @@ with st.form(key='my_form'):
         pt_features = pd.DataFrame(pt_data, index=[0])
         return pt_features
 
-
-    # Store the left lobe user input into a variable
-    user_input = get_user_input()
-
-
     def get_user_input_r():
         with st.sidebar.beta_expander('Side-specific variables (Right)', expanded=True):
             base_findings_r = st.selectbox('Base findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
@@ -352,9 +347,11 @@ with st.form(key='my_form'):
         pt_features_r = pd.DataFrame(pt_data_r, index=[0])
         return pt_features_r
 
-    user_input_r = get_user_input_r()
-
     submitted = st.form_submit_button(label='Submit')
+
+if submitted:
+    user_input = get_user_input()
+    user_input_r = get_user_input_r()
 
 # Store the model predictions as a variable
 # = model.predict_proba(user_input)
