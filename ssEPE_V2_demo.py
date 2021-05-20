@@ -354,7 +354,7 @@ with st.form(key='my_form'):
 
     user_input_r = get_user_input_r()
 
-    st.form_submit_button(label='Submit')
+    submitted = st.form_submit_button(label='Submit')
 
 # Store the model predictions as a variable
 # = model.predict_proba(user_input)
