@@ -195,6 +195,8 @@ st.sidebar.write('Enter patient values')
 
 # Create sidebar inputs for global variables and left lobe variables
 with st.form(key='my_form'):
+    with st.sidebar:
+        submitted = st.form_submit_button(label='Submit')
     with st.sidebar.beta_expander('Global variables', expanded=True):
         age = st.number_input('Age (years)', 0.0, 100.0, 60.0)
         psa = st.number_input('PSA (ng/ml)', 0.00, 200.00, 7.00)
@@ -243,10 +245,9 @@ with st.form(key='my_form'):
         tz_p_core_r = st.number_input('Transition zone # of positive cores', 0, 10, value=1, key=1)
         tz_t_core_r = st.number_input('Transition zone # of cores taken', 0, 10, value=1, key=1)
         tz_p_inv_r = st.number_input('Transition zone % core involvement (0 to 100)', 0.0, 100.0, value=80.0, key=1)
-    with st.sidebar:
-        submitted = st.form_submit_button(label='Submit')
-    
-    
+
+
+
 def get_user_input():
     # Group site findings into a list
     gleason_t = [base_findings, mid_findings, apex_findings, tz_findings]
