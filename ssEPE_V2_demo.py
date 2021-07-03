@@ -68,6 +68,13 @@ def full_app(session_state):
     col2.subheader('Model explanations')
     col2.write('The probability of ssEPE for each lobe is indicated in **bold**. \
     Each plot highlights which features have the greatest impact on the predicted probability of ssEPE')
+    st.subheader('See how you compare with the study population')
+    st.write('Each blue data point represents an individual case used to train this model, while '
+             'histograms on each plot show the distribution of values for that feature. The value that you '
+             'have inputted and its corresponding impact on probability of ssEPE is shown in **red**. This '
+             'helps you to visualize how your specific clinicopathological profile compares with the study '
+             'population to identify potential outliers.')
+    col_left, col_left2, col_right, col_right2 = st.beta_columns([1, 1.5, 1, 1.5])
 
     # Specify font size for annotated prostate diagram
     font = ImageFont.truetype('arial.ttf', 50)
@@ -457,13 +464,6 @@ def full_app(session_state):
                 plt.clf()
 
                 ### COMPARISON TO STUDY POPULATION ###
-                st.subheader('See how you compare with the study population')
-                st.write('Each blue data point represents an individual case used to train this model, while '
-                         'histograms on each plot show the distribution of values for that feature. The value that you '
-                         'have inputted and its corresponding impact on probability of ssEPE is shown in **red**. This '
-                         'helps you to visualize how your specific clinicopathological profile compares with the study '
-                         'population to identify potential outliers.')
-                col_left, col_left2, col_right, col_right2 = st.beta_columns([1, 1.5, 1, 1.5])
                 left_option = col_left.selectbox("Left lobe: select feature to compare", features_list, index=0)
                 idx = features_list.index(left_option)
                 shap.plots.scatter(model_shap[:, idx], hist=True, dot_size=5, show=False)
