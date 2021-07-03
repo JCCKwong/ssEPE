@@ -54,9 +54,9 @@ def full_app(session_state):
     1. Enter patient values on the left
     1. Press submit button
     1. The ssEPE Tool will output the following:
-        1. Annotated prostate map showing location and severity of disease
-        2. Probability of ssEPE for the left and right prostatic lobe
-        3. Comparison of individual features to study population
+        * Annotated prostate map showing location and severity of disease
+        * Probability of ssEPE for the left and right prostatic lobe
+        * Comparison of individual features to study population
     """
     )
 
@@ -114,23 +114,25 @@ def full_app(session_state):
 
     image2 = load_images()
 
-    # Define choices and labels for feature inputs
-    CHOICES = {0: 'No', 1: 'Yes'}
-
-    def format_func_yn(option):
-        return CHOICES[option]
-
-    G_CHOICES = {0: 'Normal', 1: 'HGPIN', 2: 'ASAP', 3: 'Gleason 3+3', 4: 'Gleason 3+4', 5: 'Gleason 4+3',
-                 6: 'Gleason 4+4',
-                 7: 'Gleason 4+5/5+4'}
-
-    def format_func_gleason(option):
-        return G_CHOICES[option]
+    
 
     # Input individual values in sidebar
     st.sidebar.header("Enter patient values")
     with st.sidebar:
         with st.form(key="my_form"):
+            # Define choices and labels for feature inputs
+            CHOICES = {0: 'No', 1: 'Yes'}
+
+            def format_func_yn(option):
+                return CHOICES[option]
+
+            G_CHOICES = {0: 'Normal', 1: 'HGPIN', 2: 'ASAP', 3: 'Gleason 3+3', 4: 'Gleason 3+4', 5: 'Gleason 4+3',
+                         6: 'Gleason 4+4',
+                         7: 'Gleason 4+5/5+4'}
+
+            def format_func_gleason(option):
+                return G_CHOICES[option]
+            
             age = st.number_input("Age (years)", 0.0, 100.0, 60.0)
             psa = st.number_input("PSA (ng/ml)", 0.00, 200.00, 7.00)
             p_high = st.number_input("% Gleason pattern 4/5", 0.0, 100.00, 22.5)
@@ -533,7 +535,7 @@ def about(session_state):
     pre-prostatectomy patients**\n
     
     *Jethro CC. Kwong$^{1,2}$, Adree Khondker$^{3}$, Christopher Tran$^{3}$, Emily Evans$^{3}$, Amna Ali$^{4}$, 
-    Munir Jamal$^{1}$, Thomas Short$^{1}$, Frank Papanikolaou$^{1}$, John R. Srigley$^{5}$, Andrew H. Feifer$^{1,4}$\n
+    Munir Jamal$^{1}$, Thomas Short$^{1}$, Frank Papanikolaou$^{1}$, John R. Srigley$^{5}$, Andrew H. Feifer$^{1,4}$*\n
     
     $^{1}$Division of Urology, Department of Surgery, University of Toronto, Toronto, ON, Canada  \n
     $^{2}$Temerty Centre for AI Research and Education in Medicine, University of Toronto, Toronto, Canada  \n
