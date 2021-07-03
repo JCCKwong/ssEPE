@@ -131,6 +131,7 @@ def full_app(session_state):
     st.sidebar.header("Enter patient values")
     with st.sidebar:
         with st.form(key="my_form"):
+            st.write("Global Variables")
             age = st.number_input("Age (years)", 0.0, 100.0, 60.0)
             psa = st.number_input("PSA (ng/ml)", 0.00, 200.00, 7.00)
             p_high = st.number_input("% Gleason pattern 4/5", 0.0, 100.00, 22.5)
