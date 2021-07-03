@@ -32,7 +32,7 @@ import SessionState
 
 
 def main():
-    st.title("Side-specific Extraprostatic Extension (ssEPE) Prediction")
+    st.title("Side-specific Extraprostatic Extension (ssEPE) Prediction Tool")
     st.sidebar.image("Logo.png", use_column_width=True)
     st.sidebar.header("Navigation")
     session_state = SessionState.get(button_id="", color_to_label={})
@@ -41,7 +41,7 @@ def main():
         "About": about,
         "Model Development": dev
     }
-    page = st.sidebar.selectbox(options=list(PAGES.keys()))
+    page = st.sidebar.selectbox("",options=list(PAGES.keys()))
     PAGES[page](session_state)
 
 
