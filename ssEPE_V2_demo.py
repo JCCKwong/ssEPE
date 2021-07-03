@@ -114,25 +114,23 @@ def full_app(session_state):
 
     image2 = load_images()
 
-    
+    # Define choices and labels for feature inputs
+    CHOICES = {0: 'No', 1: 'Yes'}
+
+    def format_func_yn(option):
+        return CHOICES[option]
+
+    G_CHOICES = {0: 'Normal', 1: 'HGPIN', 2: 'ASAP', 3: 'Gleason 3+3', 4: 'Gleason 3+4', 5: 'Gleason 4+3',
+                 6: 'Gleason 4+4',
+                 7: 'Gleason 4+5/5+4'}
+
+    def format_func_gleason(option):
+        return G_CHOICES[option]
 
     # Input individual values in sidebar
     st.sidebar.header("Enter patient values")
     with st.sidebar:
         with st.form(key="my_form"):
-            # Define choices and labels for feature inputs
-            CHOICES = {0: 'No', 1: 'Yes'}
-
-            def format_func_yn(option):
-                return CHOICES[option]
-
-            G_CHOICES = {0: 'Normal', 1: 'HGPIN', 2: 'ASAP', 3: 'Gleason 3+3', 4: 'Gleason 3+4', 5: 'Gleason 4+3',
-                         6: 'Gleason 4+4',
-                         7: 'Gleason 4+5/5+4'}
-
-            def format_func_gleason(option):
-                return G_CHOICES[option]
-            
             age = st.number_input("Age (years)", 0.0, 100.0, 60.0)
             psa = st.number_input("PSA (ng/ml)", 0.00, 200.00, 7.00)
             p_high = st.number_input("% Gleason pattern 4/5", 0.0, 100.00, 22.5)
