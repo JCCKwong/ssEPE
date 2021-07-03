@@ -162,7 +162,7 @@ def full_app(session_state):
 
             st.subheader("Side-specific Variables - RIGHT")
             base_findings_r = st.selectbox('Base findings', options=list(G_CHOICES.keys()),
-                                           format_func=format_func_gleason, index=5, key=1)
+                                           format_func=format_func_gleason, index=5)
             base_p_core_r = st.number_input('Base # of positive cores', 0, 10, value=2, key=1)
             base_t_core_r = st.number_input('Base # of cores taken', 0, 10, value=2, key=1)
             base_p_inv_r = st.number_input('Base % core involvement (0 to 100)', 0.0, 100.0, value=45.0, key=1)
