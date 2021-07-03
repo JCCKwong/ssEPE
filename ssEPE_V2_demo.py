@@ -139,29 +139,27 @@ def full_app(session_state):
 
             base_findings = st.selectbox('Left - Base findings', options=list(G_CHOICES.keys()),
                                          format_func=format_func_gleason, index=3)
-            base_p_core = st.number_input('Left - Base # of positive cores', 0, 10, value=1, key=0)
-            base_t_core = st.number_input('Left - Base # of cores taken', 0, 10, value=2, key=0)
-            base_p_inv = st.number_input('Left - Base % core involvement (0 to 100)', 0.0, 100.0, value=7.5, key=0)
+            base_p_core = st.number_input('Left - Base # of positive cores', 0, 10, value=1)
+            base_t_core = st.number_input('Left - Base # of cores taken', 0, 10, value=2)
+            base_p_inv = st.number_input('Left - Base % core involvement (0 to 100)', 0.0, 100.0, value=7.5)
             mid_findings = st.selectbox('Left - Mid findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
-                                        key=0, index=3)
-            mid_p_core = st.number_input('Left - Mid # of positive cores', 0, 10, value=1, key=0)
-            mid_t_core = st.number_input('Left - Mid # of cores taken', 0, 10, value=2, key=0)
-            mid_p_inv = st.number_input('Left - Mid % core involvement (0 to 100)', 0.0, 100.0, value=5.0, key=0)
+                                        index=3)
+            mid_p_core = st.number_input('Left - Mid # of positive cores', 0, 10, value=1)
+            mid_t_core = st.number_input('Left - Mid # of cores taken', 0, 10, value=2)
+            mid_p_inv = st.number_input('Left - Mid % core involvement (0 to 100)', 0.0, 100.0, value=5.0)
             apex_findings = st.selectbox('Left - Apex findings', options=list(G_CHOICES.keys()),
-                                         format_func=format_func_gleason,
-                                         key=0, index=0)
-            apex_p_core = st.number_input('Left - Apex # of positive cores', 0, 10, value=0, key=0)
-            apex_t_core = st.number_input('Left - Apex # of cores taken', 0, 10, value=1, key=0)
-            apex_p_inv = st.number_input('Left - Apex % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=0)
+                                         format_func=format_func_gleason, index=0)
+            apex_p_core = st.number_input('Left - Apex # of positive cores', 0, 10, value=0)
+            apex_t_core = st.number_input('Left - Apex # of cores taken', 0, 10, value=1)
+            apex_p_inv = st.number_input('Left - Apex % core involvement (0 to 100)', 0.0, 100.0, value=0.0)
             tz_findings = st.selectbox('Left - Transition zone findings', options=list(G_CHOICES.keys()),
-                                       format_func=format_func_gleason, key=0, index=0)
-            tz_p_core = st.number_input('Left - Transition zone # of positive cores', 0, 10, value=0, key=0)
-            tz_t_core = st.number_input('Left - Transition zone # of cores taken', 0, 10, value=1, key=0)
-            tz_p_inv = st.number_input('Left - Transition zone % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=0)
+                                       format_func=format_func_gleason, index=0)
+            tz_p_core = st.number_input('Left - Transition zone # of positive cores', 0, 10, value=0)
+            tz_t_core = st.number_input('Left - Transition zone # of cores taken', 0, 10, value=1)
+            tz_p_inv = st.number_input('Left - Transition zone % core involvement (0 to 100)', 0.0, 100.0, value=0.0)
 
             base_findings_r = st.selectbox('Right - Base findings', options=list(G_CHOICES.keys()),
-                                           format_func=format_func_gleason,
-                                           key=1, index=5)
+                                           format_func=format_func_gleason, key=1, index=5)
             base_p_core_r = st.number_input('Right - Base # of positive cores', 0, 10, value=2, key=1)
             base_t_core_r = st.number_input('Right - Base # of cores taken', 0, 10, value=2, key=1)
             base_p_inv_r = st.number_input('Right - Base % core involvement (0 to 100)', 0.0, 100.0, value=45.0, key=1)
