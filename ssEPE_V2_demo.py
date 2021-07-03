@@ -131,13 +131,14 @@ def full_app(session_state):
     st.sidebar.header("Enter patient values")
     with st.sidebar:
         with st.form(key="my_form"):
-            st.write("Global Variables")
+            st.subheader("Global Variables")
             age = st.number_input("Age (years)", 0.0, 100.0, 60.0)
             psa = st.number_input("PSA (ng/ml)", 0.00, 200.00, 7.00)
             p_high = st.number_input("% Gleason pattern 4/5", 0.0, 100.00, 22.5)
             perineural_inv = st.selectbox("Perineural invasion", options=list(CHOICES.keys()),
                                           format_func=format_func_yn, index=1)
-
+            
+            st.subheader("Side-specific Variables - LEFT")
             base_findings = st.selectbox('Left - Base findings', options=list(G_CHOICES.keys()),
                                          format_func=format_func_gleason, index=3)
             base_p_core = st.number_input('Left - Base # of positive cores', 0, 10, value=1)
