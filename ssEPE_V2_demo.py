@@ -137,55 +137,53 @@ def full_app(session_state):
             p_high = st.number_input("% Gleason pattern 4/5", 0.0, 100.00, 22.5)
             perineural_inv = st.selectbox("Perineural invasion", options=list(CHOICES.keys()),
                                           format_func=format_func_yn, index=1)
-
-            st.sidebar.subheader("Side-specific variables (LEFT)")
-            base_findings = st.selectbox('Base findings', options=list(G_CHOICES.keys()),
+            
+            base_findings = st.selectbox('Left - Base findings', options=list(G_CHOICES.keys()),
                                          format_func=format_func_gleason,
                                          key=0, index=3)
-            base_p_core = st.number_input('Base # of positive cores', 0, 10, value=1, key=0)
-            base_t_core = st.number_input('Base # of cores taken', 0, 10, value=2, key=0)
-            base_p_inv = st.number_input('Base % core involvement (0 to 100)', 0.0, 100.0, value=7.5, key=0)
-            mid_findings = st.selectbox('Mid findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
+            base_p_core = st.number_input('Left - Base # of positive cores', 0, 10, value=1, key=0)
+            base_t_core = st.number_input('Left - Base # of cores taken', 0, 10, value=2, key=0)
+            base_p_inv = st.number_input('Left - Base % core involvement (0 to 100)', 0.0, 100.0, value=7.5, key=0)
+            mid_findings = st.selectbox('Left - Mid findings', options=list(G_CHOICES.keys()), format_func=format_func_gleason,
                                         key=0, index=3)
-            mid_p_core = st.number_input('Mid # of positive cores', 0, 10, value=1, key=0)
-            mid_t_core = st.number_input('Mid # of cores taken', 0, 10, value=2, key=0)
-            mid_p_inv = st.number_input('Mid % core involvement (0 to 100)', 0.0, 100.0, value=5.0, key=0)
-            apex_findings = st.selectbox('Apex findings', options=list(G_CHOICES.keys()),
+            mid_p_core = st.number_input('Left - Mid # of positive cores', 0, 10, value=1, key=0)
+            mid_t_core = st.number_input('Left - Mid # of cores taken', 0, 10, value=2, key=0)
+            mid_p_inv = st.number_input('Left - Mid % core involvement (0 to 100)', 0.0, 100.0, value=5.0, key=0)
+            apex_findings = st.selectbox('Left - Apex findings', options=list(G_CHOICES.keys()),
                                          format_func=format_func_gleason,
                                          key=0, index=0)
-            apex_p_core = st.number_input('Apex # of positive cores', 0, 10, value=0, key=0)
-            apex_t_core = st.number_input('Apex # of cores taken', 0, 10, value=1, key=0)
-            apex_p_inv = st.number_input('Apex % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=0)
-            tz_findings = st.selectbox('Transition zone findings', options=list(G_CHOICES.keys()),
+            apex_p_core = st.number_input('Left - Apex # of positive cores', 0, 10, value=0, key=0)
+            apex_t_core = st.number_input('Left - Apex # of cores taken', 0, 10, value=1, key=0)
+            apex_p_inv = st.number_input('Left - Apex % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=0)
+            tz_findings = st.selectbox('Left - Transition zone findings', options=list(G_CHOICES.keys()),
                                        format_func=format_func_gleason, key=0, index=0)
-            tz_p_core = st.number_input('Transition zone # of positive cores', 0, 10, value=0, key=0)
-            tz_t_core = st.number_input('Transition zone # of cores taken', 0, 10, value=1, key=0)
-            tz_p_inv = st.number_input('Transition zone % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=0)
-
-            st.sidebar.subheader("Side-specific variables (RIGHT)")
-            base_findings_r = st.selectbox('Base findings', options=list(G_CHOICES.keys()),
+            tz_p_core = st.number_input('Left - Transition zone # of positive cores', 0, 10, value=0, key=0)
+            tz_t_core = st.number_input('Left - Transition zone # of cores taken', 0, 10, value=1, key=0)
+            tz_p_inv = st.number_input('Left - Transition zone % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=0)
+            
+            base_findings_r = st.selectbox('Right - Base findings', options=list(G_CHOICES.keys()),
                                            format_func=format_func_gleason,
                                            key=1, index=5)
-            base_p_core_r = st.number_input('Base # of positive cores', 0, 10, value=2, key=1)
-            base_t_core_r = st.number_input('Base # of cores taken', 0, 10, value=2, key=1)
-            base_p_inv_r = st.number_input('Base % core involvement (0 to 100)', 0.0, 100.0, value=45.0, key=1)
-            mid_findings_r = st.selectbox('Mid findings', options=list(G_CHOICES.keys()),
+            base_p_core_r = st.number_input('Right - Base # of positive cores', 0, 10, value=2, key=1)
+            base_t_core_r = st.number_input('Right - Base # of cores taken', 0, 10, value=2, key=1)
+            base_p_inv_r = st.number_input('Right - Base % core involvement (0 to 100)', 0.0, 100.0, value=45.0, key=1)
+            mid_findings_r = st.selectbox('Right - Mid findings', options=list(G_CHOICES.keys()),
                                           format_func=format_func_gleason,
                                           key=1, index=4)
-            mid_p_core_r = st.number_input('Mid # of positive cores', 0, 10, value=2, key=1)
-            mid_t_core_r = st.number_input('Mid # of cores taken', 0, 10, value=2, key=1)
-            mid_p_inv_r = st.number_input('Mid % core involvement (0 to 100)', 0.0, 100.0, value=45.0, key=1)
-            apex_findings_r = st.selectbox('Apex findings', options=list(G_CHOICES.keys()),
+            mid_p_core_r = st.number_input('Right - Mid # of positive cores', 0, 10, value=2, key=1)
+            mid_t_core_r = st.number_input('Right -  # of cores taken', 0, 10, value=2, key=1)
+            mid_p_inv_r = st.number_input('Right - Mid % core involvement (0 to 100)', 0.0, 100.0, value=45.0, key=1)
+            apex_findings_r = st.selectbox('Right - Apex findings', options=list(G_CHOICES.keys()),
                                            format_func=format_func_gleason,
                                            key=1, index=3)
-            apex_p_core_r = st.number_input('Apex # of positive cores', 0, 10, value=1, key=1)
-            apex_t_core_r = st.number_input('Apex # of cores taken', 0, 10, value=1, key=1)
-            apex_p_inv_r = st.number_input('Apex % core involvement (0 to 100)', 0.0, 100.0, value=20.0, key=1)
-            tz_findings_r = st.selectbox('Transition zone findings', options=list(G_CHOICES.keys()),
+            apex_p_core_r = st.number_input('Right - Apex # of positive cores', 0, 10, value=1, key=1)
+            apex_t_core_r = st.number_input('Right - Apex # of cores taken', 0, 10, value=1, key=1)
+            apex_p_inv_r = st.number_input('Right - Apex % core involvement (0 to 100)', 0.0, 100.0, value=20.0, key=1)
+            tz_findings_r = st.selectbox('Right - Transition zone findings', options=list(G_CHOICES.keys()),
                                          format_func=format_func_gleason, key=1, index=4)
-            tz_p_core_r = st.number_input('Transition zone # of positive cores', 0, 10, value=1, key=1)
-            tz_t_core_r = st.number_input('Transition zone # of cores taken', 0, 10, value=1, key=1)
-            tz_p_inv_r = st.number_input('Transition zone % core involvement (0 to 100)', 0.0, 100.0, value=80.0, key=1)
+            tz_p_core_r = st.number_input('Right - Transition zone # of positive cores', 0, 10, value=1, key=1)
+            tz_t_core_r = st.number_input('Right - Transition zone # of cores taken', 0, 10, value=1, key=1)
+            tz_p_inv_r = st.number_input('Right - Transition zone % core involvement (0 to 100)', 0.0, 100.0, value=80.0, key=1)
 
             submitted = st.form_submit_button(label='Submit')
 
