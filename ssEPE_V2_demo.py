@@ -137,9 +137,9 @@ def full_app(session_state):
             p_high = st.number_input("% Gleason pattern 4/5", 0.0, 100.00, 22.5)
             perineural_inv = st.selectbox("Perineural invasion", options=list(CHOICES.keys()),
                                           format_func=format_func_yn, index=1)
-            
+
             st.subheader("Side-specific Variables - LEFT")
-            base_findings = st.selectbox('Left - Base findings', options=list(G_CHOICES.keys()),
+            base_findings = st.selectbox('Base findings', options=list(G_CHOICES.keys()),
                                          format_func=format_func_gleason, index=3)
             base_p_core = st.number_input('Left - Base # of positive cores', 0, 10, value=1)
             base_t_core = st.number_input('Left - Base # of cores taken', 0, 10, value=2)
@@ -160,8 +160,9 @@ def full_app(session_state):
             tz_t_core = st.number_input('Left - Transition zone # of cores taken', 0, 10, value=1)
             tz_p_inv = st.number_input('Left - Transition zone % core involvement (0 to 100)', 0.0, 100.0, value=0.0)
 
-            base_findings_r = st.selectbox('Right - Base findings', options=list(G_CHOICES.keys()),
-                                           format_func=format_func_gleason, key=1, index=5)
+            st.subheader("Side-specific Variables - RIGHT")
+            base_findings_r = st.selectbox('Base findings', options=list(G_CHOICES.keys()),
+                                           format_func=format_func_gleason, index=5)
             base_p_core_r = st.number_input('Right - Base # of positive cores', 0, 10, value=2, key=1)
             base_t_core_r = st.number_input('Right - Base # of cores taken', 0, 10, value=2, key=1)
             base_p_inv_r = st.number_input('Right - Base % core involvement (0 to 100)', 0.0, 100.0, value=45.0, key=1)
