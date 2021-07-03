@@ -465,7 +465,7 @@ def full_app(session_state):
 
             ### COMPARISON TO STUDY POPULATION ###
             #left_option = col_left.selectbox("Left lobe: select feature to compare", features_list, index=0)
-            for idx in features_list.index():
+            for idx in features_list:
             #idx = features_list.index(left_option)
                 shap.plots.scatter(model_shap[:, idx], hist=True, dot_size=5, show=False)
                 plt.ylabel('Impact on probability of ssEPE')
@@ -475,17 +475,17 @@ def full_app(session_state):
                     x_pt = np.array(pt_features)[:, idx]
                     y_pt = shap_values[:, idx]
                     plt.plot(x_pt, y_pt, 'ro', markersize=7, alpha=1)
-    
+
                 if idx == 'Perineural invasion':
                     positions = (0, 1)
                     x_labels = ('No', 'Yes')
                     plt.xticks(positions, x_labels, rotation=0)
-    
+
                 if idx == 'Base findings' or idx == 'Worst Gleason Grade Group':
                     positions = (0, 1, 2, 3, 4, 5, 6, 7)
                     x_labels = ('Normal', 'HGPIN', 'ASAP', 'GGG1', 'GGG2', 'GGG3', 'GGG4', 'GGG5')
                     plt.xticks(positions, x_labels, rotation=0)
-    
+
             col_left2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
             right_option = col_right.selectbox("Right lobe: select feature to compare", features_list, index=9)
