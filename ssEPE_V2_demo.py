@@ -474,6 +474,7 @@ def full_app(session_state):
                 x_pt = np.array(pt_features)[:, idx]
                 y_pt = shap_values[:, idx]
                 plt.plot(x_pt, y_pt, 'ro', markersize=7, alpha=1)
+                col_left2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
             if left_option == 'Perineural invasion':
                 positions = (0, 1)
