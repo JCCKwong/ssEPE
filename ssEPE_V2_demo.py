@@ -134,6 +134,18 @@ def full_app(session_state):
     def format_func_gleason(option):
         return G_CHOICES[option]
 
+    features_list = ('PSA',
+                     'Maximum % core involvement',
+                     '% Gleason pattern 4/5',
+                     'Perineural invasion',
+                     'Base % core involvement',
+                     'Base findings',
+                     '% positive cores',
+                     'Transition zone % core involvement',
+                     'Age',
+                     'Worst Gleason Grade Group',
+                     'Mid % core involvement')
+
     # Input individual values in sidebar
     st.sidebar.header("Enter patient values")
     with st.sidebar:
@@ -433,18 +445,6 @@ def full_app(session_state):
                            'on risk of ssEPE')
 
                 ### SHAP FORCE PLOTS ###
-                features_list = ('PSA',
-                                 'Maximum % core involvement',
-                                 '% Gleason pattern 4/5',
-                                 'Perineural invasion',
-                                 'Base % core involvement',
-                                 'Base findings',
-                                 '% positive cores',
-                                 'Transition zone % core involvement',
-                                 'Age',
-                                 'Worst Gleason Grade Group',
-                                 'Mid % core involvement')
-
                 # SHAP plot for left lobe
                 col2.subheader('Left lobe')
                 st.set_option('deprecation.showPyplotGlobalUse', False)
