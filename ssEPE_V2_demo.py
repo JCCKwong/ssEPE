@@ -531,6 +531,28 @@ def full_app(session_state):
                 plt.plot(x_pt_bcir, y_pt_bcir, 'ro', markersize=7, alpha=1, color='green')
                 colbci.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
+                # Mid % core involvement
+                shap.plots.scatter(model_shap[:, 10], hist=True, dot_size=5, show=False)
+                plt.ylabel('Impact on probability of ssEPE')
+                x_pt_mci = np.array(pt_features)[:, 10]
+                y_pt_mci = shap_values[:, 10]
+                x_pt_mcir = np.array(pt_features_r)[:, 10]
+                y_pt_mcir = shap_values_r[:, 10]
+                plt.plot(x_pt_mci, y_pt_mci, 'ro', markersize=7, alpha=1, color='red')
+                plt.plot(x_pt_mcir, y_pt_mcir, 'ro', markersize=7, alpha=1, color='green')
+                colmci.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+
+                # TZ % core involvement
+                shap.plots.scatter(model_shap[:, 7], hist=True, dot_size=5, show=False)
+                plt.ylabel('Impact on probability of ssEPE')
+                x_pt_tzci = np.array(pt_features)[:, 7]
+                y_pt_tzci = shap_values[:, 7]
+                x_pt_tzcir = np.array(pt_features_r)[:, 7]
+                y_pt_tzcir = shap_values_r[:, 7]
+                plt.plot(x_pt_tzci, y_pt_tzci, 'ro', markersize=7, alpha=1, color='red')
+                plt.plot(x_pt_tzcir, y_pt_tzcir, 'ro', markersize=7, alpha=1, color='green')
+                coltzci.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+
                 # Base findings
                 shap.plots.scatter(model_shap[:, 5], hist=True, dot_size=5, show=False)
                 positions = (0, 1, 2, 3, 4, 5, 6, 7)
@@ -544,28 +566,6 @@ def full_app(session_state):
                 plt.plot(x_pt_bf, y_pt_bf, 'ro', markersize=7, alpha=1, color='red')
                 plt.plot(x_pt_bfr, y_pt_bfr, 'ro', markersize=7, alpha=1, color='green')
                 colbf.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-
-                # % positive cores
-                shap.plots.scatter(model_shap[:, 6], hist=True, dot_size=5, show=False)
-                plt.ylabel('Impact on probability of ssEPE')
-                x_pt_pc = np.array(pt_features)[:, 6]
-                y_pt_pc = shap_values[:, 6]
-                x_pt_pcr = np.array(pt_features_r)[:, 6]
-                y_pt_pcr = shap_values_r[:, 6]
-                plt.plot(x_pt_pc, y_pt_pc, 'ro', markersize=7, alpha=1, color='red')
-                plt.plot(x_pt_pcr, y_pt_pcr, 'ro', markersize=7, alpha=1, color='green')
-                colpc.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-
-                # TZ % core involvement
-                shap.plots.scatter(model_shap[:, 7], hist=True, dot_size=5, show=False)
-                plt.ylabel('Impact on probability of ssEPE')
-                x_pt_tzci = np.array(pt_features)[:, 7]
-                y_pt_tzci = shap_values[:, 7]
-                x_pt_tzcir = np.array(pt_features_r)[:, 7]
-                y_pt_tzcir = shap_values_r[:, 7]
-                plt.plot(x_pt_tzci, y_pt_tzci, 'ro', markersize=7, alpha=1, color='red')
-                plt.plot(x_pt_tzcir, y_pt_tzcir, 'ro', markersize=7, alpha=1, color='green')
-                coltzci.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
                 # Worst Gleason Grade Group
                 shap.plots.scatter(model_shap[:, 9], hist=True, dot_size=5, show=False)
@@ -581,16 +581,16 @@ def full_app(session_state):
                 plt.plot(x_pt_wgggr, y_pt_wgggr, 'ro', markersize=7, alpha=1, color='green')
                 colwggg.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
-                # Mid % core involvement
-                shap.plots.scatter(model_shap[:, 10], hist=True, dot_size=5, show=False)
+                # % positive cores
+                shap.plots.scatter(model_shap[:, 6], hist=True, dot_size=5, show=False)
                 plt.ylabel('Impact on probability of ssEPE')
-                x_pt_mci = np.array(pt_features)[:, 10]
-                y_pt_mci = shap_values[:, 10]
-                x_pt_mcir = np.array(pt_features_r)[:, 10]
-                y_pt_mcir = shap_values_r[:, 10]
-                plt.plot(x_pt_mci, y_pt_mci, 'ro', markersize=7, alpha=1, color='red')
-                plt.plot(x_pt_mcir, y_pt_mcir, 'ro', markersize=7, alpha=1, color='green')
-                colmci.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+                x_pt_pc = np.array(pt_features)[:, 6]
+                y_pt_pc = shap_values[:, 6]
+                x_pt_pcr = np.array(pt_features_r)[:, 6]
+                y_pt_pcr = shap_values_r[:, 6]
+                plt.plot(x_pt_pc, y_pt_pc, 'ro', markersize=7, alpha=1, color='red')
+                plt.plot(x_pt_pcr, y_pt_pcr, 'ro', markersize=7, alpha=1, color='green')
+                colpc.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')            
 
 def about(session_state):
     st.markdown(
