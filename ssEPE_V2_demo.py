@@ -564,7 +564,7 @@ def dev(session_state):
     auroc_train, auroc_test, auprc_train, auprc_test, calib_train, calib_test, \
     dca, stream_uro, summary, pdp = load_static_images()
 
-    st.header("See how the model was developed")
+    st.header("How the model was developed")
     st.write("""""")
     st.markdown(
         """
@@ -664,7 +664,7 @@ def dev(session_state):
     st.write("""""")
     st.write("""""")
 
-    st.header("See how the model explanations were determined")
+    st.header("How the model explanations were determined")
     st.write("""""")
     st.markdown(
         """
@@ -683,7 +683,9 @@ def dev(session_state):
     of [hypoxemia risk during anesthetic care](https://www.nature.com/articles/s41551-018-0304-0).
     """
     )
-
+    st.write("""""")
+    st.write("""""")
+    
     st.header("Additional model explanations")
     st.write("""""")
     colA, colB = st.beta_columns([1, 1])
