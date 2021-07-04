@@ -473,20 +473,49 @@ def full_app(session_state):
 
                 ### COMPARISON TO STUDY POPULATION ###
                 colglobal.write('**Global Variables**')
-
+                
+                # PSA
                 shap.plots.scatter(model_shap[:, 0], hist=True, dot_size=5, show=False)
                 plt.ylabel('Impact on probability of ssEPE')
                 x_pt_psa = np.array(pt_features)[:, 0]
                 y_pt_psa = shap_values[:, 0]
                 plt.plot(x_pt_psa, y_pt_psa, 'ro', markersize=7, alpha=1)
                 colpsa.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-
+                
+                # Maximum % core involvement
                 shap.plots.scatter(model_shap[:, 1], hist=True, dot_size=5, show=False)
                 plt.ylabel('Impact on probability of ssEPE')
                 x_pt_maxci = np.array(pt_features)[:, 1]
                 y_pt_maxci = shap_values[:, 1]
                 plt.plot(x_pt_maxci, y_pt_maxci, 'ro', markersize=7, alpha=1)
                 colmaxci.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+                
+                # % Gleason 4/5
+                shap.plots.scatter(model_shap[:, 2], hist=True, dot_size=5, show=False)
+                plt.ylabel('Impact on probability of ssEPE')
+                x_pt_phigh = np.array(pt_features)[:, 2]
+                y_pt_phigh = shap_values[:, 2]
+                plt.plot(x_pt_phigh, y_pt_phigh, 'ro', markersize=7, alpha=1)
+                colphigh.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+
+                # Perineural invasion
+                shap.plots.scatter(model_shap[:, 3], hist=True, dot_size=5, show=False)
+                positions = (0, 1)
+                x_labels = ('No', 'Yes')
+                plt.xticks(positions, x_labels, rotation=0)
+                plt.ylabel('Impact on probability of ssEPE')
+                x_pt_pinv = np.array(pt_features)[:, 3]
+                y_pt_pinv = shap_values[:, 3]
+                plt.plot(x_pt_pinv, y_pt_pinv, 'ro', markersize=7, alpha=1)
+                colpinv.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+                
+                # Age
+                shap.plots.scatter(model_shap[:, 4], hist=True, dot_size=5, show=False)
+                plt.ylabel('Impact on probability of ssEPE')
+                x_pt_age = np.array(pt_features)[:, 4]
+                y_pt_age = shap_values[:, 4]
+                plt.plot(x_pt_age, y_pt_age, 'ro', markersize=7, alpha=1)
+                colage.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
                 left_option = col_left.selectbox("Left lobe: select feature to compare", features_list, index=0)
                 idx = features_list.index(left_option)
