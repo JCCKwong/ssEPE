@@ -474,17 +474,17 @@ def full_app(session_state):
                 ### COMPARISON TO STUDY POPULATION ###
                 colglobal.write('**Global Variables**')
 
-                shap.plots.scatter(model_shap['PSA'], hist=True, dot_size=5, show=False)
+                shap.plots.scatter(model_shap[:, 0], hist=True, dot_size=5, show=False)
                 plt.ylabel('Impact on probability of ssEPE')
-                x_pt_psa = np.array(pt_features)['PSA']
-                y_pt_psa = shap_values['PSA']
+                x_pt_psa = np.array(pt_features)[:, 0]
+                y_pt_psa = shap_values[:, 0]
                 plt.plot(x_pt_psa, y_pt_psa, 'ro', markersize=7, alpha=1)
                 colpsa.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
-                shap.plots.scatter(model_shap['Maximum % core involvement'], hist=True, dot_size=5, show=False)
+                shap.plots.scatter(model_shap[:, 1], hist=True, dot_size=5, show=False)
                 plt.ylabel('Impact on probability of ssEPE')
-                x_pt_maxci = np.array(pt_features)['Maximum % core involvement']
-                y_pt_maxci = shap_values['Maximum % core involvement']
+                x_pt_maxci = np.array(pt_features)[:, 1]
+                y_pt_maxci = shap_values[:, 1]
                 plt.plot(x_pt_maxci, y_pt_maxci, 'ro', markersize=7, alpha=1)
                 colmaxci.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
