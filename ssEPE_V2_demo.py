@@ -69,7 +69,14 @@ def full_app(session_state):
     col2.write('The probability of ssEPE for each lobe is indicated in **bold**. \
     Each plot highlights which features have the greatest impact on the predicted probability of ssEPE')
 
-    colglobal = st.beta_columns(1)
+    st.subheader('See how you compare with the study population')
+    st.write('Each blue data point represents an individual case used to train this model, while '
+                    'histograms on each plot show the distribution of values for that feature. The value that you '
+                    'have inputted and its corresponding impact on probability of ssEPE is shown in **red**. This '
+                    'helps you to visualize how your specific clinicopathological profile compares with the study '
+                    'population to identify potential outliers.')
+
+    colglobal, coly = st.beta_columns([1, 1])
     colpsa, colmaxci, colphigh = st.beta_columns([1, 1, 1])
     colpinv, colage, colz = st.beta_columns([1, 1, 1])
     colbci, colmci, coltzci = st.beta_columns([1, 1, 1])
@@ -465,12 +472,6 @@ def full_app(session_state):
                 plt.clf()
 
                 ### COMPARISON TO STUDY POPULATION ###
-                colglobal.subheader('See how you compare with the study population')
-                colglobal.write('Each blue data point represents an individual case used to train this model, while '
-                         'histograms on each plot show the distribution of values for that feature. The value that you '
-                         'have inputted and its corresponding impact on probability of ssEPE is shown in **red**. This '
-                         'helps you to visualize how your specific clinicopathological profile compares with the study '
-                         'population to identify potential outliers.')
                 colglobal.write('**Global Variables**')
 
                 shap.plots.scatter(model_shap['PSA'], hist=True, dot_size=5, show=False)
