@@ -601,36 +601,34 @@ def dev(session_state):
     )
     st.write("""""")
     st.write("""""")
-    colF, colG, colZ = st.beta_columns([1, 1, 1])
-    colF.write('**Area under receiver-operating-characteristic curve (AUROC):** is used to measure the discriminative\
+    colROC, colPRC = st.beta_columns([1, 1])
+    colROC.write('**Area under receiver-operating-characteristic curve (AUROC):** is used to measure the discriminative\
                    capability of predictive models by comparing the true positive rate (sensitivity) and false positive\
                    rate (1-specificity) across various decision thresholds.')
-    colF.write('Our ML model achieved the highest AUROC with a **mean AUROC of 0.81** (95% CI 0.78-0.83) followed by\
+    colROC.write('Our ML model achieved the highest AUROC with a **mean AUROC of 0.81** (95% CI 0.78-0.83) followed by\
                     LR 0.78 (95% CI 0.75-0.80, p<0.01) and baseline 0.74 (95% CI 0.71-0.76, p<0.01) on cross-validation of\
                      the training cohort. Similarly, our ML model performed favourably on the external testing cohort with\
                       an **AUROC of 0.81** (95% CI 0.73-0.88) compared to LR 0.76 (95% CI 0.67-0.83, p=0.01) and baseline \
                     0.75 (95% CI 0.67-0.83, p=0.03).')
-    colG.image(auroc_train, use_column_width='auto')
-    colZ.image(auroc_test, use_column_width='auto')
+    colPRC.write('**Area under precision-recall curve (AUPRC):** compares precision (positive predictive value) and \
+                       recall (sensitivity) across various decision thresholds. It is more informative than AUROC curves when\
+                       evaluating the performance of classifiers for imbalanced datasets, such as in our case where there are\
+                        more patients without ssEPE than with ssEPE. This is because AUPRC evaluates the proportion of true\
+                       positives among positive predictions, which is our outcome of interest.')
+    colPRC.write('Our ML model achieved the highest AUPRC with a **mean AUPRC of 0.69** (95% CI 0.64-0.73) followed by \
+                        LR 0.64 (95% CI 0.59-0.69) and baseline 0.59 (95% CI 0.54-0.65) on cross-validation of the training \
+                        cohort. Similarly, our ML model performed favourably on the external testing cohort with an \
+                        **AUPRC of 0.78** (95% CI 0.67-0.86) compared to LR 0.75 (95% CI 0.65-0.84) and baseline 0.70 (95% CI \
+                        0.60-0.79).')
+    colF, colG, colH, colI = st.beta_columns([1, 1, 1, 1])
+    colF.image(auroc_train, use_column_width='auto')
+    colG.image(auroc_test, use_column_width='auto')  
+    colH.image(auprc_train, use_column_width='auto')
+    colI.image(auprc_test, use_column_width='auto')
     st.write("""""")
     st.write("""""")
-    colH, colI, colY = st.beta_columns([1, 1, 1])
-    colH.write('**Area under precision-recall curve (AUPRC):** compares precision (positive predictive value) and \
-                   recall (sensitivity) across various decision thresholds. It is more informative than AUROC curves when\
-                   evaluating the performance of classifiers for imbalanced datasets, such as in our case where there are\
-                    more patients without ssEPE than with ssEPE. This is because AUPRC evaluates the proportion of true\
-                   positives among positive predictions, which is our outcome of interest.')
-    colH.write('Our ML model achieved the highest AUPRC with a **mean AUPRC of 0.69** (95% CI 0.64-0.73) followed by \
-                    LR 0.64 (95% CI 0.59-0.69) and baseline 0.59 (95% CI 0.54-0.65) on cross-validation of the training \
-                    cohort. Similarly, our ML model performed favourably on the external testing cohort with an \
-                    **AUPRC of 0.78** (95% CI 0.67-0.86) compared to LR 0.75 (95% CI 0.65-0.84) and baseline 0.70 (95% CI \
-                    0.60-0.79).')
-    colI.image(auprc_train, use_column_width='auto')
-    colY.image(auprc_test, use_column_width='auto')
-    st.write("""""")
-    st.write("""""")
-    colJ, colK, colX = st.beta_columns([1, 1, 1])
-    colJ.write('**Calibration curves:** are used to evaluate the accuracy of model risk estimates by measuring the\
+    colCal, colDCA = st.beta_columns([1, 1])
+    colCal.write('**Calibration curves:** are used to evaluate the accuracy of model risk estimates by measuring the\
                    agreement between the predicted and observed number of outcomes. A perfectly calibrated model is\
                    depicted as a 45 degree line. In our case, if a calibration curve is above the reference line, it\
                     underestimates the risk of ssEPE, which may lead to undertreatment (ie: leaving some cancer behind).\
@@ -638,23 +636,21 @@ def dev(session_state):
                       may lead to overtreatment (ie: patient gets unnecessarily treated with a non-nerve sparing approach).\
                        Therefore, calibration is especially important when evaluating predictive models used to support\
                         decision-making.')
-    colJ.write('Our ML model is well calibrated for predicted probabilities between 0-40%, while overestimating the risk\
+    colCal.write('Our ML model is well calibrated for predicted probabilities between 0-40%, while overestimating the risk\
                     of ssEPE above 40% probability in the testing cohort.')
-    colK.image(calib_train, use_column_width='auto')
-    colX.image(calib_test, use_column_width='auto')
-    st.write("""""")
-    st.write("""""")
-    colL, colM = st.beta_columns([1, 1])
-    colL.write('**[Decision curve analysis](https://pubmed.ncbi.nlm.nih.gov/17099194/):** is used to evaluate clinical\
+    colDCA.write('**[Decision curve analysis](https://pubmed.ncbi.nlm.nih.gov/17099194/):** is used to evaluate clinical\
                     utility. Here, the net benefit of the model is plotted against various threshold probabilities for\
                      three different treatment strategies: treat all, treat none, or treat only those predicted to have\
                       ssEPE by the model.')
-    colL.write('Threshold probabilities between 10-30% were deemed the most clinically relevant for consideration\
+    colDCA.write('Threshold probabilities between 10-30% were deemed the most clinically relevant for consideration\
                      of nerve-sparing. Our ML model achieved the highest net benefit across these\
                      thresholds. This translates to a potential **increase in appropriate nerve-sparing by 14 (ML) vs\
                      8 (LR) vs 1 (baseline) per 100 cases at a threshold probability of 15%** compared to a "treat all"\
                       strategy.')
-    colM.image(dca, use_column_width='auto')
+    colJ, colK, colL = st.beta_columns([1, 1, 2])
+    colJ.image(calib_train, use_column_width='auto')
+    colK.image(calib_test, use_column_width='auto')
+    colL.image(dca, use_column_width='auto')
 
     st.write("""""")
     st.write("""""")
@@ -685,7 +681,7 @@ def dev(session_state):
     )
     st.write("""""")
     st.write("""""")
-    
+
     st.header("Additional model explanations")
     st.write("""""")
     colA, colB = st.beta_columns([1, 2])
