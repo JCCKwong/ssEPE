@@ -69,7 +69,7 @@ def full_app(session_state):
     col2.write('The probability of ssEPE for each lobe is indicated in **bold**. \
     Each plot highlights which features have the greatest impact on the predicted probability of ssEPE')
 
-    colglobal = st.beta_columns([1])
+    colglobal = st.beta_columns(1)
     colpsa, colmaxci, colphigh = st.beta_columns([1, 1, 1])
     colpinv, colage, colz = st.beta_columns([1, 1, 1])
     colbci, colmci, coltzci = st.beta_columns([1, 1, 1])
@@ -472,7 +472,7 @@ def full_app(session_state):
                          'helps you to visualize how your specific clinicopathological profile compares with the study '
                          'population to identify potential outliers.')
                 colglobal.write('**Global Variables**')
-                
+
                 shap.plots.scatter(model_shap['PSA'], hist=True, dot_size=5, show=False)
                 plt.ylabel('Impact on probability of ssEPE')
                 x_pt_psa = np.array(pt_features)['PSA']
@@ -486,7 +486,7 @@ def full_app(session_state):
                 y_pt_maxci = shap_values['Maximum % core involvement']
                 plt.plot(x_pt_maxci, y_pt_maxci, 'ro', markersize=7, alpha=1)
                 colmaxci.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-                
+
                 left_option = col_left.selectbox("Left lobe: select feature to compare", features_list, index=0)
                 idx = features_list.index(left_option)
                 shap.plots.scatter(model_shap[:, idx], hist=True, dot_size=5, show=False)
