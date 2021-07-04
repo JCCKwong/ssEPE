@@ -536,8 +536,8 @@ def about(session_state):
     *Jethro CC. Kwong$^{1,2}$, Adree Khondker$^{3}$, Christopher Tran$^{3}$, Emily Evans$^{3}$, Amna Ali$^{4}$, 
     Munir Jamal$^{1}$, Thomas Short$^{1}$, Frank Papanikolaou$^{1}$, John R. Srigley$^{5}$, Andrew H. Feifer$^{1,4}$*\n
     
-    $^{1}$Division of Urology, Department of Surgery, University of Toronto, Toronto, ON, Canada  \n
-    $^{2}$Temerty Centre for AI Research and Education in Medicine, University of Toronto, Toronto, Canada  \n
+    1. Division of Urology, Department of Surgery, University of Toronto, Toronto, ON, Canada
+    1. Temerty Centre for AI Research and Education in Medicine, University of Toronto, Toronto, Canada
     $^{3}$Temerty Faculty of Medicine, University of Toronto, Toronto, ON, Canada  \n
     $^{4}$Institute for Better Health, Trillium Health Partners, Mississauga, ON, Canada  \n
     $^{5}$Department of Laboratory Medicine and Pathobiology, University of Toronto, Toronto, ON, Canada
