@@ -79,7 +79,7 @@ def full_app(session_state):
     colglobal, coly = st.beta_columns([1, 1])
     colpsa, colmaxci, colphigh = st.beta_columns([1, 1, 1])
     colpinv, colage, colz = st.beta_columns([1, 1, 1])
-    colside, colx = st.beta_columns([1, 1])
+    colside, colx = st.beta_columns([4, 1])
     colbci, colmci, coltzci = st.beta_columns([1, 1, 1])
     colbf, colwggg, colpc = st.beta_columns([1, 1, 1])
 
