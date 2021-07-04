@@ -68,13 +68,14 @@ def full_app(session_state):
     col2.subheader('Model explanations')
     col2.write('The probability of ssEPE for each lobe is indicated in **bold**. \
     Each plot highlights which features have the greatest impact on the predicted probability of ssEPE')
-    st.subheader('See how you compare with the study population')
-    st.write('Each blue data point represents an individual case used to train this model, while '
-             'histograms on each plot show the distribution of values for that feature. The value that you '
-             'have inputted and its corresponding impact on probability of ssEPE is shown in **red**. This '
-             'helps you to visualize how your specific clinicopathological profile compares with the study '
-             'population to identify potential outliers.')
-    col_left, col_left2, col_right, col_right2 = st.beta_columns([1, 1.5, 1, 1.5])
+
+    colglobal = st.beta_columns([1])
+    colpsa, colmaxci, colphigh = st.beta_columns([1, 1, 1])
+    colpinv, colage, colz = st.beta_columns([1, 1, 1])
+    colbci, colmci, coltzci = st.beta_columns([1, 1, 1])
+    colbf, colwggg, colpc = st.beta_columns([1, 1, 1])
+    colbcir, colmcir, coltzcir = st.beta_columns([1, 1, 1])
+    colbfr, colwgggr, colpcr = st.beta_columns([1, 1, 1])
 
     # Specify font size for annotated prostate diagram
     font = ImageFont.truetype('arial.ttf', 50)
@@ -464,49 +465,71 @@ def full_app(session_state):
                 plt.clf()
 
                 ### COMPARISON TO STUDY POPULATION ###
+                colglobal.subheader('See how you compare with the study population')
+                colglobal.write('Each blue data point represents an individual case used to train this model, while '
+                         'histograms on each plot show the distribution of values for that feature. The value that you '
+                         'have inputted and its corresponding impact on probability of ssEPE is shown in **red**. This '
+                         'helps you to visualize how your specific clinicopathological profile compares with the study '
+                         'population to identify potential outliers.')
+                colglobal.write('**Global Variables**')
+                
+                shap.plots.scatter(model_shap['PSA'], hist=True, dot_size=5, show=False)
+                plt.ylabel('Impact on probability of ssEPE')
+                x_pt_psa = np.array(pt_features)['PSA']
+                y_pt_psa = shap_values['PSA']
+                plt.plot(x_pt_psa, y_pt_psa, 'ro', markersize=7, alpha=1)
+                colpsa.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+
+                shap.plots.scatter(model_shap['Maximum % core involvement'], hist=True, dot_size=5, show=False)
+                plt.ylabel('Impact on probability of ssEPE')
+                x_pt_maxci = np.array(pt_features)['Maximum % core involvement']
+                y_pt_maxci = shap_values['Maximum % core involvement']
+                plt.plot(x_pt_maxci, y_pt_maxci, 'ro', markersize=7, alpha=1)
+                colmaxci.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+                
                 left_option = col_left.selectbox("Left lobe: select feature to compare", features_list, index=0)
                 idx = features_list.index(left_option)
                 shap.plots.scatter(model_shap[:, idx], hist=True, dot_size=5, show=False)
                 plt.ylabel('Impact on probability of ssEPE')
-    
+
                 # plot patient specific value
 
                 x_pt = np.array(pt_features)[:, idx]
                 y_pt = shap_values[:, idx]
                 plt.plot(x_pt, y_pt, 'ro', markersize=7, alpha=1)
-    
+
                 if idx == 'Perineural invasion':
                     positions = (0, 1)
                     x_labels = ('No', 'Yes')
                     plt.xticks(positions, x_labels, rotation=0)
-    
+
                 if idx == 'Base findings' or idx == 'Worst Gleason Grade Group':
                     positions = (0, 1, 2, 3, 4, 5, 6, 7)
                     x_labels = ('Normal', 'HGPIN', 'ASAP', 'GGG1', 'GGG2', 'GGG3', 'GGG4', 'GGG5')
                     plt.xticks(positions, x_labels, rotation=0)
-    
+
                 col_left2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-    
+
                 right_option = col_right.selectbox("Right lobe: select feature to compare", features_list, index=9)
                 idx_r = features_list.index(right_option)
                 shap.plots.scatter(model_shap[:, idx_r], hist=True, dot_size=5, show=False)
                 plt.ylabel('Impact on probability of ssEPE')
-    
+
                 # plot patient specific value
                 x_pt_r = np.array(pt_features_r)[:, idx_r]
                 y_pt_r = shap_values_r[:, idx_r]
                 plt.plot(x_pt_r, y_pt_r, 'ro', markersize=7, alpha=1)
-    
+
                 if right_option == 'Perineural invasion':
                     positions = (0, 1)
                     x_labels = ('No', 'Yes')
                     plt.xticks(positions, x_labels, rotation=0)
-    
+
                 if right_option == 'Base findings' or right_option == 'Worst Gleason Grade Group':
                     positions = (0, 1, 2, 3, 4, 5, 6, 7)
                     x_labels = ('Normal', 'HGPIN', 'ASAP', 'GGG1', 'GGG2', 'GGG3', 'GGG4', 'GGG5')
                     plt.xticks(positions, x_labels, rotation=0)
-    
+
                 col_right2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
 def about(session_state):
