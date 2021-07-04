@@ -464,27 +464,26 @@ def full_app(session_state):
                 plt.clf()
 
             ### COMPARISON TO STUDY POPULATION ###
-            #left_option = col_left.selectbox("Left lobe: select feature to compare", features_list, index=0)
-            for idx in features_list:
-            #idx = features_list.index(left_option)
-                shap.plots.scatter(model_shap[:, idx], hist=True, dot_size=5, show=False)
-                plt.ylabel('Impact on probability of ssEPE')
+            left_option = col_left.selectbox("Left lobe: select feature to compare", features_list, index=0)
+            idx = features_list.index(left_option)
+            shap.plots.scatter(model_shap[:, idx], hist=True, dot_size=5, show=False)
+            plt.ylabel('Impact on probability of ssEPE')
 
-                # plot patient specific value
-                if submitted:
-                    x_pt = np.array(pt_features)[:, idx]
-                    y_pt = shap_values[:, idx]
-                    plt.plot(x_pt, y_pt, 'ro', markersize=7, alpha=1)
+            # plot patient specific value
+            if submitted:
+                x_pt = np.array(pt_features)[:, idx]
+                y_pt = shap_values[:, idx]
+                plt.plot(x_pt, y_pt, 'ro', markersize=7, alpha=1)
 
-                if idx == 'Perineural invasion':
-                    positions = (0, 1)
-                    x_labels = ('No', 'Yes')
-                    plt.xticks(positions, x_labels, rotation=0)
+            if idx == 'Perineural invasion':
+                positions = (0, 1)
+                x_labels = ('No', 'Yes')
+                plt.xticks(positions, x_labels, rotation=0)
 
-                if idx == 'Base findings' or idx == 'Worst Gleason Grade Group':
-                    positions = (0, 1, 2, 3, 4, 5, 6, 7)
-                    x_labels = ('Normal', 'HGPIN', 'ASAP', 'GGG1', 'GGG2', 'GGG3', 'GGG4', 'GGG5')
-                    plt.xticks(positions, x_labels, rotation=0)
+            if idx == 'Base findings' or idx == 'Worst Gleason Grade Group':
+                positions = (0, 1, 2, 3, 4, 5, 6, 7)
+                x_labels = ('Normal', 'HGPIN', 'ASAP', 'GGG1', 'GGG2', 'GGG3', 'GGG4', 'GGG5')
+                plt.xticks(positions, x_labels, rotation=0)
 
             col_left2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
@@ -622,7 +621,7 @@ def dev(session_state):
                         0.60-0.79).')
     colF, colG, colH, colI = st.beta_columns([1, 1, 1, 1])
     colF.image(auroc_train, use_column_width='auto')
-    colG.image(auroc_test, use_column_width='auto')  
+    colG.image(auroc_test, use_column_width='auto')
     colH.image(auprc_train, use_column_width='auto')
     colI.image(auprc_test, use_column_width='auto')
     st.write("""""")
@@ -655,7 +654,6 @@ def dev(session_state):
     st.write("""""")
     st.write("""""")
     st.write('This model was developed in accordance to the STREAM-URO framework (see table below).')
-    st.write("""""")
     st.image(stream_uro, width=900)
     st.write("""""")
     st.write("""""")
