@@ -79,8 +79,10 @@ def full_app(session_state):
     colglobal, coly = st.beta_columns([1, 1])
     colpsa, colmaxci, colphigh = st.beta_columns([1, 1, 1])
     colpinv, colage, colz = st.beta_columns([1, 1, 1])
+    colleft, colx = st.beta_columns([1, 1])
     colbci, colmci, coltzci = st.beta_columns([1, 1, 1])
     colbf, colwggg, colpc = st.beta_columns([1, 1, 1])
+    colright, colw = st.beta_columns([1, 1])
     colbcir, colmcir, coltzcir = st.beta_columns([1, 1, 1])
     colbfr, colwgggr, colpcr = st.beta_columns([1, 1, 1])
 
@@ -473,7 +475,7 @@ def full_app(session_state):
 
                 ### COMPARISON TO STUDY POPULATION ###
                 colglobal.write('**Global Variables**')
-                
+
                 # PSA
                 shap.plots.scatter(model_shap[:, 0], hist=True, dot_size=5, show=False)
                 plt.ylabel('Impact on probability of ssEPE')
@@ -481,7 +483,7 @@ def full_app(session_state):
                 y_pt_psa = shap_values[:, 0]
                 plt.plot(x_pt_psa, y_pt_psa, 'ro', markersize=7, alpha=1)
                 colpsa.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-                
+
                 # Maximum % core involvement
                 shap.plots.scatter(model_shap[:, 1], hist=True, dot_size=5, show=False)
                 plt.ylabel('Impact on probability of ssEPE')
@@ -489,7 +491,7 @@ def full_app(session_state):
                 y_pt_maxci = shap_values[:, 1]
                 plt.plot(x_pt_maxci, y_pt_maxci, 'ro', markersize=7, alpha=1)
                 colmaxci.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-                
+
                 # % Gleason 4/5
                 shap.plots.scatter(model_shap[:, 2], hist=True, dot_size=5, show=False)
                 plt.ylabel('Impact on probability of ssEPE')
@@ -508,14 +510,62 @@ def full_app(session_state):
                 y_pt_pinv = shap_values[:, 3]
                 plt.plot(x_pt_pinv, y_pt_pinv, 'ro', markersize=7, alpha=1)
                 colpinv.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-                
+
                 # Age
-                shap.plots.scatter(model_shap[:, 4], hist=True, dot_size=5, show=False)
+                shap.plots.scatter(model_shap[:, 8], hist=True, dot_size=5, show=False)
                 plt.ylabel('Impact on probability of ssEPE')
-                x_pt_age = np.array(pt_features)[:, 4]
-                y_pt_age = shap_values[:, 4]
+                x_pt_age = np.array(pt_features)[:, 8]
+                y_pt_age = shap_values[:, 8]
                 plt.plot(x_pt_age, y_pt_age, 'ro', markersize=7, alpha=1)
                 colage.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+
+                colleft.write('**Side-specific Variables**')
+
+                # Base # core involvement
+                shap.plots.scatter(model_shap[:, 4], hist=True, dot_size=5, show=False)
+                plt.ylabel('Impact on probability of ssEPE')
+                x_pt_bci = np.array(pt_features)[:, 4]
+                y_pt_bci = shap_values[:, 4]
+                x_pt_bcir = np.array(pt_features_r)[:, 4]
+                y_pt_bcir = shap_values_r[:, 4]
+                plt.plot(x_pt_bci, y_pt_bci, 'ro', markersize=7, alpha=1, color='red')
+                plt.plot(x_pt_bcir, y_pt_bcir, 'ro', markersize=7, alpha=1, color='green')
+                colbci.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+
+                # Base findings
+                shap.plots.scatter(model_shap[:, 5], hist=True, dot_size=5, show=False)
+                positions = (0, 1, 2, 3, 4, 5, 6, 7)
+                x_labels = ('Normal', 'HGPIN', 'ASAP', 'GGG1', 'GGG2', 'GGG3', 'GGG4', 'GGG5')
+                plt.xticks(positions, x_labels, rotation=0)
+                plt.ylabel('Impact on probability of ssEPE')
+                x_pt_bf = np.array(pt_features)[:, 5]
+                y_pt_bf = shap_values[:, 5]
+                plt.plot(x_pt_bf, y_pt_bf, 'ro', markersize=7, alpha=1)
+                colbf.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+
+                # % positive cores
+                shap.plots.scatter(model_shap[:, 6], hist=True, dot_size=5, show=False)
+                plt.ylabel('Impact on probability of ssEPE')
+                x_pt_pc = np.array(pt_features)[:, 6]
+                y_pt_pc = shap_values[:, 6]
+                plt.plot(x_pt_pc, y_pt_pc, 'ro', markersize=7, alpha=1)
+                colpc.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+
+                # TZ % core involvement
+                shap.plots.scatter(model_shap[:, 7], hist=True, dot_size=5, show=False)
+                plt.ylabel('Impact on probability of ssEPE')
+                x_pt_tzci = np.array(pt_features)[:, 7]
+                y_pt_tzci = shap_values[:, 7]
+                plt.plot(x_pt_tzci, y_pt_tzci, 'ro', markersize=7, alpha=1)
+                coltzci.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
+
+                # TZ % core involvement
+                shap.plots.scatter(model_shap[:, 7], hist=True, dot_size=5, show=False)
+                plt.ylabel('Impact on probability of ssEPE')
+                x_pt_tzci = np.array(pt_features)[:, 7]
+                y_pt_tzci = shap_values[:, 7]
+                plt.plot(x_pt_tzci, y_pt_tzci, 'ro', markersize=7, alpha=1)
+                coltzci.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
 
                 left_option = col_left.selectbox("Left lobe: select feature to compare", features_list, index=0)
                 idx = features_list.index(left_option)
