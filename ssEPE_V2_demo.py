@@ -538,9 +538,9 @@ def about(session_state):
     
     1. Division of Urology, Department of Surgery, University of Toronto, Toronto, ON, Canada
     1. Temerty Centre for AI Research and Education in Medicine, University of Toronto, Toronto, Canada
-    $^{3}$Temerty Faculty of Medicine, University of Toronto, Toronto, ON, Canada  \n
-    $^{4}$Institute for Better Health, Trillium Health Partners, Mississauga, ON, Canada  \n
-    $^{5}$Department of Laboratory Medicine and Pathobiology, University of Toronto, Toronto, ON, Canada
+    1. Temerty Faculty of Medicine, University of Toronto, Toronto, ON, Canada
+    1. Institute for Better Health, Trillium Health Partners, Mississauga, ON, Canada
+    1. Department of Laboratory Medicine and Pathobiology, University of Toronto, Toronto, ON, Canada
   
     """
     )
