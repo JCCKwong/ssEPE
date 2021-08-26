@@ -61,7 +61,7 @@ def full_app(session_state):
     )
 
     # Create 2 columns, one to show SHAP plots, one to show annotated prostate diagram
-    col1, col2 = st.beta_columns([1, 1.75])
+    col1, col2 = st.columns([1, 1.75])
 
     col1.subheader('Annotated Prostate')
     col1.write('Automatically updates based on user-entered values')
@@ -76,12 +76,12 @@ def full_app(session_state):
                     'helps you to visualize how your specific clinicopathological profile compares with the study '
                     'population to identify potential outliers.')
 
-    colglobal, coly = st.beta_columns([1, 1])
-    colpsa, colmaxci, colphigh = st.beta_columns([1, 1, 1])
-    colpinv, colage, colz = st.beta_columns([1, 1, 1])
-    colside, colx = st.beta_columns([15, 1])
-    colbci, colmci, coltzci = st.beta_columns([1, 1, 1])
-    colbf, colwggg, colpc = st.beta_columns([1, 1, 1])
+    colglobal, coly = st.columns([1, 1])
+    colpsa, colmaxci, colphigh = st.columns([1, 1, 1])
+    colpinv, colage, colz = st.columns([1, 1, 1])
+    colside, colx = st.columns([15, 1])
+    colbci, colmci, coltzci = st.columns([1, 1, 1])
+    colbf, colwggg, colpc = st.columns([1, 1, 1])
 
     # Specify font size for annotated prostate diagram
     font = ImageFont.truetype('arial.ttf', 50)
@@ -682,7 +682,7 @@ def dev(session_state):
     )
     st.write("""""")
     st.write("""""")
-    colROC, colPRC = st.beta_columns([1, 1])
+    colROC, colPRC = st.columns([1, 1])
     colROC.write('**Area under receiver-operating-characteristic curve (AUROC):** is used to measure the discriminative\
                    capability of predictive models by comparing the true positive rate (sensitivity) and false positive\
                    rate (1-specificity) across various decision thresholds.')
@@ -701,14 +701,14 @@ def dev(session_state):
                         cohort. Similarly, our ML model performed favourably on the external testing cohort with an \
                         **AUPRC of 0.78** (95% CI 0.67-0.86) compared to LR 0.75 (95% CI 0.65-0.84) and baseline 0.70 (95% CI \
                         0.60-0.79).')
-    colF, colG, colH, colI = st.beta_columns([1, 1, 1, 1])
+    colF, colG, colH, colI = st.columns([1, 1, 1, 1])
     colF.image(auroc_train, use_column_width='auto')
     colG.image(auroc_test, use_column_width='auto')
     colH.image(auprc_train, use_column_width='auto')
     colI.image(auprc_test, use_column_width='auto')
     st.write("""""")
     st.write("""""")
-    colCal, colDCA = st.beta_columns([1, 1])
+    colCal, colDCA = st.columns([1, 1])
     colCal.write('**Calibration curves:** are used to evaluate the accuracy of model risk estimates by measuring the\
                    agreement between the predicted and observed number of outcomes. A perfectly calibrated model is\
                    depicted as a 45 degree line. In our case, if a calibration curve is above the reference line, it\
@@ -728,7 +728,7 @@ def dev(session_state):
                      thresholds. This translates to a potential **increase in appropriate nerve-sparing by 14 (ML) vs\
                      8 (LR) vs 1 (baseline) per 100 cases at a threshold probability of 15%** compared to a "treat all"\
                       strategy.')
-    colJ, colK, colL = st.beta_columns([1, 1, 2])
+    colJ, colK, colL = st.columns([1, 1, 2])
     colJ.image(calib_train, use_column_width='auto')
     colK.image(calib_test, use_column_width='auto')
     colL.image(dca, use_column_width='auto')
@@ -764,7 +764,7 @@ def dev(session_state):
 
     st.header("Additional model explanations")
     st.write("""""")
-    colA, colB = st.beta_columns([1, 2])
+    colA, colB = st.columns([1, 2])
     colA.write("**Feature importance rankings:** helps identify which features had the overall greatest impact on\
                  our ML model's predictions. Here, we see that PSA, Maximum % core involvement, and perineural invasion\
                  were the three most important features in our ML model.")
