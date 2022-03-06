@@ -614,15 +614,20 @@ def about(session_state):
     **Explainable artificial intelligence to predict the risk of side-specific extraprostatic extension in 
     pre-prostatectomy patients**\n
     
-    *Jethro CC. Kwong$^{1,2}$, Adree Khondker$^{3}$, Christopher Tran$^{3}$, Emily Evans$^{3}$, Amna Ali$^{4}$, 
-    Munir Jamal$^{1}$, Thomas Short$^{1}$, Frank Papanikolaou$^{1}$, John R. Srigley$^{5}$, Andrew H. Feifer$^{1,4}$*\n
+    *Jethro CC. Kwong$^{1,2}$, Adree Khondker$^{3}$, Christopher Tran$^{3}$, Emily Evans$^{3}$, Adrian I. Cozma$^{4}$, Ashkan Javidan$^{3}$, Amna Ali$^{5}$, 
+    Munir Jamal$^{1}$, Thomas Short$^{1}$, Frank Papanikolaou$^{1}$, John R. Srigley$^{6}$, Benjamin Fine$^{5,7,8}$, Andrew H. Feifer$^{1,5}$*\n
     
     1. Division of Urology, Department of Surgery, University of Toronto, Toronto, ON, Canada
     1. Temerty Centre for AI Research and Education in Medicine, University of Toronto, Toronto, Canada
     1. Temerty Faculty of Medicine, University of Toronto, Toronto, ON, Canada
+    1. Department of Radiation Oncology, University of Toronto, Toronto, ON, Canada
     1. Institute for Better Health, Trillium Health Partners, Mississauga, ON, Canada
     1. Department of Laboratory Medicine and Pathobiology, University of Toronto, Toronto, ON, Canada
-  
+    1. Operational Analytics Lab, Trillium Health Partners, Mississauga, ON, Canada
+    1. Department of Medical Imaging, University of Toronto, Toronto, ON, Canada
+    
+    For more information, the full manuscript is available [here] (https://doi.org/10.5489/cuaj.7473).
+    
     """
     )
 
