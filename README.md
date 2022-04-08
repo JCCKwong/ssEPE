@@ -1,4 +1,4 @@
-# Side-specific Extraprostatic Extension (ssEPE) - feasibility study
+# Side-specific Extraprostatic Extension (ssEPE) - Proof-of-concept study
 Title: [Explainable artificial intelligence to predict the risk of side-specific extraprostatic extension in
 pre-prostatectomy patients](https://cuaj.ca/index.php/journal/article/view/7473)
 
