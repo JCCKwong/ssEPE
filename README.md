@@ -13,7 +13,7 @@ Benhamin Fine (5,7,8), Andrew H. Feifer (1,5)
 (5) Institute for Better Health, Trillium Health Partners, Mississauga, ON, Canada\
 (6) Department of Laboratory Medicine and Pathobiology, University of Toronto, Toronto, ON, Canada\
 (7) Operational Analytics Lab, Trillium Health Partners, Mississauga, ON, Canada\
-(8) Department of Medical Imaging, University of Toronto, Toronto, ON, Canada\
+(8) Department of Medical Imaging, University of Toronto, Toronto, ON, Canada
 
 This application predicts the risk of side-specific extraprostatic extension (ssEPE) using clinicopathological features
 known prior to radical prostatectomy. The proposed use is for clinicians to input de-identified patient features and the
