@@ -61,7 +61,7 @@ def full_app(session_state):
     )
 
     # Create 2 columns, one to show SHAP plots, one to show annotated prostate diagram
-    col1, col2 = st.beta_columns([1, 1.75])
+    col1, col2 = st.columns([1, 1.75])
 
     col1.subheader('Annotated Prostate')
     col1.write('Automatically updates based on user-entered values')
@@ -76,12 +76,12 @@ def full_app(session_state):
                     'helps you to visualize how your specific clinicopathological profile compares with the study '
                     'population to identify potential outliers.')
 
-    colglobal, coly = st.beta_columns([1, 1])
-    colpsa, colmaxci, colphigh = st.beta_columns([1, 1, 1])
-    colpinv, colage, colz = st.beta_columns([1, 1, 1])
-    colside, colx = st.beta_columns([1, 1])
-    colbci, colmci, coltzci = st.beta_columns([1, 1, 1])
-    colbf, colwggg, colpc = st.beta_columns([1, 1, 1])
+    colglobal, coly = st.columns([1, 1])
+    colpsa, colmaxci, colphigh = st.columns([1, 1, 1])
+    colpinv, colage, colz = st.columns([1, 1, 1])
+    colside, colx = st.columns([1, 1])
+    colbci, colmci, coltzci = st.columns([1, 1, 1])
+    colbf, colwggg, colpc = st.columns([1, 1, 1])
 
     # Specify font size for annotated prostate diagram
     font = ImageFont.truetype('arial.ttf', 50)
